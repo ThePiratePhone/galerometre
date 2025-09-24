@@ -1,0 +1,83 @@
+// Color palette (student-friendly: warm indigo, coral, mint, warm yellow)
+:root {
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 6px;
+  --space-lg: 20px;
+  --space-xl: 28px;
+
+  --brand-indigo: #4f46e5; // primary
+  --brand-indigo-600: #4338ca;
+  --brand-coral: #ff6b6b; // accent / destructive / error
+  --brand-mint: #34d399; // success
+  --brand-sand: #f8efe6; // background warm
+  --brand-ink: #0f172a; // primary text
+  --muted: #6b7280; // muted text
+  --glass: rgba(255, 255, 255, 0.6);
+  --focus-ring: rgba(79, 70, 229, 0.18);
+  --shadow-soft: 0 6px 18px rgba(15, 23, 42, 0.08);
+  --radius-base: 10px;
+  --radius-sm: 6px;
+
+  --transition-fast: 160ms ease;
+  --transition-medium: 240ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+$font-family-base:
+  "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$font-size-base: 16px;
+$line-height-base: 1.4;
+
+@mixin focus-ring() {
+  outline: none;
+  box-shadow: 0 0 0 6px var(--focus-ring);
+  border-color: var(--brand-indigo-600);
+}
+
+html,
+body {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: var(--brand-ink);
+  background: linear-gradient(180deg, #ffffff 0%, #fbfbfd 100%);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+input {
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: inset 0 -1px var(--shadow-soft);
+}
+
+input:not(input[type="range"]) {
+  padding: var(--space-md);
+}
+input:focus:not(input[type="range"]) {
+  @include focus-ring();
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+
+  label {
+    font-weight: bold;
+  }
+
+  .value {
+    color: var(--brand-coral);
+  }
+
+  span {
+    color: var(--muted);
+  }
+}
+
+.input-row {
+  display: flex;
+  gap: var(--space-md);
+}
