@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import { RouterView } from "vue-router";
 import FooterBar from "./components/footerBar.vue";
-import ConstructPage from "./pages/constructPage.vue";
 </script>
 
 <template>
   <div class="app">
-    <ConstructPage />
+    <RouterView />
     <FooterBar />
   </div>
 </template>
