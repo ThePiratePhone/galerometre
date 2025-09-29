@@ -2,7 +2,7 @@
   <h1>{{ t("welcome-home-page") }}</h1>
   <p>{{ t("home-presentation") }}</p>
   <span class="home-button-wrapper">
-    <UiLink to="/form">{{ t("compete-form") }}</UiLink>
+    <UiLink to="/end">{{ t("compete-form") }}</UiLink>
     <UiLink to="/share">{{ t("share-form") }}</UiLink>
     <UiLink to="/result">{{ t("see-result") }}</UiLink>
   </span>
@@ -16,10 +16,6 @@ const { t } = useI18n();
 </script>
 
 <style scoped lang="scss">
-h1 {
-  margin: 0 auto;
-}
-
 p {
   margin: 2vh;
 }

@@ -1,5 +1,5 @@
 const DataForm: Array<{
-  id: string;
+  PageId: string;
   name: string;
   description: string;
   fields: (
@@ -34,6 +34,16 @@ const DataForm: Array<{
         }[];
       }
   )[];
+  next:
+    | {
+        pageId: number;
+      }
+    | Array<{
+        pageId: number;
+        ifawnserId: number;
+        ifAwnser: number;
+        default?: boolean;
+      }>;
 }> = [
   {
     id: "presentation",

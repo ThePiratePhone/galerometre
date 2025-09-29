@@ -81,3 +81,7 @@ input:focus:not(input[type="range"]) {
   display: flex;
   gap: var(--space-md);
 }
+
+h1 {
+  margin: 1vh auto;
+}
