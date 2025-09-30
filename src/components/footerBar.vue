@@ -1,39 +1,44 @@
 <template>
   <div className="Footer">
-    <span className="FooterElement">galeromètre © 2025</span>
-    <span className="FooterElement">
-      Un projet de
-      <a target="_blank" href="https://linktr.ee/coordination.etudiante">
-        la coordination étudiante
+    <span>
+      <img
+        src="../../src/assets/logoWhite.png"
+        alt="Logo du Galéromètre"
+        width="100"
+      />
+    </span>
+    <span>
+      <span className="FooterElement">
+        Un projet de
+        <a target="_blank" href="https://linktr.ee/coordination.etudiante">
+          la coordination étudiante
+        </a>
+      </span>
+      <br />
+      <span className="FooterElement">Réalisé avec ❤️ depuis Grenoble</span>
+      <br />
+
+      <a target="_blank" href="https://github.com/ThePiratePhone/galerometre/">
+        mettez-nous une étoile sur GitHub
       </a>
     </span>
-    <span className="FooterElement">Réalisé avec ❤️ depuis Grenoble</span>
-    <a target="_blank" href="https://github.com/ThePiratePhone/galerometre/">
-      mettez-nous une étoile sur GitHub
-    </a>
   </div>
 </template>
 
 <style scoped lang="scss">
 .Footer {
-  width: 80%;
-  padding: 5vh 10%;
-  min-height: 20vh;
-  background-color: var(--brand-ink);
-  color: white;
+  width: 90%;
+  padding: 2vh 5%;
+  background-color: silver;
   position: relative;
   bottom: 0;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   gap: 3vh;
-}
-
-.FooterElement {
-  font-size: 1em;
+  font-size: 0.8em;
 }
 
 a {
-  color: white;
+  color: black;
 }
 </style>

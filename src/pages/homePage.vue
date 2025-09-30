@@ -18,11 +18,17 @@ const { t } = useI18n();
 <style scoped lang="scss">
 p {
   margin: 2vh;
+  text-align: justify;
+  font-weight: bold;
 }
 .home-button-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 3vh;
+  text-transform: uppercase;
+  font-size: 2rem;
+  width: 60%;
+  margin: 0 auto;
 }
 </style>

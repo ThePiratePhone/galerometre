@@ -39,12 +39,13 @@ const {
 }
 
 .styled {
-  background-color: var(--brand-indigo);
-  text-wrap: nowrap;
+  background-color: var(--brand-sand);
+  border: 2px solid var(--brand-ink);
   text-decoration: none;
-  width: min-content;
-  color: white;
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--radius-base);
+  text-align: center;
+  font-weight: bold;
+  color: black;
+  padding: var(--space-xs) var(--space-lg);
+  border-radius: 500px;
 }
 </style>
