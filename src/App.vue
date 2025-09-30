@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
-import FooterBar from "./components/footerBar.vue";
 </script>
 
 <template>
@@ -11,7 +10,6 @@ import FooterBar from "./components/footerBar.vue";
 </template>
 <style scoped lang="scss">
 .app {
-  background-color: var(--brand-sand);
   display: flex;
   height: 100%;
   flex-direction: column;

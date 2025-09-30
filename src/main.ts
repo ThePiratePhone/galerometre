@@ -1,21 +1,15 @@
 import "@/styles/shared.scss";
 import { createApp } from "vue";
 
+import { createI18n } from "vue-i18n";
 import { createMemoryHistory, createRouter } from "vue-router";
 import App from "./App.vue";
-import ConstructPage from "./pages/constructPage.vue";
 import HomePage from "./pages/homePage.vue";
-import { createI18n } from "vue-i18n";
 
-import frMessages from "./locales/fr.json";
 import enMessages from "./locales/en.json";
-import EndPage from "./pages/endPage.vue";
+import frMessages from "./locales/fr.json";
 
-const routes = [
-  { path: "/", component: HomePage },
-  { path: "/form", component: ConstructPage },
-  { path: "/end", component: EndPage },
-];
+const routes = [{ path: "/", component: HomePage }];
 
 export const router = createRouter({
   history: createMemoryHistory(),
