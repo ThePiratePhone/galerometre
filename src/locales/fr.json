@@ -1,0 +1,23 @@
+{
+  "home-presentation": "Ce questionnaire a pour objectif de cartographier et de présenter la précarité étudiante. Le but est double: d'une part d'informer chaque étudiant·e du niveau de précarité auquel iel est confronté et d'autre part de pouvoir quantifier cette précarité à une large échelle et de pouvoir en produire une cartographie précise.",
+  "home-spoler": "Ce formulaire te prendra que 5 min et nous permetera de visibiliser la hess dans laquels nous sommes",
+  "start-form": "Demarré le questionnaire",
+  "share-form": "diffuser l'enquete",
+  "see-result": "Voir mes result",
+  "retrun-home": "retour a l'accueil",
+  "end-thank": "Merci pour ces reponses",
+  "thank-presentation": "ces reponse nous permeteront de mieux defendre les etudiant·es, nous menons des action pour visibiliser le mal etre etudiant au quotidien. nous sommes present dans les conseil de la fac et du crous de facons a pouvoir nous defendre au mieux",
+  "help-us": "Aide nous !",
+  "help-us-presentation": "de facons a pouvoir faire une etude la plus représentative il nous faut un maximum de données. pour nous aidé partage ce formulaire",
+  "register-title": "quelques info pour commencer",
+  "register-subtitle": "avant de commencer il nous faut quelques info pour prouver que tu est bien un vrai humain 🤖",
+  "form-registeration-name": "ton nom",
+  "form-registeration-firstname": "ton prénom",
+  "form-registeration-city": "ta ville",
+  "form-registeration-crous": "et tu en crous ?",
+  "select.other": "autre",
+  "select.other-placeholder": "une autre ville ?",
+  "form-registeration-crous.on": "oui",
+  "form-registeration-crous.off": "non",
+  "form-registeration-level": "quels et ton niveau d'etude ?"
+}

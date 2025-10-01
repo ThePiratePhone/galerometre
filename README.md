@@ -1,101 +1,39 @@
-# request shema
+# form
 
-## pulling from /rest/form
-```ts
-responseType = Array<{
-  "PageId": 
-  "name": string;
-  "description": string;
-  "fields": (
-    | {
-        "type": "range";
-        "label": string;
-        "id": string;
-        "extrainfo"?: string;
-        "help"?: string;
-        "range": [number, number];
-      }
-    | {
-        "type": "input";
-        "inputType": "text" | "email" | "tel";
-        "label": string;
-        "id": string;
-        "placeholder": string;
-        "extrainfo"?: string;
-        "help"?: string;
-      }
-    | {
-        "type": "select";
-        "label": string;
-        "id": string;
-        "extrainfo"?: string;
-        "help"?: string;
-        "options": {
-          "label": string;
-          "value": string;
-        }[];
-      }
-    | {
-        "type": "radio";
-        "label": string;
-        "id": string;
-        "extrainfo"?: string;
-        "help"?: string;
-        "options": {
-          "label": string;
-        }[];
-      }
-  )[];
-  "next": ({
-    "pageId": number;
-  } |
-  array<{
-    "pageId": number;
-    "ifawnserId": number;
-    "ifAwnser": number;
-    "default"?: boolean;
-  }>
-  )
-}>
-```
-## response on /rest/awnser/{*pageId*}/{*anwserId*}
+This template should help get you started developing with Vue 3 in Vite.
 
-```ts
-const body = {
-    "userid": string[16],
-    "trackid": strig[4|8] | null,
-    "questionId": number /* is id of field */,
-    "awnser": number /* is id of awnser */,
-    "language": 'fr' | 'en'
-}
+## Recommended IDE Setup
+
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+
+## Type Support for `.vue` Imports in TS
+
+TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+
+## Customize configuration
+
+See [Vite Configuration Reference](https://vite.dev/config/).
+
+## Project Setup
+
+```sh
+npm install
 ```
 
-### conditional page exemple:
-```json
-{
-    "next": 8
-}
+### Compile and Hot-Reload for Development
+
+```sh
+npm run dev
 ```
-or:
-```json
-{
-    "next":
-    [
-      {
-        "pageId": 8,
-        "ifawnserId": 2,
-        "ifAwnser": 1,
-      },
-      {
-        "pageId": 8,
-        "ifawnserId": 2,
-        "ifAwnser": 2,
-      },
-      // optional part
-      {
-        "pageId": 8,
-        "default": true
-      }
-    ]
-}
+
+### Type-Check, Compile and Minify for Production
+
+```sh
+npm run build
+```
+
+### Lint with [ESLint](https://eslint.org/)
+
+```sh
+npm run lint
 ```
