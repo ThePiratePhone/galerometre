@@ -10,6 +10,8 @@ $line-height-base: 1.4;
   --green-dark: #04a741;
   --purple-light: #f3e8ff;
   --purple-dark: #9810fa;
+  --red-dark: #d21740;
+  --red-light: #ffe5e9;
 }
 
 @font-face {
@@ -150,4 +152,19 @@ body {
   font-family: $font-family-base;
   font-size: $font-size-base;
   line-height: $line-height-base;
+}
+
+.subtitle {
+  font-size: 1.2em;
+  color: gray;
+  text-align: justify;
+  width: 80%;
+}
+
+.spoler {
+  font-size: 0.8em;
+  text-align: center;
+  background-color: #f5f5f7;
+  padding: 2vh;
+  border-radius: 10px;
 }

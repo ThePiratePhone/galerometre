@@ -6,6 +6,7 @@
     <h2>{{ t("help-us") }}</h2>
     <p>{{ t("help-us-presentation") }}</p>
     <span>
+      <UiLink to="/">{{ t("retrun-home") }}</UiLink>
       <UiLink to="/share">{{ t("share-form") }}</UiLink>
       <UiLink to="/result">{{ t("see-result") }}</UiLink>
     </span>

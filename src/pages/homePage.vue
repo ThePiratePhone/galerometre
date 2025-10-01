@@ -13,9 +13,9 @@
     <div class="spoler">
       {{ t("home-spoler") }}
     </div>
-    <UiLink to="/form">{{ t("start-form") }}</UiLink>
+    <UiLink to="/register">{{ t("start-form") }}</UiLink>
     <UiLink to="/share">{{ t("share-form") }}</UiLink>
-    <button to="/result">{{ t("see-result") }}</button>
+    <UiLink to="/result">{{ t("see-result") }}</UiLink>
   </div>
 </template>
 
@@ -30,7 +30,8 @@ const { t } = useI18n();
 .page {
   margin: 2vh;
   padding: 2vh;
-  border: 1px solid silver;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background-color: white;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -48,23 +49,8 @@ const { t } = useI18n();
   }
 
   .spoler {
-    font-size: 0.8em;
-    color: gray;
-    text-align: center;
-    background-color: #f5f5f7;
-    padding: 2vh;
-    border-radius: 10px;
     border: 1px solid silver;
-  }
-
-  button {
-    background-color: black;
-    color: white;
-    border: none;
-    padding: 1em;
-    border-radius: 10px;
-    font-size: 1em;
-    cursor: pointer;
+    color: gray;
   }
 }
 </style>

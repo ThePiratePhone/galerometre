@@ -17,7 +17,24 @@ const { label, value, placeholder } = defineProps<{
   placeholder: string;
   type: string;
 }>();
+
 const emit = defineEmits<{
   (e: "input", value: string): void;
 }>();
 </script>
+
+<style lang="scss" scoped>
+.input-group {
+  display: flex;
+  flex-direction: column;
+  font-size: small;
+  width: 100%;
+  input {
+    background-color: #f3f3f5;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 10px;
+    font-size: medium;
+  }
+}
+</style>

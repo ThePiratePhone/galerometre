@@ -10,9 +10,11 @@ import { createI18n } from "vue-i18n";
 import frMessages from "./locales/fr.json";
 import enMessages from "./locales/en.json";
 import EndPage from "./pages/endPage.vue";
+import RegisterPage from "./pages/registerPage.vue";
 
 const routes = [
   { path: "/", component: HomePage },
+  { path: "/register", component: RegisterPage },
   { path: "/form", component: ConstructPage },
   { path: "/end", component: EndPage },
 ];

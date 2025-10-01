@@ -11,7 +11,7 @@ import FooterBar from "./components/footerBar.vue";
 </template>
 <style scoped lang="scss">
 .app {
-  background-color: var(--brand-sand);
+  background-color: #f5f5f5;
   display: flex;
   height: 100%;
   flex-direction: column;
