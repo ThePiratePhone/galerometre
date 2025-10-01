@@ -62,6 +62,9 @@ function selectOption(label: string) {
     color: white;
     border: none;
     width: 100%;
+    padding: 0.5rem;
+    border-radius: 10px;
+    font-size: small;
     border-radius: 5px;
     background-color: grey;
     cursor: pointer;
