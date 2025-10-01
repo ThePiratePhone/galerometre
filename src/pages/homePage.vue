@@ -1,11 +1,22 @@
 <template>
-  <h1>{{ t("welcome-home-page") }}</h1>
-  <p>{{ t("home-presentation") }}</p>
-  <span class="home-button-wrapper">
-    <UiLink to="/end">{{ t("compete-form") }}</UiLink>
+  <div class="page">
+    <div class="logo-wraper">
+      <img
+        src="../../src/assets/logoWhite.png"
+        alt="Logo du Galéromètre"
+        width="300"
+      />
+      <p>
+        {{ t("home-presentation") }}
+      </p>
+    </div>
+    <div class="spoler">
+      {{ t("home-spoler") }}
+    </div>
+    <UiLink to="/form">{{ t("start-form") }}</UiLink>
     <UiLink to="/share">{{ t("share-form") }}</UiLink>
-    <UiLink to="/result">{{ t("see-result") }}</UiLink>
-  </span>
+    <button to="/result">{{ t("see-result") }}</button>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -16,19 +27,44 @@ const { t } = useI18n();
 </script>
 
 <style scoped lang="scss">
-p {
+.page {
   margin: 2vh;
-  text-align: justify;
-  font-weight: bold;
-}
-.home-button-wrapper {
+  padding: 2vh;
+  border: 1px solid silver;
+  border-radius: 15px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 3vh;
-  text-transform: uppercase;
-  font-size: 2rem;
-  width: 60%;
-  margin: 0 auto;
+  gap: 2vh;
+
+  .logo-wraper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  p {
+    text-align: justify;
+    line-height: 1.5em;
+  }
+
+  .spoler {
+    font-size: 0.8em;
+    color: gray;
+    text-align: center;
+    background-color: #f5f5f7;
+    padding: 2vh;
+    border-radius: 10px;
+    border: 1px solid silver;
+  }
+
+  button {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 1em;
+    border-radius: 10px;
+    font-size: 1em;
+    cursor: pointer;
+  }
 }
 </style>

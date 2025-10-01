@@ -39,13 +39,14 @@ const {
 }
 
 .styled {
-  background-color: var(--brand-sand);
-  border: 2px solid var(--brand-ink);
-  text-decoration: none;
+  background-color: black;
+  color: white;
   text-align: center;
-  font-weight: bold;
-  color: black;
-  padding: var(--space-xs) var(--space-lg);
-  border-radius: 500px;
+  text-decoration: none;
+  border: none;
+  padding: 1em;
+  border-radius: 10px;
+  font-size: 1em;
+  cursor: pointer;
 }
 </style>
