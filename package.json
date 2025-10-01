@@ -1,8 +1,9 @@
 {
   "name": "form",
   "version": "0.0.0",
-  "private": true,
+  "private": false,
   "type": "module",
+  "homepage": "https://thepiratephone.github.io/galerometre/",
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
   },

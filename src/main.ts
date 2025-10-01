@@ -3,7 +3,6 @@ import { createApp } from "vue";
 
 import { createMemoryHistory, createRouter } from "vue-router";
 import App from "./App.vue";
-import ConstructPage from "./pages/constructPage.vue";
 import HomePage from "./pages/homePage.vue";
 import { createI18n } from "vue-i18n";
 
@@ -15,7 +14,6 @@ import RegisterPage from "./pages/registerPage.vue";
 const routes = [
   { path: "/", component: HomePage },
   { path: "/register", component: RegisterPage },
-  { path: "/form", component: ConstructPage },
   { path: "/end", component: EndPage },
 ];
 
