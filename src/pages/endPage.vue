@@ -13,7 +13,7 @@
   <div class="page">
     <h1>{{ t("join-us") }}</h1>
     <p>{{ t("join-us-presentation") }}</p>
-    <UiLink to="/share">{{ t("join-us-button") }}</UiLink>
+    <UiLink to="/joined">{{ t("join-us-button") }}</UiLink>
   </div>
 </template>
 
