@@ -1,15 +1,19 @@
 <template>
-  <div class="end-page">
+  <div class="page">
     <h1>{{ t("end-thank") }}</h1>
     <UiWaitLoader :percentage="value" />
     <p>{{ t("thank-presentation") }}</p>
-    <h2>{{ t("help-us") }}</h2>
+    <UiLink to="/share-result">{{ t("share-result") }}</UiLink>
+  </div>
+  <div class="page">
+    <h1>{{ t("help-us") }}</h1>
     <p>{{ t("help-us-presentation") }}</p>
-    <span>
-      <UiLink to="/">{{ t("retrun-home") }}</UiLink>
-      <UiLink to="/share">{{ t("share-form") }}</UiLink>
-      <UiLink to="/result">{{ t("see-result") }}</UiLink>
-    </span>
+    <UiLink to="/share">{{ t("share-form") }}</UiLink>
+  </div>
+  <div class="page">
+    <h1>{{ t("join-us") }}</h1>
+    <p>{{ t("join-us-presentation") }}</p>
+    <UiLink to="/share">{{ t("join-us-button") }}</UiLink>
   </div>
 </template>
 
@@ -21,18 +25,22 @@ import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 
-const value = ref(53);
+const value = ref(82);
 </script>
 
 <style scoped lang="scss">
-.end-page {
-  h2 {
-    margin: 1vh auto;
-  }
+.page {
+  margin: 2vh;
+  padding: 2vh;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background-color: white;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
 
-  span {
-    display: flex;
-    justify-content: space-around;
+  h1 {
+    text-align: center;
   }
 }
 </style>

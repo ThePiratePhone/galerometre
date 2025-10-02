@@ -15,25 +15,31 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 
-interface Props {
+const { percentage } = defineProps<{
   percentage: number;
-}
-
-const props = defineProps<Props>();
+}>();
 
 const strokeDasharray = 2 * Math.PI * 14;
-const strokeDashoffset = ref(0);
 
-const updateStrokeOffset = () => {
-  strokeDashoffset.value = strokeDasharray * (1 - props.percentage / 100);
-};
+const strokeDashoffset = computed(() => {
+  return strokeDasharray * (1 - showValue.value / 100);
+});
 
-watch(() => props.percentage, updateStrokeOffset);
+const showValue = ref(0);
 
 onMounted(() => {
-  updateStrokeOffset();
+  const incrementValue = () => {
+    if (showValue.value < percentage) {
+      showValue.value++;
+      setTimeout(incrementValue, 20);
+    } else {
+      showValue.value = percentage; // fix floating of result
+    }
+  };
+
+  incrementValue();
 });
 </script>
 
@@ -56,7 +62,6 @@ onMounted(() => {
     stroke-width: 5;
     stroke-dasharray: 88 88;
     stroke-linecap: round;
-    transition: stroke-dashoffset 0.4s ease;
   }
   text {
     font-size: 7px;

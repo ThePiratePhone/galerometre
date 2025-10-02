@@ -6,7 +6,7 @@
   "see-result": "Voir mes result",
   "retrun-home": "retour a l'accueil",
   "end-thank": "Merci pour ces reponses",
-  "thank-presentation": "ces reponse nous permeteront de mieux defendre les etudiant·es, nous menons des action pour visibiliser le mal etre etudiant au quotidien. nous sommes present dans les conseil de la fac et du crous de facons a pouvoir nous defendre au mieux",
+  "thank-presentation": "Nous défendons les étudiants au quotidien, mais pour cela plus nous avont besoin de chiffres plus on pourra visibiliser la hausse des étudiants. Ce formulaire nous est très précieux 🤗",
   "help-us": "Aide nous !",
   "help-us-presentation": "de facons a pouvoir faire une etude la plus représentative il nous faut un maximum de données. pour nous aidé partage ce formulaire",
   "register-title": "quelques info pour commencer",
@@ -19,5 +19,9 @@
   "select.other-placeholder": "une autre ville ?",
   "form-registeration-crous.on": "oui",
   "form-registeration-crous.off": "non",
-  "form-registeration-level": "quels et ton niveau d'etude ?"
+  "form-registeration-level": "quels et ton niveau d'etude ?",
+  "share-result": "partager ce resultat",
+  "join-us": "rejoint nous 🤩",
+  "join-us-presentation": "pour nous aider sur nos action de defense des droit etudiant nous avons besoin d'aide ! pour cela tu peut te faire recontacter en cliquant sur le bouton ci-dessou",
+  "join-us-button": "defend les etudiant 🫵"
 }
