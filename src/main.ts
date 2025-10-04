@@ -15,7 +15,7 @@ const routes = [
   { path: "/register", component: RegisterPage },
   { path: "/end", component: EndPage },
   { path: "/joined", component: ThanksJoinPage },
-  { path: "/:pathMatch(.*)*", redirect: "/" }, // Redirection pour les routes non définies
+  { path: "/:pathMatch(.*)*", redirect: "/" },
 ];
 
 export const router = createRouter({
@@ -25,8 +25,15 @@ export const router = createRouter({
 
 const app = createApp(App);
 
+const browserLanguage = navigator.language.split("-")[0];
+const supportedLanguages = ["fr", "en"];
+
+const defaultLanguage = supportedLanguages.includes(browserLanguage)
+  ? browserLanguage
+  : "en";
+
 const i18n = createI18n({
-  locale: "fr",
+  locale: defaultLanguage,
   fallbackLocale: "fr",
   messages: {
     fr: frMessages,
