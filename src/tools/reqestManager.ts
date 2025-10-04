@@ -6,6 +6,7 @@ class RequestManager {
   private static instance: RequestManager;
   id: string;
   link: string;
+  private dependancyQuestion = [];
 
   static getInstance(): RequestManager {
     if (!RequestManager.instance) {
@@ -25,10 +26,10 @@ class RequestManager {
   }
 
   async createAccont(
+    location?: string,
     camp_id: string = "001",
     email?: string,
     phone?: string,
-    location?: string,
     activist?: boolean
   ) {
     window.localStorage.setItem("id", this.id);
@@ -48,6 +49,35 @@ class RequestManager {
     });
 
     return response.status == 200;
+  }
+
+  async questions(language: string = "fr", pages: number = 1) {
+    const response = await fetch(
+      this.link + `/rest/form/${language}/${pages}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const result = await response.json();
+    console.log(JSON.parse(result));
+  }
+
+  async dependancy() {
+    const response = await fetch(this.link + `/rest/dependency`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const result = await response.json();
+    if (response.status == 200) {
+      this.dependancyQuestion = JSON.parse(result);
+    }
   }
 }
 
