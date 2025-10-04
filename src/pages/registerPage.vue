@@ -57,11 +57,13 @@ function next() {
   }
 
   reqestManager.createAccont(location.value);
-  saveResponse({
-    name: name.value,
-    firstName: firstName.value,
-    location: location.value,
-  });
+  saveResponse([
+    { id: "name", answer: name.value },
+    { id: "firstName", answer: firstName.value },
+    { id: "location", answer: location.value },
+  ]);
+
+  window.location.href = "/autoPage/1";
 }
 </script>
 

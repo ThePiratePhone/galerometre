@@ -6,10 +6,10 @@ function uid() {
   return (timePart + randomPart + timePart).slice(0, 16);
 }
 
-function saveResponse(response: { [key: string]: string }) {
-  const lastRes = JSON.parse(window.localStorage.getItem("response") ?? "{}");
-  Object.keys(response).forEach((key) => {
-    lastRes[key] = response[key];
+function saveResponse(response: { id: number | string; answer: string }[]) {
+  const lastRes = JSON.parse(window.localStorage.getItem("response") ?? "[]");
+  response.forEach((res) => {
+    lastRes[res.id] = res.answer;
   });
 
   window.localStorage.setItem("response", JSON.stringify(lastRes));

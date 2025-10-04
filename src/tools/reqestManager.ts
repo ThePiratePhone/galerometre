@@ -1,5 +1,6 @@
 /// <reference types="vite/client" />
 
+import type { pageType } from "@/types/request";
 import { uid } from "./jsTools";
 
 class RequestManager {
@@ -51,7 +52,10 @@ class RequestManager {
     return response.status == 200;
   }
 
-  async questions(language: string = "fr", pages: number = 1) {
+  async questions(
+    language: string = "fr",
+    pages: number = 1
+  ): Promise<pageType> {
     const response = await fetch(
       this.link + `/rest/form/${language}/${pages}`,
       {
@@ -62,8 +66,13 @@ class RequestManager {
       }
     );
 
+    if (response.status != 200) {
+      return "error";
+    }
+
     const result = await response.json();
     console.log(JSON.parse(result));
+    return JSON.parse(result);
   }
 
   async dependancy() {

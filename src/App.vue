@@ -5,10 +5,13 @@ import FooterBar from "./components/footerBar.vue";
 
 <template>
   <div class="app">
-    <RouterView />
+    <Suspense>
+      <RouterView />
+    </Suspense>
     <FooterBar />
   </div>
 </template>
+
 <style scoped lang="scss">
 .app {
   background-color: #f5f5f5;

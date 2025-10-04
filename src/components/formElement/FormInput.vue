@@ -14,8 +14,8 @@
 const { label, value, placeholder } = defineProps<{
   label: string;
   value?: string;
-  placeholder: string;
   type: string;
+  placeholder?: string;
   errored?: boolean;
 }>();
 

@@ -9,12 +9,14 @@ import EndPage from "./pages/endPage.vue";
 import HomePage from "./pages/homePage.vue";
 import RegisterPage from "./pages/registerPage.vue";
 import ThanksJoinPage from "./pages/thanksJoinPage.vue";
+import ConstructPage from "./pages/constructPage.vue";
 
 const routes = [
   { path: "/", component: HomePage },
   { path: "/register", component: RegisterPage },
   { path: "/end", component: EndPage },
   { path: "/joined", component: ThanksJoinPage },
+  { path: "/autoPage/:page", component: ConstructPage },
   { path: "/:pathMatch(.*)*", redirect: "/" },
 ];
 
