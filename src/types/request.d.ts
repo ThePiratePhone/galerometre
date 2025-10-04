@@ -11,12 +11,10 @@ export type pageType = Promise<
             qu_text: string;
           }
         | {
-            qu_format: "true_false";
+            qu_format: "true_false" | "select";
             qu_text: string;
             qu_id: number;
-            qu_issues: {
-              [key: number]: string;
-            };
+            qu_issues: Array<{ [key: number]: string }>;
           }
       >;
     }

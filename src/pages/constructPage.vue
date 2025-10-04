@@ -25,6 +25,21 @@
           :errored="requeredOnSubmit && !getAnswer(field.qu_id)"
         />
       </template>
+      <template v-else-if="field.qu_format === 'select'">
+        <div>coucou</div>
+        <FormSelect
+          :label="field.qu_text"
+          :options="
+            Object.entries(field.qu_issues).map(([key, label]) => ({
+              label: label as string,
+              value: key,
+            }))
+          "
+          other
+          @input="updateAnswer(field.qu_id, $event)"
+          :errored="requeredOnSubmit && !getAnswer(field.qu_id)"
+        />
+      </template>
     </template>
     <UiLink @click="next">{{ t("next-pages") }}</UiLink>
   </div>
@@ -32,13 +47,14 @@
 
 <script setup lang="ts">
 import FormInput from "@/components/formElement/FormInput.vue";
+import FormSelect from "@/components/formElement/FormSelect.vue";
 import UiLink from "@/components/ui/uiLink.vue";
 import { saveResponse } from "@/tools/jsTools";
 import reqestManager from "@/tools/reqestManager";
-import { ref, onMounted } from "vue";
+import type { pageType } from "@/types/request";
+import { onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
-import type { pageType } from "@/types/request";
 
 const route = useRoute();
 const { locale, t } = useI18n();
@@ -81,14 +97,11 @@ function getAnswer(id: number) {
 }
 
 function next() {
-  // if (dataAwnser.value.some((f) => f.answer === "")) {
-  //   requeredOnSubmit.value = true;
-  //   return;
-  // }
+  if (dataAwnser.value.some((f) => f.answer === "")) {
+    requeredOnSubmit.value = true;
+    return;
+  }
   saveResponse(dataAwnser.value);
-  console.log(
-    "/autoPage/" + (data.value !== "error" ? data.value.page_id + 1 : 1)
-  );
   window.location.href =
     "/autoPage/" + (data.value !== "error" ? data.value.page_id + 1 : 1);
 }
