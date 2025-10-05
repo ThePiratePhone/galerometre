@@ -1,13 +1,17 @@
 /// <reference types="vite/client" />
 
 import type { pageType } from "@/types/request";
-import { uid } from "./jsTools";
+import { getLocalResponse, uid } from "./jsTools";
 
 class RequestManager {
   private static instance: RequestManager;
   id: string;
   link: string;
-  private dependancyQuestion = [];
+  private dependancyQuestion: Array<{
+    questionToShowID: number;
+    ifAnswer: string;
+    ifQuestion: number;
+  }> = [];
 
   static getInstance(): RequestManager {
     if (!RequestManager.instance) {
@@ -24,6 +28,7 @@ class RequestManager {
     }
 
     this.link = import.meta.env.VITE_API_URL ?? "127.0.0.1:8000";
+    this.createAccont();
   }
 
   async createAccont(
@@ -49,6 +54,7 @@ class RequestManager {
       }),
     });
 
+    this.dependancy();
     return response.status == 200;
   }
 
@@ -70,12 +76,27 @@ class RequestManager {
       return "error";
     }
 
-    const result = await response.json();
-    console.log(JSON.parse(result));
-    return JSON.parse(result);
+    const result = JSON.parse(await response.json());
+    const dependancy = await this.dependancy();
+
+    console.log(result.fields, dependancy);
+    const filter = result.fields.filter((res: { qu_id: number }) => {
+      return dependancy?.every((d) => {
+        if (d.questionToShowID === res.qu_id) {
+          const answer = getLocalResponse(d.ifQuestion);
+          return answer == d.ifAnswer;
+        } else {
+          return true;
+        }
+      });
+    });
+    result.fields = filter;
+    return result;
   }
 
   async dependancy() {
+    if (this.dependancyQuestion.length > 0) return this.dependancyQuestion;
+
     const response = await fetch(this.link + `/rest/dependency`, {
       method: "GET",
       headers: {
@@ -86,6 +107,7 @@ class RequestManager {
     const result = await response.json();
     if (response.status == 200) {
       this.dependancyQuestion = JSON.parse(result);
+      return this.dependancyQuestion;
     }
   }
 

@@ -77,6 +77,7 @@ import FormRadio from "@/components/formElement/FormRadio.vue";
 import FormSelect from "@/components/formElement/FormSelect.vue";
 import FormTrueFalse from "@/components/formElement/FormTrueFalse.vue";
 import UiLink from "@/components/ui/uiLink.vue";
+import { saveResponse } from "@/tools/jsTools";
 import reqestManager from "@/tools/reqestManager";
 import type { pageType } from "@/types/request";
 import { onMounted, ref } from "vue";
@@ -133,6 +134,8 @@ function updateAnswer(id: number, value: string) {
       d.id === id ? { id, answer: value } : d
     );
   }
+
+  saveResponse(id, value);
 }
 
 function getAnswer(id: number) {

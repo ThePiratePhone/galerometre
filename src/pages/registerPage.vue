@@ -39,7 +39,6 @@ import FormInput from "@/components/formElement/FormInput.vue";
 import FormSelect from "@/components/formElement/FormSelect.vue";
 import UiLink from "@/components/ui/uiLink.vue";
 import { saveResponse } from "@/tools/jsTools";
-import reqestManager from "@/tools/reqestManager";
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
 
@@ -56,7 +55,6 @@ function next() {
     return;
   }
 
-  reqestManager.createAccont(location.value);
   saveResponse("name", name.value);
   saveResponse("firstName", firstName.value);
   saveResponse("location", location.value);

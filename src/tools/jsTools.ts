@@ -18,4 +18,10 @@ function saveResponse(id: number | string, answer: string) {
   }
   window.localStorage.setItem("response", JSON.stringify(lastRes));
 }
-export { uid, saveResponse };
+
+function getLocalResponse(id: number | string) {
+  const lastRes = JSON.parse(window.localStorage.getItem("response") ?? "[]");
+  const entry = lastRes.find((res: { id: number | string }) => res.id === id);
+  return entry ? entry.answer : null;
+}
+export { uid, saveResponse, getLocalResponse };

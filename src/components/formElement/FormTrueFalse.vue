@@ -35,7 +35,6 @@ const { label, options } = defineProps<{
   }[];
 }>();
 
-console.log(options);
 const emit = defineEmits<{
   (e: "input", value: string): void;
 }>();
