@@ -27,7 +27,6 @@
   <FormInput
     v-if="selectedValue === 'other'"
     :label="t('select.other-placeholder')"
-    placeholder="marseille"
     type="text"
     @input="(value) => emit('input', value)"
     :errored="errored && selectedValue === 'other'"

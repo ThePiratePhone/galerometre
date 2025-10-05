@@ -1,7 +1,7 @@
 <template>
   <span class="input-group spoler">
     <label for="xx">{{ label }}</label>
-    <div>
+    <div class="button-warper">
       <button
         id="xx"
         v-for="option in options"
@@ -11,9 +11,12 @@
         :style="
           selectedOption === option.label
             ? {
-                backgroundColor: useColor(option.color, 'dark'),
+                backgroundColor: useColor(option.color ?? 'blue', 'dark'),
               }
-            : {}
+            : {
+                backgroundColor: useColor(option.color ?? 'blue', 'light'),
+                color: 'black',
+              }
         "
       >
         {{ option.label }}
@@ -30,9 +33,12 @@ const { label, options } = defineProps<{
   label: string;
   options: {
     label: string;
-    color: "blue" | "green" | "purple" | "red";
+    value: string;
+    color?: "blue" | "green" | "purple" | "red";
   }[];
 }>();
+
+console.log(options);
 const emit = defineEmits<{
   (e: "input", value: string): void;
 }>();
@@ -68,6 +74,13 @@ function selectOption(label: string) {
     border-radius: 5px;
     background-color: grey;
     cursor: pointer;
+  }
+
+  .button-warper {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 1vw;
   }
 }
 </style>

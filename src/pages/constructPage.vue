@@ -6,8 +6,8 @@
     <p>Error while loading the form</p>
   </div>
   <div v-else class="page">
-    <h1 class="title">{{ data.name }}</h1>
-    <p class="subtitle">{{ data.description }}</p>
+    <h1 v-if="data.name" class="title">{{ data.name }}</h1>
+    <p v-if="data.description" class="subtitle">{{ data.description }}</p>
     <template v-for="field in data.fields" :key="field.qu_id">
       <template v-if="field.qu_format === 'text'">
         <FormInput
@@ -40,6 +40,19 @@
           :errored="requeredOnSubmit && !getAnswer(field.qu_id)"
         />
       </template>
+      <template v-else-if="field.qu_format === 'radio'">
+        <FormRadio
+          :label="field.qu_text"
+          :options="
+            Object.entries(field.qu_issues).map(([key, label]) => ({
+              label: label as string,
+              value: key,
+            }))
+          "
+          @input="updateAnswer(field.qu_id, $event)"
+          :errored="requeredOnSubmit && !getAnswer(field.qu_id)"
+        />
+      </template>
     </template>
     <UiLink @click="next">{{ t("next-pages") }}</UiLink>
   </div>
@@ -47,6 +60,7 @@
 
 <script setup lang="ts">
 import FormInput from "@/components/formElement/FormInput.vue";
+import FormRadio from "@/components/formElement/FormRadio.vue";
 import FormSelect from "@/components/formElement/FormSelect.vue";
 import UiLink from "@/components/ui/uiLink.vue";
 import { saveResponse } from "@/tools/jsTools";
