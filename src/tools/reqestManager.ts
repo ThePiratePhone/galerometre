@@ -88,6 +88,21 @@ class RequestManager {
       this.dependancyQuestion = JSON.parse(result);
     }
   }
+
+  async sendResponse(questionId: number, answer: number | string) {
+    const response = await fetch(this.link + `/rest/answer`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        resp_id: this.id,
+        qu_id: questionId,
+        ans: answer,
+      }),
+    });
+    return response.status == 200;
+  }
 }
 
 export default RequestManager.getInstance();

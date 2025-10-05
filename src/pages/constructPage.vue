@@ -26,7 +26,6 @@
         />
       </template>
       <template v-else-if="field.qu_format === 'select'">
-        <div>coucou</div>
         <FormSelect
           :label="field.qu_text"
           :options="
@@ -57,10 +56,10 @@
         <FormTrueFalse
           :label="field.qu_text"
           :options="
-            Object.entries(field.qu_issues).map(([key, label]) => ({
+            Object.entries(field.qu_issues).map(([key, label], i) => ({
               label: label as string,
               value: key,
-              color: label === 'Oui' ? 'green' : 'red',
+              color: i === 0 ? 'green' : 'red',
             }))
           "
           @input="updateAnswer(field.qu_id, $event)"
@@ -92,16 +91,16 @@ const page = route.params.page;
 const data = ref<"error" | Awaited<pageType>>("error");
 const isLoading = ref(true);
 const requeredOnSubmit = ref(false);
-const dataAwnser = ref<{ id: number; answer: string }[]>([]);
+const dataAwnser = ref<{ id: number; answer: string | undefined }[]>([]);
 
 onMounted(async () => {
   try {
     const result = await reqestManager.questions(locale.value, Number(page));
     if (result !== "error") {
       data.value = result;
-      dataAwnser.value = result.fields.map((field) => ({
-        id: field.qu_id,
-        answer: "",
+      dataAwnser.value = result.fields.map((f) => ({
+        id: f.qu_id,
+        answer: undefined,
       }));
     } else {
       data.value = "error";
@@ -115,9 +114,27 @@ onMounted(async () => {
 });
 
 function updateAnswer(id: number, value: string) {
-  const target = dataAwnser.value.find((f) => f.id === id);
-  if (target) {
-    target.answer = value;
+  if (data.value === "error") return;
+  const existing = data.value.fields.find((f) => f.qu_id === id);
+  if (
+    existing &&
+    (existing.qu_format == "radio" ||
+      existing.qu_format == "true_false" ||
+      existing.qu_format == "select")
+  ) {
+    const optionId = Object.entries(existing.qu_issues).find(
+      ([, label]) => label === value
+    )?.[0];
+
+    dataAwnser.value = dataAwnser.value.map((d) =>
+      d.id === id ? { id, answer: optionId } : d
+    );
+    saveResponse(id, value);
+  } else {
+    dataAwnser.value = dataAwnser.value.map((d) =>
+      d.id === id ? { id, answer: value } : d
+    );
+    saveResponse(id, value);
   }
 }
 
@@ -126,11 +143,15 @@ function getAnswer(id: number) {
 }
 
 function next() {
-  if (dataAwnser.value.some((f) => f.answer === "")) {
+  if (dataAwnser.value.some((f) => f.answer === undefined)) {
     requeredOnSubmit.value = true;
     return;
   }
-  saveResponse(dataAwnser.value);
+
+  if (data.value !== "error" && data.value.page_id == 8) {
+    window.location.href = "/endPage";
+    return;
+  }
   window.location.href =
     "/autoPage/" + (data.value !== "error" ? data.value.page_id + 1 : 1);
 }
