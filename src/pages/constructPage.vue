@@ -53,6 +53,20 @@
           :errored="requeredOnSubmit && !getAnswer(field.qu_id)"
         />
       </template>
+      <template v-else-if="field.qu_format === 'true_false'">
+        <FormTrueFalse
+          :label="field.qu_text"
+          :options="
+            Object.entries(field.qu_issues).map(([key, label]) => ({
+              label: label as string,
+              value: key,
+              color: label === 'Oui' ? 'green' : 'red',
+            }))
+          "
+          @input="updateAnswer(field.qu_id, $event)"
+          :errored="requeredOnSubmit && !getAnswer(field.qu_id)"
+        />
+      </template>
     </template>
     <UiLink @click="next">{{ t("next-pages") }}</UiLink>
   </div>
@@ -62,6 +76,7 @@
 import FormInput from "@/components/formElement/FormInput.vue";
 import FormRadio from "@/components/formElement/FormRadio.vue";
 import FormSelect from "@/components/formElement/FormSelect.vue";
+import FormTrueFalse from "@/components/formElement/FormTrueFalse.vue";
 import UiLink from "@/components/ui/uiLink.vue";
 import { saveResponse } from "@/tools/jsTools";
 import reqestManager from "@/tools/reqestManager";
