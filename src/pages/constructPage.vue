@@ -77,7 +77,6 @@ import FormRadio from "@/components/formElement/FormRadio.vue";
 import FormSelect from "@/components/formElement/FormSelect.vue";
 import FormTrueFalse from "@/components/formElement/FormTrueFalse.vue";
 import UiLink from "@/components/ui/uiLink.vue";
-import { saveResponse } from "@/tools/jsTools";
 import reqestManager from "@/tools/reqestManager";
 import type { pageType } from "@/types/request";
 import { onMounted, ref } from "vue";
@@ -129,12 +128,10 @@ function updateAnswer(id: number, value: string) {
     dataAwnser.value = dataAwnser.value.map((d) =>
       d.id === id ? { id, answer: optionId } : d
     );
-    saveResponse(id, value);
   } else {
     dataAwnser.value = dataAwnser.value.map((d) =>
       d.id === id ? { id, answer: value } : d
     );
-    saveResponse(id, value);
   }
 }
 
@@ -145,6 +142,15 @@ function getAnswer(id: number) {
 function next() {
   if (dataAwnser.value.some((f) => f.answer === undefined)) {
     requeredOnSubmit.value = true;
+    return;
+  }
+
+  const response = reqestManager.sendResponse(
+    dataAwnser.value as { id: string | number; answer: string }[]
+  );
+
+  if (!response) {
+    alert("Error while sending the response");
     return;
   }
 

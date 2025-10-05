@@ -34,7 +34,7 @@ class RequestManager {
     activist?: boolean
   ) {
     window.localStorage.setItem("id", this.id);
-    const response = await fetch(this.link + "/rest/newRespondent", {
+    const response = await fetch(this.link + "/rest/respondent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -89,19 +89,25 @@ class RequestManager {
     }
   }
 
-  async sendResponse(questionId: number, answer: number | string) {
-    const response = await fetch(this.link + `/rest/answer`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        resp_id: this.id,
-        qu_id: questionId,
-        ans: answer,
-      }),
-    });
-    return response.status == 200;
+  async sendResponse(awnser: Array<{ id: number | string; answer: string }>) {
+    for (const { id: questionId, answer } of awnser) {
+      const response = await fetch(this.link + `/rest/answer`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          resp_id: this.id,
+          qu_id: questionId,
+          ans: answer,
+        }),
+      });
+
+      if (response.status != 200) {
+        return false;
+      }
+    }
+    return true;
   }
 }
 
