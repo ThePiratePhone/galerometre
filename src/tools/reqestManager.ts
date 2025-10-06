@@ -7,7 +7,7 @@ class RequestManager {
   private static instance: RequestManager;
   id: string;
   link: string;
-  private dependancyQuestion: Array<{
+  private dependencyQuestion: Array<{
     questionToShowID: number;
     ifAnswer: string;
     ifQuestion: number;
@@ -55,7 +55,7 @@ class RequestManager {
       }),
     });
 
-    this.dependancy();
+    this.dependency();
     return response.status == 200;
   }
 
@@ -78,11 +78,11 @@ class RequestManager {
     }
 
     const result = JSON.parse(await response.json());
-    const dependancy = await this.dependancy();
+    const dependency = await this.dependency();
 
-    console.log(result.fields, dependancy);
+    console.log(result.fields, dependency);
     const filter = result.fields.filter((res: { qu_id: number }) => {
-      return dependancy?.every((d) => {
+      return dependency?.every((d) => {
         if (d.questionToShowID === res.qu_id) {
           const answer = getLocalResponse(d.ifQuestion);
           return answer == d.ifAnswer;
@@ -95,8 +95,8 @@ class RequestManager {
     return result;
   }
 
-  async dependancy() {
-    if (this.dependancyQuestion.length > 0) return this.dependancyQuestion;
+  async dependency() {
+    if (this.dependencyQuestion.length > 0) return this.dependencyQuestion;
 
     const response = await fetch(this.link + `/rest/dependency`, {
       method: "GET",
@@ -107,13 +107,13 @@ class RequestManager {
 
     const result = await response.json();
     if (response.status == 200) {
-      this.dependancyQuestion = JSON.parse(result);
-      return this.dependancyQuestion;
+      this.dependencyQuestion = JSON.parse(result);
+      return this.dependencyQuestion;
     }
   }
 
-  async sendResponse(awnser: Array<{ id: number | string; answer: string }>) {
-    for (const { id: questionId, answer } of awnser) {
+  async sendResponse(answers: Array<{ id: number | string; answer: string }>) {
+    for (const { id: questionId, answer } of answers) {
       const response = await fetch(this.link + `/rest/answer`, {
         method: "POST",
         headers: {

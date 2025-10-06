@@ -14,7 +14,7 @@
           :label="field.qu_text"
           type="text"
           @input="updateAnswer(field.qu_id, $event)"
-          :errored="requeredOnSubmit && !getAnswer(field.qu_id)"
+          :errored="requiredOnSubmit && !getAnswer(field.qu_id)"
         />
       </template>
       <template v-else-if="field.qu_format === 'number'">
@@ -22,7 +22,7 @@
           :label="field.qu_text"
           type="number"
           @input="updateAnswer(field.qu_id, $event)"
-          :errored="requeredOnSubmit && !getAnswer(field.qu_id)"
+          :errored="requiredOnSubmit && !getAnswer(field.qu_id)"
         />
       </template>
       <template v-else-if="field.qu_format === 'select'">
@@ -36,7 +36,7 @@
           "
           other
           @input="updateAnswer(field.qu_id, $event)"
-          :errored="requeredOnSubmit && !getAnswer(field.qu_id)"
+          :errored="requiredOnSubmit && !getAnswer(field.qu_id)"
         />
       </template>
       <template v-else-if="field.qu_format === 'radio'">
@@ -49,7 +49,7 @@
             }))
           "
           @input="updateAnswer(field.qu_id, $event)"
-          :errored="requeredOnSubmit && !getAnswer(field.qu_id)"
+          :errored="requiredOnSubmit && !getAnswer(field.qu_id)"
         />
       </template>
       <template v-else-if="field.qu_format === 'true_false'">
@@ -63,7 +63,7 @@
             }))
           "
           @input="updateAnswer(field.qu_id, $event)"
-          :errored="requeredOnSubmit && !getAnswer(field.qu_id)"
+          :errored="requiredOnSubmit && !getAnswer(field.qu_id)"
         />
       </template>
     </template>
@@ -90,15 +90,15 @@ const { locale, t } = useI18n();
 const page = route.params.page;
 const data = ref<"error" | Awaited<pageType>>("error");
 const isLoading = ref(true);
-const requeredOnSubmit = ref(false);
-const dataAwnser = ref<{ id: number; answer: string | undefined }[]>([]);
+const requiredOnSubmit = ref(false);
+const dataanswer = ref<{ id: number; answer: string | undefined }[]>([]);
 
 onMounted(async () => {
   try {
     const result = await reqestManager.questions(locale.value, Number(page));
     if (result !== "error") {
       data.value = result;
-      dataAwnser.value = result.fields.map((f) => ({
+      dataanswer.value = result.fields.map((f) => ({
         id: f.qu_id,
         answer: undefined,
       }));
@@ -126,11 +126,11 @@ function updateAnswer(id: number, value: string) {
       ([, label]) => label === value
     )?.[0];
 
-    dataAwnser.value = dataAwnser.value.map((d) =>
+    dataanswer.value = dataanswer.value.map((d) =>
       d.id === id ? { id, answer: optionId } : d
     );
   } else {
-    dataAwnser.value = dataAwnser.value.map((d) =>
+    dataanswer.value = dataanswer.value.map((d) =>
       d.id === id ? { id, answer: value } : d
     );
   }
@@ -139,17 +139,17 @@ function updateAnswer(id: number, value: string) {
 }
 
 function getAnswer(id: number) {
-  return dataAwnser.value.find((f) => f.id === id)?.answer || "";
+  return dataanswer.value.find((f) => f.id === id)?.answer || "";
 }
 
-function next() {
-  if (dataAwnser.value.some((f) => f.answer === undefined)) {
-    requeredOnSubmit.value = true;
+async function next() {
+  if (dataanswer.value.some((f) => f.answer === undefined)) {
+    requiredOnSubmit.value = true;
     return;
   }
 
-  const response = reqestManager.sendResponse(
-    dataAwnser.value as { id: string | number; answer: string }[]
+  const response = await reqestManager.sendResponse(
+    dataanswer.value as { id: string | number; answer: string }[]
   );
 
   if (!response) {

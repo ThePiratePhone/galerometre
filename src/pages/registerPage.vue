@@ -8,14 +8,14 @@
         placeholder="Léa"
         type="text"
         @input="(value) => (name = value)"
-        :errored="requeredOnSubmit && name === ''"
+        :errored="requiredOnSubmit && name === ''"
       />
       <FormInput
         :label="t('form-registeration-firstname')"
         placeholder="Martin"
         type="text"
         @input="(value) => (firstName = value)"
-        :errored="requeredOnSubmit && firstName === ''"
+        :errored="requiredOnSubmit && firstName === ''"
       />
       <div />
       <FormSelect
@@ -26,7 +26,7 @@
         ]"
         other
         @input="(value) => (location = value)"
-        :errored="requeredOnSubmit && location === ''"
+        :errored="requiredOnSubmit && location === ''"
       />
     </div>
     <UiLink @click="next">{{ t("see-result") }}</UiLink>
@@ -47,11 +47,11 @@ const { t } = useI18n();
 const location = ref("");
 const name = ref("");
 const firstName = ref("");
-const requeredOnSubmit = ref(false);
+const requiredOnSubmit = ref(false);
 
 function next() {
   if (name.value === "" || firstName.value === "" || location.value === "") {
-    requeredOnSubmit.value = true;
+    requiredOnSubmit.value = true;
     return;
   }
 
