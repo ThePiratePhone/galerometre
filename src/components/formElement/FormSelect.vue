@@ -1,5 +1,5 @@
 <template>
-  <div class="input-group">
+  <div class="input-group" :class="errored && !selectedValue ? 'errored' : ''">
     <label :for="uid">{{ label }}</label>
     <select
       :id="uid"
@@ -8,6 +8,8 @@
           const value = (e.target as HTMLSelectElement).value;
           if (value !== 'other') {
             emit('input', value);
+          } else {
+            emit('input', '');
           }
         }
       "
@@ -25,9 +27,9 @@
   <FormInput
     v-if="selectedValue === 'other'"
     :label="t('select.other-placeholder')"
-    placeholder="marseille"
     type="text"
     @input="(value) => emit('input', value)"
+    :errored="errored && selectedValue === 'other'"
   />
 </template>
 
@@ -43,6 +45,7 @@ const { label, other, options } = defineProps<{
     value: string;
   }[];
   other?: boolean;
+  errored?: boolean;
 }>();
 
 const emit = defineEmits<{
@@ -105,6 +108,12 @@ const computedOptions = computed(() => {
   option:hover {
     background: #007bff;
     color: #fff;
+  }
+}
+
+.errored {
+  select {
+    border: 1px solid red;
   }
 }
 </style>

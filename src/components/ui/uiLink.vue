@@ -4,6 +4,7 @@
     :to
     class="ui-link"
     :class="inline ? 'inline' : 'styled'"
+    @click="$emit('click')"
   >
     <slot />
   </RouterLink>
@@ -12,10 +13,16 @@
     :href
     class="ui-link"
     :class="inline ? 'inline' : 'styled'"
+    @click="$emit('click')"
   >
     <slot />
   </a>
-  <div v-else class="ui-link" :class="inline ? 'inline' : 'styled'">
+  <div
+    v-else
+    class="ui-link"
+    :class="inline ? 'inline' : 'styled'"
+    @click="$emit('click')"
+  >
     <slot />
   </div>
 </template>
@@ -30,6 +37,8 @@ const {
   to?: string;
   inline?: boolean;
 }>();
+
+defineEmits(["click"]);
 </script>
 
 <style scoped lang="scss">

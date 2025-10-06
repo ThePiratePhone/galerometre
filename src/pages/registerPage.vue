@@ -7,11 +7,15 @@
         :label="t('form-registeration-name')"
         placeholder="Léa"
         type="text"
+        @input="(value) => (name = value)"
+        :errored="requiredOnSubmit && name === ''"
       />
       <FormInput
         :label="t('form-registeration-firstname')"
         placeholder="Martin"
         type="text"
+        @input="(value) => (firstName = value)"
+        :errored="requiredOnSubmit && firstName === ''"
       />
       <div />
       <FormSelect
@@ -21,41 +25,42 @@
           { label: 'paris', value: 'paris' },
         ]"
         other
-      />
-      <FormRadio
-        :label="t('form-registeration-crous')"
-        :options="[
-          { label: t('form-registeration-crous.on'), color: 'blue' },
-          { label: t('form-registeration-crous.off'), color: 'red' },
-        ]"
-      />
-      <FormSelect
-        :label="t('form-registeration-level')"
-        :options="[
-          { label: 'prepa', value: 'B0' },
-          { label: 'L1', value: 'B1' },
-          { label: 'L2', value: 'B2' },
-          { label: 'L3', value: 'B3' },
-          { label: 'M1', value: 'B4' },
-          { label: 'M2', value: 'B5' },
-          { label: 'Doctorat', value: 'B6' },
-          { label: 'autre', value: 'b-1' },
-        ]"
+        @input="(value) => (location = value)"
+        :errored="requiredOnSubmit && location === ''"
       />
     </div>
-    <UiLink to="/end">{{ t("see-result") }}</UiLink>
+    <UiLink @click="next">{{ t("see-result") }}</UiLink>
     <UiLink to="/">{{ t("retrun-home") }}</UiLink>
   </div>
 </template>
 
 <script setup lang="ts">
 import FormInput from "@/components/formElement/FormInput.vue";
-import FormRadio from "@/components/formElement/FormRadio.vue";
 import FormSelect from "@/components/formElement/FormSelect.vue";
 import UiLink from "@/components/ui/uiLink.vue";
+import { saveResponse } from "@/tools/jsTools";
+import { ref } from "vue";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
+
+const location = ref("");
+const name = ref("");
+const firstName = ref("");
+const requiredOnSubmit = ref(false);
+
+function next() {
+  if (name.value === "" || firstName.value === "" || location.value === "") {
+    requiredOnSubmit.value = true;
+    return;
+  }
+
+  saveResponse("name", name.value);
+  saveResponse("firstName", firstName.value);
+  saveResponse("location", location.value);
+
+  window.location.href = "/autoPage/1";
+}
 </script>
 
 <style scoped lang="scss">

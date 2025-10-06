@@ -21,9 +21,11 @@
 
 <script setup lang="ts">
 import UiLink from "@/components/ui/uiLink.vue";
+import reqestManager from "@/tools/reqestManager";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
+reqestManager.createAccont();
 </script>
 
 <style scoped lang="scss">

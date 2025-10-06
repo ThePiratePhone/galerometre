@@ -13,10 +13,7 @@
             ? {
                 backgroundColor: useColor(option.color ?? 'blue', 'dark'),
               }
-            : {
-                backgroundColor: useColor(option.color ?? 'blue', 'light'),
-                color: 'black',
-              }
+            : {}
         "
       >
         {{ option.label }}
@@ -78,7 +75,6 @@ function selectOption(label: string) {
   .button-warper {
     display: flex;
     width: 100%;
-    flex-wrap: wrap;
     gap: 1vw;
   }
 }

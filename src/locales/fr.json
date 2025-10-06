@@ -16,7 +16,7 @@
   "form-registeration-city": "ta ville",
   "form-registeration-crous": "et tu en crous ?",
   "select.other": "autre",
-  "select.other-placeholder": "une autre ville ?",
+  "select.other-placeholder": "une autre réponse ?",
   "form-registeration-crous.on": "oui",
   "form-registeration-crous.off": "non",
   "form-registeration-level": "quels et ton niveau d'etude ?",
@@ -25,5 +25,6 @@
   "join-us-presentation": "pour nous aider sur nos action de defense des droit etudiant nous avons besoin d'aide ! pour cela tu peut te faire recontacter en cliquant sur le bouton ci-dessou",
   "join-us-button": "defend les etudiant 🫵",
   "joined-us": "tu nous a rejoint 😍",
-  "joined-us-presentation": "on te recontactera au plus vite !"
+  "joined-us-presentation": "on te recontactera au plus vite !",
+  "next-pages": "page suivante 🚀"
 }
