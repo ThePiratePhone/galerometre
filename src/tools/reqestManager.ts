@@ -27,7 +27,8 @@ class RequestManager {
       this.id = uid();
     }
 
-    this.link = import.meta.env.VITE_API_URL ?? "127.0.0.1:8000";
+    this.link =
+      import.meta.env.VITE_API_URL ?? "https://api.precariscore.qamp.fr";
     this.createAccont();
   }
 
