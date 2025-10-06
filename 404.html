@@ -2,17 +2,19 @@
 <html>
 
 <head>
-	<meta http-equiv="refresh" content="0; url=/" />
+	<meta charset="utf-8" />
+	<title>Redirecting…</title>
 	<script>
-		// Redirection JS pour supporter les routes SPA
-		var l = window.location;
-		var path = l.pathname.replace(/^\//, "");
-		if (path && path !== "index.html") {
-			window.location.replace("/#" + l.pathname + l.search + l.hash);
-		}
+		var pathname = window.location.pathname;
+		var search = window.location.search || "";
+		var hash = window.location.hash || "";
+		var newUrl = "/" + "#" + pathname + search + hash;
+		window.location.replace(newUrl);
 	</script>
 </head>
 
-<body></body>
+<body>
+	<h1>Redirection…</h1>
+</body>
 
 </html>
