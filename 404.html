@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="refresh" content="0; url=/" />
+	<script>
+		// Redirection JS pour supporter les routes SPA
+		var l = window.location;
+		var path = l.pathname.replace(/^\//, "");
+		if (path && path !== "index.html") {
+			window.location.replace("/#" + l.pathname + l.search + l.hash);
+		}
+	</script>
+</head>
+
+<body></body>
+
+</html>
