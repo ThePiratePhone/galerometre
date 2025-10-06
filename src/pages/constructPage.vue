@@ -82,9 +82,10 @@ import reqestManager from "@/tools/reqestManager";
 import type { pageType } from "@/types/request";
 import { onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
+const router = useRouter();
 const { locale, t } = useI18n();
 
 const page = route.params.page;
@@ -158,11 +159,13 @@ async function next() {
   }
 
   if (data.value !== "error" && data.value.page_id == 8) {
-    window.location.href = "/endPage";
+    router.push({ path: "/endPage" });
     return;
   }
-  window.location.href =
-    "/autoPage/" + (data.value !== "error" ? data.value.page_id + 1 : 1);
+
+  router.push({
+    path: `/autoPage/${data.value !== "error" ? data.value.page_id + 1 : 1}`,
+  });
 }
 </script>
 

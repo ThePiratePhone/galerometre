@@ -40,9 +40,11 @@ import FormSelect from "@/components/formElement/FormSelect.vue";
 import UiLink from "@/components/ui/uiLink.vue";
 import { saveResponse } from "@/tools/jsTools";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
+const router = useRouter();
 
 const location = ref("");
 const name = ref("");
@@ -59,7 +61,7 @@ function next() {
   saveResponse("firstName", firstName.value);
   saveResponse("location", location.value);
 
-  window.location.href = "/autoPage/1";
+  router.push({ path: "/autoPage/1" });
 }
 </script>
 

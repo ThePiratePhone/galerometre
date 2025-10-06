@@ -1,15 +1,15 @@
 import "@/styles/shared.scss";
 import { createApp } from "vue";
 import { createI18n } from "vue-i18n";
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import App from "./App.vue";
 import enMessages from "./locales/en.json";
 import frMessages from "./locales/fr.json";
+import ConstructPage from "./pages/constructPage.vue";
 import EndPage from "./pages/endPage.vue";
 import HomePage from "./pages/homePage.vue";
 import RegisterPage from "./pages/registerPage.vue";
 import ThanksJoinPage from "./pages/thanksJoinPage.vue";
-import ConstructPage from "./pages/constructPage.vue";
 
 const routes = [
   { path: "/", component: HomePage },
@@ -17,11 +17,11 @@ const routes = [
   { path: "/end", component: EndPage },
   { path: "/joined", component: ThanksJoinPage },
   { path: "/autoPage/:page", component: ConstructPage },
-  { path: "/:pathMatch(.*)*", redirect: "/" },
 ];
 
 export const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
+  strict: false,
   routes,
 });
 
