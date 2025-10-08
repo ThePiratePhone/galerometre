@@ -13,7 +13,7 @@
     <div class="spoler">
       {{ t("home-spoler") }}
     </div>
-    <UiLink to="/register">{{ t("start-form") }}</UiLink>
+    <UiLink to="/autoPage/8">{{ t("start-form") }}</UiLink>
     <UiLink to="/share">{{ t("share-form") }}</UiLink>
     <UiLink to="/result">{{ t("see-result") }}</UiLink>
   </div>

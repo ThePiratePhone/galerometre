@@ -6,15 +6,15 @@ function uid() {
   return (timePart + randomPart + timePart).slice(0, 16);
 }
 
-function saveResponse(id: number | string, answer: string) {
+function saveResponse(qu_id: number | string, answer: string) {
   const lastRes = JSON.parse(window.localStorage.getItem("response") ?? "[]");
   const index = lastRes.findIndex(
-    (res: { id: number | string }) => res.id === id
+    (res: { id: number | string }) => res.id === qu_id
   );
   if (index !== -1) {
     lastRes[index].answer = answer; // Overwrite existing entry
   } else {
-    lastRes.push({ id, answer }); // Add new entry
+    lastRes.push({ id: qu_id, answer }); // Add new entry
   }
   window.localStorage.setItem("response", JSON.stringify(lastRes));
 }

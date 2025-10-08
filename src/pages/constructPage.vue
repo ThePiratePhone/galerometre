@@ -1,8 +1,5 @@
 <template>
-  <div v-if="isLoading">
-    <p>Loading...</p>
-  </div>
-  <div v-else-if="data === 'error'">
+  <div v-if="!data">
     <p>Error while loading the form</p>
   </div>
   <div v-else class="page">
@@ -77,10 +74,8 @@ import FormRadio from "@/components/formElement/FormRadio.vue";
 import FormSelect from "@/components/formElement/FormSelect.vue";
 import FormTrueFalse from "@/components/formElement/FormTrueFalse.vue";
 import UiLink from "@/components/ui/uiLink.vue";
-import { saveResponse } from "@/tools/jsTools";
 import reqestManager from "@/tools/reqestManager";
-import type { pageType } from "@/types/request";
-import { onMounted, ref } from "vue";
+import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute, useRouter } from "vue-router";
 
@@ -88,84 +83,78 @@ const route = useRoute();
 const router = useRouter();
 const { locale, t } = useI18n();
 
-const page = route.params.page;
-const data = ref<"error" | Awaited<pageType>>("error");
-const isLoading = ref(true);
-const requiredOnSubmit = ref(false);
-const dataanswer = ref<{ id: number; answer: string | undefined }[]>([]);
+const pageLine = [
+  [-Infinity, 8],
+  [8, 1],
+  [1, 2],
+  [2, 3],
+  [3, 4],
+  [4, 5],
+  [5, 6],
+  [6, 7],
+  [7, Infinity],
+];
 
-onMounted(async () => {
+const requiredOnSubmit = ref(false);
+const response = ref<{ id: number | string; answer: string }[]>([]);
+
+const page = computed(() => route.params.page);
+const data = computed(() => {
   try {
-    const result = await reqestManager.questions(locale.value, Number(page));
-    if (result !== "error") {
-      data.value = result;
-      dataanswer.value = result.fields.map((f) => ({
-        id: f.qu_id,
-        answer: undefined,
-      }));
-    } else {
-      data.value = "error";
+    const result = reqestManager.questions(locale.value, Number(page.value));
+    if (!result || !result.fields) {
+      return undefined;
     }
+    return result;
   } catch (error) {
-    console.error(error);
-    data.value = "error";
-  } finally {
-    isLoading.value = false;
+    console.error("Error loading questions:", error);
+    return undefined;
   }
 });
 
 function updateAnswer(id: number, value: string) {
-  if (data.value === "error") return;
-  const existing = data.value.fields.find((f) => f.qu_id === id);
-  if (
-    existing &&
-    (existing.qu_format == "radio" ||
-      existing.qu_format == "true_false" ||
-      existing.qu_format == "select")
-  ) {
-    const optionId = Object.entries(existing.qu_issues).find(
-      ([, label]) => label === value
-    )?.[0];
-
-    dataanswer.value = dataanswer.value.map((d) =>
-      d.id === id ? { id, answer: optionId } : d
-    );
-  } else {
-    dataanswer.value = dataanswer.value.map((d) =>
-      d.id === id ? { id, answer: value } : d
-    );
-  }
-
-  saveResponse(id, value);
+  response.value.push({ id, answer: value });
 }
 
 function getAnswer(id: number) {
-  return dataanswer.value.find((f) => f.id === id)?.answer || "";
+  return response.value.find((res) => res.id === id)?.answer;
 }
 
-async function next() {
-  if (dataanswer.value.some((f) => f.answer === undefined)) {
+function next() {
+  if (!data.value) return;
+
+  if (data.value?.fields.some((f) => !getAnswer(f.qu_id))) {
     requiredOnSubmit.value = true;
     return;
   }
 
-  const response = await reqestManager.sendResponse(
-    dataanswer.value as { id: string | number; answer: string }[]
-  );
+  try {
+    const response = reqestManager.sendResponse(
+      data.value.fields.map((f) => ({
+        id: f.qu_id,
+        answer: getAnswer(f.qu_id) ?? "",
+      })) ?? []
+    );
 
-  if (!response) {
-    alert("Error while sending the response");
-    return;
+    if (!response) {
+      alert("Error while sending the response");
+      return;
+    }
+
+    const nextPage = pageLine.find(
+      (e) => e[0] === (data.value ? page.value : 1)
+    )?.[1];
+
+    if (nextPage == Infinity) {
+      router.push({ path: `/register` });
+      return;
+    }
+
+    router.push({ path: `/autoPage/${nextPage ?? 1}` });
+  } catch (error) {
+    console.error("Error processing next:", error);
+    alert("An error occurred. Please try again.");
   }
-
-  if (data.value !== "error" && data.value.page_id == 8) {
-    router.push({ path: "/endPage" });
-    return;
-  }
-
-  router.push({
-    path: `/autoPage/${data.value !== "error" ? data.value.page_id + 1 : 1}`,
-  });
 }
 </script>
 

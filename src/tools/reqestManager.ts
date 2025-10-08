@@ -59,28 +59,19 @@ class RequestManager {
     return response.status == 200;
   }
 
-  async questions(
-    language: string = "fr",
-    pages: number = 1
-  ): Promise<pageType> {
-    const response = await fetch(
-      this.link + `/rest/form/${language}/${pages}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+  questions(language: string = "fr", pages: number = 1): pageType | undefined {
+    const request = new XMLHttpRequest();
+    request.open("GET", this.link + `/rest/form/${language}/${pages}`, false);
+    request.setRequestHeader("Content-Type", "application/json");
+    request.send();
 
-    if (response.status != 200) {
-      return "error";
+    if (request.status != 200) {
+      return;
     }
 
-    const result = JSON.parse(await response.json());
-    const dependency = await this.dependency();
+    const result = JSON.parse(JSON.parse(request.responseText));
+    const dependency = this.dependencyQuestion;
 
-    console.log(result.fields, dependency);
     const filter = result.fields.filter((res: { qu_id: number }) => {
       return dependency?.every((d) => {
         if (d.questionToShowID === res.qu_id) {
@@ -112,21 +103,24 @@ class RequestManager {
     }
   }
 
-  async sendResponse(answers: Array<{ id: number | string; answer: string }>) {
+  sendResponse(
+    answers: Array<{ id: number | string; answer: string | undefined }>
+  ): boolean {
     for (const { id: questionId, answer } of answers) {
-      const response = await fetch(this.link + `/rest/answer`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      if (!answer) continue;
+
+      const request = new XMLHttpRequest();
+      request.open("POST", this.link + `/rest/answer`, false);
+      request.setRequestHeader("Content-Type", "application/json");
+      request.send(
+        JSON.stringify({
           resp_id: this.id,
           qu_id: questionId,
           ans: answer,
-        }),
-      });
+        })
+      );
 
-      if (response.status != 200) {
+      if (request.status != 200) {
         return false;
       }
     }

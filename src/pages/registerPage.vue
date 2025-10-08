@@ -61,7 +61,7 @@ function next() {
   saveResponse("firstName", firstName.value);
   saveResponse("location", location.value);
 
-  router.push({ path: "/autoPage/1" });
+  router.push({ path: "/end" });
 }
 </script>
 

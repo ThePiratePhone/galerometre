@@ -1,5 +1,4 @@
-export type pageType = Promise<
-  | "error"
+export type pageType =
   | {
       description: string;
       name: string;
@@ -9,13 +8,15 @@ export type pageType = Promise<
             qu_format: "number" | "text";
             qu_id: number;
             qu_text: string;
+            answer: string | undefined;
           }
         | {
             qu_format: "true_false" | "select" | "radio";
             qu_text: string;
             qu_id: number;
             qu_issues: Array<{ [key: number]: string }>;
+            answer: string | undefined;
           }
       >;
     }
->;
+  | undefined;
