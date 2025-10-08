@@ -74,6 +74,7 @@ import FormRadio from "@/components/formElement/FormRadio.vue";
 import FormSelect from "@/components/formElement/FormSelect.vue";
 import FormTrueFalse from "@/components/formElement/FormTrueFalse.vue";
 import UiLink from "@/components/ui/uiLink.vue";
+import { saveResponse } from "@/tools/jsTools";
 import reqestManager from "@/tools/reqestManager";
 import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
@@ -114,6 +115,7 @@ const data = computed(() => {
 
 function updateAnswer(id: number, value: string) {
   response.value.push({ id, answer: value });
+  saveResponse(id, value);
 }
 
 function getAnswer(id: number) {

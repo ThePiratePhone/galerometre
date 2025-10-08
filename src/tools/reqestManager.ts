@@ -72,16 +72,60 @@ class RequestManager {
     const result = JSON.parse(JSON.parse(request.responseText));
     const dependency = this.dependencyQuestion;
 
-    const filter = result.fields.filter((res: { qu_id: number }) => {
-      return dependency?.every((d) => {
-        if (d.questionToShowID === res.qu_id) {
-          const answer = getLocalResponse(d.ifQuestion);
-          return answer == d.ifAnswer;
-        } else {
-          return true;
-        }
-      });
+    // consolidate dependencies
+    const consolidatedDependencies: {
+      questionToShowID: number;
+      conditions: Array<{ ifAnswer: string; ifQuestion: number }>;
+    }[] = [];
+
+    dependency.forEach((dep) => {
+      const existing = consolidatedDependencies.find(
+        (c) => c.questionToShowID === dep.questionToShowID
+      );
+      if (existing) {
+        existing.conditions.push({
+          ifAnswer: dep.ifAnswer,
+          ifQuestion: dep.ifQuestion,
+        });
+      } else {
+        consolidatedDependencies.push({
+          questionToShowID: dep.questionToShowID,
+          conditions: [{ ifAnswer: dep.ifAnswer, ifQuestion: dep.ifQuestion }],
+        });
+      }
     });
+
+    // Filter questions based on dependencies and local responses
+    // if dependency is not in answered questions, show it
+    // if dependency is on answered questions, check if the answer is the same as the one in dependency
+    const filter = result.fields.filter((res: { qu_id: number }) => {
+      const dependency = consolidatedDependencies.find(
+        (dep) => dep.questionToShowID === res.qu_id
+      );
+      if (!dependency) return true;
+
+      // All conditions must be satisfied for the question to be shown expect if tow conditions are on the same question. in this case, only one needs to be satisfied
+
+      // Group conditions by ifQuestion
+      const conditionsByQuestion = dependency.conditions.reduce(
+        (acc, cond) => {
+          if (!acc[cond.ifQuestion]) acc[cond.ifQuestion] = [];
+          acc[cond.ifQuestion].push(cond.ifAnswer);
+          return acc;
+        },
+        {} as Record<number, string[]>
+      );
+
+      // For each ifQuestion, at least one answer must match
+      return Object.entries(conditionsByQuestion).every(
+        ([ifQuestion, answers]) => {
+          const response = getLocalResponse(Number(ifQuestion));
+          if (response === null) return true;
+          return answers.includes(response);
+        }
+      );
+    });
+
     result.fields = filter;
     return result;
   }
