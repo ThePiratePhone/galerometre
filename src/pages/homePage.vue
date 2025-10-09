@@ -21,11 +21,22 @@
 
 <script setup lang="ts">
 import UiLink from "@/components/ui/uiLink.vue";
+import { uid } from "@/tools/jsTools";
 import reqestManager from "@/tools/reqestManager";
+import { computed, onMounted } from "vue";
 import { useI18n } from "vue-i18n";
+import { useRoute } from "vue-router";
 
 const { t } = useI18n();
-reqestManager.createAccont();
+const route = useRoute();
+
+const affiliation = computed(() => route.params.id);
+onMounted(() => {
+  reqestManager.createAccont(
+    Array.isArray(affiliation.value) ? affiliation.value[0] : affiliation.value
+  );
+  console.log(uid(), uid());
+});
 </script>
 
 <style scoped lang="scss">

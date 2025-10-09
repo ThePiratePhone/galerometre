@@ -1,11 +1,15 @@
 function uid() {
+  const initialDate = Date.now();
   const randomPart = Math.random()
     .toString(36)
     .slice(2, 16 - Date.now().toString(36).length);
-  return (Date.now().toString(36) + randomPart + Date.now().toString(36)).slice(
-    0,
-    16
-  );
+  return (
+    Date.now().toString(36) +
+    randomPart +
+    (Math.random() * (Date.now() * 2 - initialDate + 1) + initialDate).toString(
+      36
+    )
+  ).slice(0, 16);
 }
 
 function saveResponse(qu_id: number | string, answer: string) {

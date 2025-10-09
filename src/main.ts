@@ -14,11 +14,12 @@ import CopyPage from "./pages/copyPage.vue";
 
 const routes = [
   { path: "/", component: HomePage },
+  { path: "/:id(\\w{16})", component: HomePage },
   { path: "/register", component: RegisterPage },
   { path: "/end", component: EndPage },
   { path: "/joined", component: ThanksJoinPage },
-  { path: "/autoPage/:page", component: ConstructPage },
   { path: "/share", component: CopyPage },
+  { path: "/autoPage/:page", component: ConstructPage },
 ];
 
 export const router = createRouter({

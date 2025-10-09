@@ -33,6 +33,7 @@ class RequestManager {
   }
 
   async createAccont(
+    affiliation?: string,
     location?: string,
     camp_id: string = "001",
     email?: string,
@@ -52,6 +53,7 @@ class RequestManager {
         phone,
         location,
         activist,
+        affiliation,
       }),
     });
 
