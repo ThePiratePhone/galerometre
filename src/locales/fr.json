@@ -25,5 +25,11 @@
   "join-us-presentation": "Pour nous aider sur nos actions de défense des droits étudiants nous avons besoin d'aide ! Pour cela tu peux te faire recontacter en cliquant sur le bouton ci-dessous.",
   "join-us-button": "Défends les étudiant·e·s 🫵",
   "joined-us": "Tu nous a rejoints 😍",
-  "joined-us-presentation": "On te recontactera au plus vite !"
+  "joined-us-presentation": "On te recontactera au plus vite !",
+  "share-sms-link": "hello, j'ai fait un formulaire qui permet d'evaluer la precarité etudiante, j'ai obtenu {n}% de precarité 😱, fait le test et donne moi ton resultat 🤗",
+  "share-presentation": "ici tu peut partager le formulaire avec tout les eutidiant que tu connais 🤗",
+  "share-title": "partage cette enquete",
+  "share-sms": "partage par sms",
+  "share-mail": "partage par mail",
+  "share-copy-link": "partage par mail"
 }

@@ -10,6 +10,7 @@ import EndPage from "./pages/endPage.vue";
 import HomePage from "./pages/homePage.vue";
 import RegisterPage from "./pages/registerPage.vue";
 import ThanksJoinPage from "./pages/thanksJoinPage.vue";
+import CopyPage from "./pages/copyPage.vue";
 
 const routes = [
   { path: "/", component: HomePage },
@@ -17,6 +18,7 @@ const routes = [
   { path: "/end", component: EndPage },
   { path: "/joined", component: ThanksJoinPage },
   { path: "/autoPage/:page", component: ConstructPage },
+  { path: "/share", component: CopyPage },
 ];
 
 export const router = createRouter({

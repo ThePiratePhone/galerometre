@@ -1,9 +1,11 @@
 function uid() {
-  const timePart = Date.now().toString(36);
   const randomPart = Math.random()
     .toString(36)
-    .slice(2, 16 - timePart.length);
-  return (timePart + randomPart + timePart).slice(0, 16);
+    .slice(2, 16 - Date.now().toString(36).length);
+  return (Date.now().toString(36) + randomPart + Date.now().toString(36)).slice(
+    0,
+    16
+  );
 }
 
 function saveResponse(qu_id: number | string, answer: string) {
