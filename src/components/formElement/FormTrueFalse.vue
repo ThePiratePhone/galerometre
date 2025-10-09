@@ -1,5 +1,5 @@
 <template>
-  <span class="input-group spoler">
+  <span class="input-group spoler" :class="errored ? 'errored' : ''">
     <label for="xx">{{ label }}</label>
     <div class="button-warper">
       <button
@@ -33,6 +33,7 @@ const { label, options } = defineProps<{
     value: string;
     color?: "blue" | "green" | "purple" | "red";
   }[];
+  errored: boolean;
 }>();
 
 const emit = defineEmits<{
@@ -76,6 +77,10 @@ function selectOption(label: string) {
     display: flex;
     width: 100%;
     gap: 1vw;
+  }
+
+  &.errored {
+    border: 1px solid red;
   }
 }
 </style>

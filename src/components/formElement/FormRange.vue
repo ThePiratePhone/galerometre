@@ -1,5 +1,5 @@
 <template>
-  <span class="input-group">
+  <span class="input-group spoler" :class="errored ? 'errored' : ''">
     <label for="xx">{{ label }}</label>
     <div class="value">{{ value }}</div>
     <input
@@ -21,6 +21,7 @@ import { ref } from "vue";
 const { label, value: limit } = defineProps<{
   label: string;
   value: [number, number];
+  errored: boolean;
 }>();
 
 const value = ref(limit[0]);
@@ -31,15 +32,24 @@ const emit = defineEmits<{
 </script>
 
 <style scoped>
-label {
-  display: block;
-  margin-bottom: 0.5rem;
-}
+.input-group {
+  color: black;
+  display: flex;
+  flex-direction: column;
+  gap: 2vw;
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
 
-input {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 100%;
+  input {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+  }
+
+  &.errored {
+    border: 1px solid red;
+  }
 }
 </style>
