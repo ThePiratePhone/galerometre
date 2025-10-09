@@ -30,7 +30,6 @@
       />
     </div>
     <UiLink @click="next">{{ t("see-result") }}</UiLink>
-    <UiLink to="/">{{ t("retrun-home") }}</UiLink>
   </div>
 </template>
 

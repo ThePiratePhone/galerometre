@@ -125,7 +125,7 @@ function getAnswer(id: number) {
 function next() {
   if (!data.value) return;
 
-  if (data.value?.fields.some((f) => !getAnswer(f.qu_id))) {
+  if (data.value.fields.some((f) => !getAnswer(f.qu_id))) {
     requiredOnSubmit.value = true;
     return;
   }
@@ -143,10 +143,7 @@ function next() {
       return;
     }
 
-    const nextPage = pageLine.find(
-      (e) => e[0] === (data.value ? page.value : 1)
-    )?.[1];
-
+    const nextPage = pageLine.find((e) => e[0] === Number(page.value))?.[1];
     if (nextPage == Infinity) {
       router.push({ path: `/register` });
       return;
