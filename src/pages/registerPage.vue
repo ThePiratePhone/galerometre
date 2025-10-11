@@ -17,6 +17,18 @@
         @input="(value) => (firstName = value)"
         :errored="requiredOnSubmit && firstName === ''"
       />
+      <FormInput
+        type="tel"
+        :label="t('form-registeration-phone')"
+        placeholder="0712345678"
+        @input="(value) => (tel = value)"
+      ></FormInput>
+      <FormInput
+        type="mail"
+        :label="t('form-registeration-mail')"
+        :placeholder="`${name ? name : 'pierre'}.${firstName ? firstName : 'martin'}@mail.com`"
+        @input="(value) => (email = value)"
+      ></FormInput>
       <div />
       <FormSelect
         :label="t('form-registeration-city')"
@@ -38,9 +50,10 @@ import FormInput from "@/components/formElement/FormInput.vue";
 import FormSelect from "@/components/formElement/FormSelect.vue";
 import UiLink from "@/components/ui/uiLink.vue";
 import { saveResponse } from "@/tools/jsTools";
+import reqestManager from "@/tools/reqestManager";
 import { ref } from "vue";
-import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
+import { useRouter } from "vue-router";
 
 const { t } = useI18n();
 const router = useRouter();
@@ -48,6 +61,8 @@ const router = useRouter();
 const location = ref("");
 const name = ref("");
 const firstName = ref("");
+const tel = ref("");
+const email = ref("");
 const requiredOnSubmit = ref(false);
 
 function next() {
@@ -59,6 +74,14 @@ function next() {
   saveResponse("name", name.value);
   saveResponse("firstName", firstName.value);
   saveResponse("location", location.value);
+
+  reqestManager.updateAccount(
+    location.value,
+    email.value,
+    tel.value,
+    firstName.value,
+    name.value
+  );
 
   router.push({ path: "/end" });
 }

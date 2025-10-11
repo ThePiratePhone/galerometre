@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <h1>{{ t("end-thank") }}</h1>
-    <UiWaitLoader :percentage="value" />
+    <UiWaitLoader :percentage="(score.result / 5) * 100" />
     <p>{{ t("thank-presentation") }}</p>
     <UiLink to="/share-result">{{ t("share-result") }}</UiLink>
   </div>
@@ -20,12 +20,12 @@
 <script setup lang="ts">
 import UiLink from "@/components/ui/uiLink.vue";
 import UiWaitLoader from "@/components/ui/uiWaitLoader.vue";
-import { ref } from "vue";
+import reqestManager from "@/tools/reqestManager";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 
-const value = ref(82);
+const score = reqestManager.score();
 </script>
 
 <style scoped lang="scss">

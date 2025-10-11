@@ -13,15 +13,14 @@
     <div class="spoler">
       {{ t("home-spoler") }}
     </div>
-    <UiLink to="/autoPage/8">{{ t("start-form") }}</UiLink>
+    <UiLink to="/autoPage/3">{{ t("start-form") }}</UiLink>
     <UiLink to="/share">{{ t("share-form") }}</UiLink>
-    <UiLink to="/result">{{ t("see-result") }}</UiLink>
+    <UiLink to="/end">{{ t("see-result") }}</UiLink>
   </div>
 </template>
 
 <script setup lang="ts">
 import UiLink from "@/components/ui/uiLink.vue";
-import { uid } from "@/tools/jsTools";
 import reqestManager from "@/tools/reqestManager";
 import { computed, onMounted } from "vue";
 import { useI18n } from "vue-i18n";
@@ -35,7 +34,6 @@ onMounted(() => {
   reqestManager.createAccont(
     Array.isArray(affiliation.value) ? affiliation.value[0] : affiliation.value
   );
-  console.log(uid(), uid());
 });
 </script>
 

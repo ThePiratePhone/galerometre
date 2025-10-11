@@ -1,9 +1,9 @@
 <template>
   <span class="input-group spoler" :class="errored ? 'errored' : ''">
-    <label for="xx">{{ label }}</label>
+    <label :for="inputId">{{ label }}</label>
     <div class="value">{{ value }}</div>
     <input
-      id="xx"
+      :id="inputId"
       type="range"
       :min="limit[0]"
       :max="limit[1]"
@@ -16,7 +16,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, useId } from "vue";
+
+const inputId = useId();
 
 const { label, value: limit } = defineProps<{
   label: string;

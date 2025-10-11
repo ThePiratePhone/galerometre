@@ -1,17 +1,23 @@
 <template>
   <span class="input-group spoler" :class="errored ? 'errored' : ''">
-    <label for="xx">{{ label }}</label>
+    <label :for="inputId">{{ label }}</label>
     <div class="button-warper">
       <button
-        id="xx"
+        :id="inputId"
         v-for="option in options"
         :key="option.label"
-        @click="selectOption(option.label)"
-        :class="{ selected: selectedOption === option.label }"
+        @click="selectOption(option.value)"
+        :class="{ selected: selectedOption === option.value }"
         :style="
-          selectedOption === option.label
+          selectedOption === option.value
             ? {
-                backgroundColor: useColor(option.color ?? 'blue', 'dark'),
+                backgroundColor: useColor(
+                  (option.color ??
+                    option.label.toLowerCase().includes(t('aprobation')))
+                    ? 'green'
+                    : 'red',
+                  'dark'
+                ),
               }
             : {}
         "
@@ -24,7 +30,11 @@
 
 <script setup lang="ts">
 import useColor from "@/tools/color";
-import { ref } from "vue";
+import { ref, useId } from "vue";
+import { useI18n } from "vue-i18n";
+
+const inputId = useId();
+const { t } = useI18n();
 
 const { label, options } = defineProps<{
   label: string;
@@ -42,9 +52,9 @@ const emit = defineEmits<{
 
 const selectedOption = ref<string | null>(null);
 
-function selectOption(label: string) {
-  selectedOption.value = label;
-  emit("input", label);
+function selectOption(value: string) {
+  selectedOption.value = value;
+  emit("input", value);
 }
 </script>
 

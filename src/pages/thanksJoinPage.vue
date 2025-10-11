@@ -11,6 +11,7 @@ import UiLink from "@/components/ui/uiLink.vue";
 import { useI18n } from "vue-i18n";
 import confetti from "canvas-confetti";
 import { onMounted } from "vue";
+import reqestManager from "@/tools/reqestManager";
 
 const { t } = useI18n();
 
@@ -21,6 +22,14 @@ onMounted(() => {
     origin: { y: 0.6 },
     dropRate: 5,
   });
+  reqestManager.updateAccount(
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    "true"
+  );
 });
 </script>
 

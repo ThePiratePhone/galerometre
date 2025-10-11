@@ -9,6 +9,9 @@ export type pageType =
             qu_id: number;
             qu_text: string;
             answer: string | undefined;
+            help: string | "";
+            placeholder: string | "";
+            isVisible: boolean | undefined;
           }
         | {
             qu_format: "true_false" | "select" | "radio";
@@ -16,6 +19,9 @@ export type pageType =
             qu_id: number;
             qu_issues: Array<{ [key: number]: string }>;
             answer: string | undefined;
+            help: string | "";
+            placeholder: string | "";
+            isVisible: boolean | undefined;
           }
       >;
     }

@@ -1,11 +1,15 @@
 <template>
-  <div v-if="!data">
+  <div v-if="!questionData.data">
     <p>Error while loading the form</p>
   </div>
   <div v-else class="page">
-    <h1 v-if="data.name" class="title">{{ data.name }}</h1>
-    <p v-if="data.description" class="subtitle">{{ data.description }}</p>
-    <template v-for="field in data.fields" :key="field.qu_id">
+    <h1 v-if="questionData.data.name" class="title">
+      {{ questionData.data.name }}
+    </h1>
+    <p v-if="questionData.data.description" class="subtitle">
+      {{ questionData.data.description }}
+    </p>
+    <template v-for="field in questionData.data.fields" :key="field.qu_id">
       <template v-if="field.qu_format === 'text'">
         <FormInput
           :label="field.qu_text"
@@ -14,7 +18,11 @@
           :errored="requiredOnSubmit && !getAnswer(field.qu_id)"
         />
       </template>
-      <template v-else-if="field.qu_format === 'number'">
+      <template
+        v-else-if="
+          field.qu_format === 'number' || (field.qu_format as any) === 'delay'
+        "
+      >
         <FormInput
           :label="field.qu_text"
           type="number"
@@ -22,7 +30,7 @@
           :errored="requiredOnSubmit && !getAnswer(field.qu_id)"
         />
       </template>
-      <template v-else-if="field.qu_format === 'select'">
+      <template v-else-if="field.qu_format === 'select' && field.qu_issues">
         <FormSelect
           :label="field.qu_text"
           :options="
@@ -36,8 +44,15 @@
           :errored="requiredOnSubmit && !getAnswer(field.qu_id)"
         />
       </template>
-      <template v-else-if="field.qu_format === 'radio'">
+      <template
+        v-else-if="
+          field.qu_format === 'radio' &&
+          field.qu_issues &&
+          (field.isVisible != undefined ? field.isVisible : true)
+        "
+      >
         <FormRadio
+          :key="field.qu_id + '-' + getAnswer(field.qu_id)"
           :label="field.qu_text"
           :options="
             Object.entries(field.qu_issues).map(([key, label]) => ({
@@ -49,14 +64,13 @@
           :errored="requiredOnSubmit && !getAnswer(field.qu_id)"
         />
       </template>
-      <template v-else-if="field.qu_format === 'true_false'">
+      <template v-else-if="field.qu_format === 'true_false' && field.qu_issues">
         <FormTrueFalse
           :label="field.qu_text"
           :options="
-            Object.entries(field.qu_issues).map(([key, label], i) => ({
+            Object.entries(field.qu_issues).map(([key, label]) => ({
               label: label as string,
               value: key,
-              color: i === 0 ? 'green' : 'red',
             }))
           "
           @input="updateAnswer(field.qu_id, $event)"
@@ -85,36 +99,48 @@ const router = useRouter();
 const { locale, t } = useI18n();
 
 const pageLine = [
-  [-Infinity, 8],
-  [8, 1],
+  [-Infinity, 1],
   [1, 2],
   [2, 3],
   [3, 4],
   [4, 5],
   [5, 6],
   [6, 7],
-  [7, Infinity],
+  [7, 8],
+  [8, Infinity],
 ];
 
 const requiredOnSubmit = ref(false);
 const response = ref<{ id: number | string; answer: string }[]>([]);
 
 const page = computed(() => route.params.page);
-const data = computed(() => {
+const questionData = computed(() => {
   try {
     const result = reqestManager.questions(locale.value, Number(page.value));
-    if (!result || !result.fields) {
-      return undefined;
+    if (!result || !result.question) {
+      return { data: undefined, localDependency: undefined };
     }
-    return result;
+    return { data: result.question, localDependency: result.localDependency };
   } catch (error) {
     console.error("Error loading questions:", error);
-    return undefined;
+    return { data: undefined, localDependency: undefined };
   }
 });
 
 function updateAnswer(id: number, value: string) {
   response.value.push({ id, answer: value });
+
+  const updatedDependencies = questionData.value.localDependency?.find(
+    (dep) => Number(dep.conditions.ifQuestion) == id
+  );
+  if (updatedDependencies) {
+    questionData.value.data?.fields.map((question) => {
+      if (question.qu_id === updatedDependencies.questionToShowID) {
+        question.isVisible = value !== updatedDependencies.conditions.ifAnswer;
+      }
+    });
+  }
+
   saveResponse(id, value);
 }
 
@@ -123,16 +149,20 @@ function getAnswer(id: number) {
 }
 
 function next() {
-  if (!data.value) return;
+  if (!questionData.value.data) return;
 
-  if (data.value.fields.some((f) => !getAnswer(f.qu_id))) {
+  if (
+    questionData.value.data.fields.some(
+      (f) => !getAnswer(f.qu_id) || f.isVisible === false
+    )
+  ) {
     requiredOnSubmit.value = true;
     return;
   }
 
   try {
     const response = reqestManager.sendResponse(
-      data.value.fields.map((f) => ({
+      questionData.value.data.fields.map((f) => ({
         id: f.qu_id,
         answer: getAnswer(f.qu_id) ?? "",
       })) ?? []

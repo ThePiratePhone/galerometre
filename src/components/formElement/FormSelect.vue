@@ -42,7 +42,7 @@ const { label, other, options } = defineProps<{
   label: string;
   options: {
     label: string;
-    value: string;
+    value: number | string;
   }[];
   other?: boolean;
   errored?: boolean;

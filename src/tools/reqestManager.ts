@@ -36,6 +36,8 @@ class RequestManager {
     affiliation?: string,
     location?: string,
     camp_id: string = "001",
+    name?: string,
+    lastname?: string,
     email?: string,
     phone?: string,
     activist?: boolean
@@ -48,12 +50,14 @@ class RequestManager {
       },
       body: JSON.stringify({
         resp_id: this.id,
-        camp_id,
+        name,
+        lastname,
         email,
         phone,
+        camp_id,
         location,
         activist,
-        affiliation,
+        id_from: affiliation,
       }),
     });
 
@@ -61,7 +65,48 @@ class RequestManager {
     return response.status == 200;
   }
 
-  questions(language: string = "fr", pages: number = 1): pageType | undefined {
+  updateAccount(
+    location?: string,
+    email?: string,
+    phone?: string,
+    name?: string,
+    lastname?: string,
+    activist?: string,
+    camp_id: string = "001"
+  ) {
+    window.localStorage.setItem("id", this.id);
+
+    const request = new XMLHttpRequest();
+    request.open("PUT", this.link + "/rest/respondent");
+    request.setRequestHeader("Content-Type", "application/json");
+
+    const body = JSON.stringify({
+      camp_id,
+      resp_id: this.id,
+      email,
+      phone,
+      name,
+      lastname,
+      location,
+      activist,
+    });
+
+    request.send(body);
+    return request.status === 200;
+  }
+
+  questions(
+    language: string = "fr",
+    pages: number = 1
+  ):
+    | {
+        question: pageType;
+        localDependency: {
+          questionToShowID: number;
+          conditions: { ifAnswer: string; ifQuestion: number };
+        }[];
+      }
+    | undefined {
     const request = new XMLHttpRequest();
     request.open("GET", this.link + `/rest/form/${language}/${pages}`, false);
     request.setRequestHeader("Content-Type", "application/json");
@@ -73,27 +118,45 @@ class RequestManager {
 
     const result = JSON.parse(JSON.parse(request.responseText));
     const dependency = this.dependencyQuestion;
-
     // consolidate dependencies
+    const localDependency: {
+      questionToShowID: number;
+      conditions: { ifAnswer: string; ifQuestion: number };
+    }[] = [];
     const consolidatedDependencies: {
       questionToShowID: number;
       conditions: Array<{ ifAnswer: string; ifQuestion: number }>;
     }[] = [];
 
     dependency.forEach((dep) => {
-      const existing = consolidatedDependencies.find(
-        (c) => c.questionToShowID === dep.questionToShowID
-      );
-      if (existing) {
-        existing.conditions.push({
-          ifAnswer: dep.ifAnswer,
-          ifQuestion: dep.ifQuestion,
-        });
-      } else {
-        consolidatedDependencies.push({
+      if (
+        Math.floor(dep.questionToShowID / 100) == pages &&
+        Math.floor(dep.ifQuestion / 100) == pages
+      ) {
+        localDependency.push({
           questionToShowID: dep.questionToShowID,
-          conditions: [{ ifAnswer: dep.ifAnswer, ifQuestion: dep.ifQuestion }],
+          conditions: { ifAnswer: dep.ifAnswer, ifQuestion: dep.ifQuestion },
         });
+        result.fields.find(
+          (q: { qu_id: number }) => q.qu_id === dep.questionToShowID
+        ).isVisible = false;
+      } else {
+        const existing = consolidatedDependencies.find(
+          (c) => c.questionToShowID === dep.questionToShowID
+        );
+        if (existing) {
+          existing.conditions.push({
+            ifAnswer: dep.ifAnswer,
+            ifQuestion: dep.ifQuestion,
+          });
+        } else {
+          consolidatedDependencies.push({
+            questionToShowID: dep.questionToShowID,
+            conditions: [
+              { ifAnswer: dep.ifAnswer, ifQuestion: dep.ifQuestion },
+            ],
+          });
+        }
       }
     });
 
@@ -129,7 +192,7 @@ class RequestManager {
     });
 
     result.fields = filter;
-    return result;
+    return { question: result, localDependency };
   }
 
   async dependency() {
@@ -150,13 +213,14 @@ class RequestManager {
   }
 
   sendResponse(
-    answers: Array<{ id: number | string; answer: string | undefined }>
+    answers: Array<{ id: number | string; answer: string | undefined }>,
+    method: string = "POST"
   ): boolean {
     for (const { id: questionId, answer } of answers) {
       if (!answer) continue;
 
       const request = new XMLHttpRequest();
-      request.open("POST", this.link + `/rest/answer`, false);
+      request.open(method, this.link + `/rest/answer`, false);
       request.setRequestHeader("Content-Type", "application/json");
       request.send(
         JSON.stringify({
@@ -166,11 +230,26 @@ class RequestManager {
         })
       );
 
-      if (request.status != 200) {
+      if (request.status == 403 && method != "PUT") {
+        return this.sendResponse(answers, "PUT");
+      } else if (request.status != 200) {
         return false;
       }
     }
     return true;
+  }
+
+  score() {
+    const request = new XMLHttpRequest();
+    request.open("GET", this.link + `/rest/score/${this.id}`, false);
+    request.setRequestHeader("Content-Type", "application/json");
+    request.send();
+
+    if (request.status != 200) {
+      return -1;
+    }
+
+    return JSON.parse(JSON.parse(request.responseText));
   }
 }
 

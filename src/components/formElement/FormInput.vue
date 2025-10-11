@@ -1,8 +1,8 @@
 <template>
   <span class="input-group" :class="errored ? 'errored' : ''">
-    <label for="xx">{{ label }}</label>
+    <label :for="inputId">{{ label }}</label>
     <input
-      id="xx"
+      :id="inputId"
       :type
       :placeholder
       :value
@@ -11,6 +11,10 @@
   </span>
 </template>
 <script setup lang="ts">
+import { useId } from "vue";
+
+const inputId = useId();
+
 const { label, value, placeholder } = defineProps<{
   label: string;
   value?: string;
