@@ -10,7 +10,12 @@
       {{ questionData.data.description }}
     </p>
     <template v-for="field in questionData.data.fields" :key="field.qu_id">
-      <template v-if="field.qu_format === 'text'">
+      <template
+        v-if="
+          field.qu_format === 'text' &&
+          (field.isVisible != undefined ? field.isVisible : true)
+        "
+      >
         <FormInput
           :label="field.qu_text"
           type="text"
@@ -20,7 +25,9 @@
       </template>
       <template
         v-else-if="
-          field.qu_format === 'number' || (field.qu_format as any) === 'delay'
+          (field.qu_format === 'number' ||
+            (field.qu_format as any) === 'delay') &&
+          (field.isVisible != undefined ? field.isVisible : true)
         "
       >
         <FormInput
@@ -30,7 +37,13 @@
           :errored="requiredOnSubmit && !getAnswer(field.qu_id)"
         />
       </template>
-      <template v-else-if="field.qu_format === 'select' && field.qu_issues">
+      <template
+        v-else-if="
+          field.qu_format === 'select' &&
+          field.qu_issues &&
+          (field.isVisible != undefined ? field.isVisible : true)
+        "
+      >
         <FormSelect
           :label="field.qu_text"
           :options="
@@ -64,7 +77,13 @@
           :errored="requiredOnSubmit && !getAnswer(field.qu_id)"
         />
       </template>
-      <template v-else-if="field.qu_format === 'true_false' && field.qu_issues">
+      <template
+        v-else-if="
+          field.qu_format === 'true_false' &&
+          field.qu_issues &&
+          (field.isVisible != undefined ? field.isVisible : true)
+        "
+      >
         <FormTrueFalse
           :label="field.qu_text"
           :options="
@@ -130,14 +149,16 @@ const questionData = computed(() => {
 function updateAnswer(id: number, value: string) {
   response.value.push({ id, answer: value });
 
-  const updatedDependencies = questionData.value.localDependency?.find(
+  const updatedDependencies = questionData.value.localDependency?.filter(
     (dep) => Number(dep.conditions.ifQuestion) == id
   );
-  if (updatedDependencies) {
-    questionData.value.data?.fields.map((question) => {
-      if (question.qu_id === updatedDependencies.questionToShowID) {
-        question.isVisible = value !== updatedDependencies.conditions.ifAnswer;
-      }
+  if (updatedDependencies && updatedDependencies.length > 0) {
+    updatedDependencies.forEach((dep) => {
+      questionData.value.data?.fields.forEach((question) => {
+        if (question.qu_id === dep.questionToShowID) {
+          question.isVisible = value !== dep.conditions.ifAnswer;
+        }
+      });
     });
   }
 

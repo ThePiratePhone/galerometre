@@ -137,9 +137,6 @@ class RequestManager {
           questionToShowID: dep.questionToShowID,
           conditions: { ifAnswer: dep.ifAnswer, ifQuestion: dep.ifQuestion },
         });
-        result.fields.find(
-          (q: { qu_id: number }) => q.qu_id === dep.questionToShowID
-        ).isVisible = false;
       } else {
         const existing = consolidatedDependencies.find(
           (c) => c.questionToShowID === dep.questionToShowID
@@ -158,6 +155,14 @@ class RequestManager {
           });
         }
       }
+    });
+
+    // result.fields.[xx].isVisible = false;
+    localDependency.forEach((dep) => {
+      const question = result.fields.find(
+        (q: { qu_id: number }) => q.qu_id === dep.questionToShowID
+      );
+      if (question) question.isVisible = false;
     });
 
     // Filter questions based on dependencies and local responses
