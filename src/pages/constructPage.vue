@@ -17,6 +17,7 @@
         "
       >
         <FormInput
+          :key="field.qu_id + '-' + getAnswer(field.qu_id)"
           :label="field.qu_text"
           type="text"
           @input="updateAnswer(field.qu_id, $event)"
@@ -31,6 +32,7 @@
         "
       >
         <FormInput
+          :key="field.qu_id + '-' + getAnswer(field.qu_id)"
           :label="field.qu_text"
           type="number"
           @input="updateAnswer(field.qu_id, $event)"
@@ -45,6 +47,7 @@
         "
       >
         <FormSelect
+          :key="field.qu_id + '-' + getAnswer(field.qu_id)"
           :label="field.qu_text"
           :options="
             Object.entries(field.qu_issues).map(([key, label]) => ({
@@ -85,6 +88,7 @@
         "
       >
         <FormTrueFalse
+          :key="field.qu_id + '-' + getAnswer(field.qu_id)"
           :label="field.qu_text"
           :options="
             Object.entries(field.qu_issues).map(([key, label]) => ({
@@ -109,7 +113,7 @@ import FormTrueFalse from "@/components/formElement/FormTrueFalse.vue";
 import UiLink from "@/components/ui/uiLink.vue";
 import { saveResponse } from "@/tools/jsTools";
 import reqestManager from "@/tools/reqestManager";
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute, useRouter } from "vue-router";
 
@@ -152,12 +156,24 @@ function updateAnswer(id: number, value: string) {
   const updatedDependencies = questionData.value.localDependency?.filter(
     (dep) => Number(dep.conditions.ifQuestion) == id
   );
+  console.log(updatedDependencies);
   if (updatedDependencies && updatedDependencies.length > 0) {
     updatedDependencies.forEach((dep) => {
-      questionData.value.data?.fields.forEach((question) => {
+      console.log(
+        questionData.value.data?.fields.some((question) => {
+          if (question.qu_id === dep.questionToShowID) {
+            question.isVisible = value !== dep.conditions.ifAnswer;
+            return true;
+          }
+          return false;
+        })
+      );
+      questionData.value.data?.fields.some((question) => {
         if (question.qu_id === dep.questionToShowID) {
           question.isVisible = value !== dep.conditions.ifAnswer;
+          return true;
         }
+        return false;
       });
     });
   }
@@ -206,6 +222,10 @@ function next() {
     alert("An error occurred. Please try again.");
   }
 }
+
+onMounted(() => {
+  requiredOnSubmit.value = false;
+});
 </script>
 
 <style lang="css" scoped>
