@@ -3,7 +3,7 @@
     <h1>{{ t("end-thank") }}</h1>
     <UiWaitLoader :percentage="(score.result / 5) * 100" />
     <p>{{ t("thank-presentation") }}</p>
-    <UiLink to="/share-result">{{ t("share-result") }}</UiLink>
+    <UiLink to="/share">{{ t("share-result") }}</UiLink>
   </div>
   <div class="page">
     <h1>{{ t("help-us") }}</h1>
@@ -26,7 +26,7 @@ import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 
 const score = reqestManager.score();
-window.localStorage.setItem("score", score);
+window.localStorage.setItem("score", score.result);
 </script>
 
 <style scoped lang="scss">

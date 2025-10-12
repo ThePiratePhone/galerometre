@@ -1,10 +1,10 @@
 <template>
   <div class="page">
-    <h1>{{ t("share-title") }}</h1>
+    <h1>{{ t("share-form") }}</h1>
     <p>{{ t("share-presentation") }}</p>
     <!-- %0D%0A is an break line sympbol -->
     <UiLink
-      :href="`sms:&body=${t('share-sms-link', { n: score })}%0D%0A${'https://precariscore.qamp.fr'}`"
+      :href="`sms:&body=${t('share-sms-link', { n: (score.result / 5) * 100, p: scoreToPrecariscore(score.result) })}%0D%0A${'https://precariscore.qamp.fr'}`"
       >{{ t("share-sms") }}</UiLink
     >
     <UiLink
@@ -35,8 +35,17 @@ function copy() {
 }
 
 const score = computed(() => {
-  return window.localStorage.getItem("score") ?? reqestManager.score();
+  return window.localStorage.getItem("score") ?? reqestManager.score().result;
 });
+
+function scoreToPrecariscore(score: number) {
+  if (score < 1) return "A";
+  if (score < 2) return "B";
+  if (score < 3) return "C";
+  if (score < 4) return "D";
+  if (score < 5) return "E";
+  return "-";
+}
 </script>
 
 <style scoped lang="scss">

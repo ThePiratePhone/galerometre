@@ -189,11 +189,6 @@ function updateAnswer(id: number, value: string) {
 
   if (updatedDependencies && updatedDependencies.length > 0) {
     updatedDependencies.forEach((dep) => {
-      console.log(
-        dep.conditions.ifAnswer,
-        value,
-        value == dep.conditions.ifAnswer
-      );
       const shouldBeVisible = value == dep.conditions.ifAnswer;
       fieldVisibility.value[dep.questionToShowID] = shouldBeVisible;
     });
