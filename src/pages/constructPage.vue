@@ -153,7 +153,7 @@ function next() {
 
   if (
     questionData.value.data.fields.some(
-      (f) => !getAnswer(f.qu_id) || f.isVisible === false
+      (f) => f.isVisible == true && !getAnswer(f.qu_id)
     )
   ) {
     requiredOnSubmit.value = true;
