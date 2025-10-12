@@ -12,7 +12,7 @@
     <template v-for="field in questionData.data.fields" :key="field.qu_id">
       <template
         v-if="
-          field.qu_format === 'text' && fieldVisibility[field.qu_id] !== false
+          field.qu_format === 'text' && fieldVisibility[field.qu_id] != false
         "
       >
         <FormInput
@@ -26,7 +26,7 @@
         v-else-if="
           (field.qu_format === 'number' ||
             (field.qu_format as any) === 'delay') &&
-          fieldVisibility[field.qu_id] !== false
+          fieldVisibility[field.qu_id] != false
         "
       >
         <FormInput
@@ -40,7 +40,7 @@
         v-else-if="
           field.qu_format === 'select' &&
           field.qu_issues &&
-          fieldVisibility[field.qu_id] !== false
+          fieldVisibility[field.qu_id] != false
         "
       >
         <FormSelect
@@ -48,7 +48,7 @@
           :options="
             Object.entries(field.qu_issues).map(([key, label]) => ({
               label: label as string,
-              value: key,
+              value: String(Number(key) + 1),
             }))
           "
           other
@@ -60,7 +60,7 @@
         v-else-if="
           field.qu_format === 'radio' &&
           field.qu_issues &&
-          fieldVisibility[field.qu_id] !== false
+          fieldVisibility[field.qu_id] != false
         "
       >
         <FormRadio
@@ -68,7 +68,7 @@
           :options="
             Object.entries(field.qu_issues).map(([key, label]) => ({
               label: label as string,
-              value: key,
+              value: String(Number(key) + 1),
             }))
           "
           @input="updateAnswer(field.qu_id, $event)"
@@ -79,7 +79,7 @@
         v-else-if="
           field.qu_format === 'true_false' &&
           field.qu_issues &&
-          fieldVisibility[field.qu_id] !== false
+          fieldVisibility[field.qu_id] != false
         "
       >
         <FormTrueFalse
@@ -87,7 +87,7 @@
           :options="
             Object.entries(field.qu_issues).map(([key, label]) => ({
               label: label as string,
-              value: key,
+              value: String(Number(key) + 1),
             }))
           "
           @input="updateAnswer(field.qu_id, $event)"
@@ -189,7 +189,12 @@ function updateAnswer(id: number, value: string) {
 
   if (updatedDependencies && updatedDependencies.length > 0) {
     updatedDependencies.forEach((dep) => {
-      const shouldBeVisible = value !== dep.conditions.ifAnswer;
+      console.log(
+        dep.conditions.ifAnswer,
+        value,
+        value == dep.conditions.ifAnswer
+      );
+      const shouldBeVisible = value == dep.conditions.ifAnswer;
       fieldVisibility.value[dep.questionToShowID] = shouldBeVisible;
     });
   }
@@ -204,7 +209,7 @@ function next() {
 
   if (
     questionData.value.data.fields.some(
-      (f) => fieldVisibility.value[f.qu_id] !== false && !getAnswer(f.qu_id)
+      (f) => fieldVisibility.value[f.qu_id] != false && !getAnswer(f.qu_id)
     )
   ) {
     requiredOnSubmit.value = true;

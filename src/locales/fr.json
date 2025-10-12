@@ -1,5 +1,5 @@
 {
-  "home-presentation": "Ce questionnaire a pour objectif de cartographier et de présenter la précarité étudiante. Le but est double: d'une part d'informer chaque étudiant·e du niveau de précarité auquel iel est confronté et d'autre part de pouvoir quantifier cette précarité à une large échelle et de pouvoir en produire une cartographie précise.",
+  "home-presentation": "Ce questionnaire a pour objectif de cartographier et de présenter la précarité étudiante. Le but est double : d'une part d'informer chaque étudiant·e du niveau de précarité auquel iel est confronté et d'autre part de pouvoir quantifier cette précarité à une large échelle et de pouvoir en produire une cartographie précise.",
   "home-spoler": "Ce formulaire ne te prendra que 5 min et nous permettra de visibiliser la hess dans laquelle nous sommes.",
   "start-form": "Démarrer le questionnaire",
   "share-form": "Diffuser l'enquête",
@@ -16,6 +16,7 @@
   "form-registeration-city": "Ta ville",
   "form-registeration-crous": "Es-tu en crous ?",
   "select.other": "Autre",
+  "next-pages": "page suivante",
   "select.other-placeholder": "Une autre ville ?",
   "form-registeration-crous.on": "Oui",
   "form-registeration-crous.off": "Non",
@@ -27,7 +28,7 @@
   "joined-us": "Tu nous a rejoints 😍",
   "joined-us-presentation": "On te recontactera au plus vite !",
   "share-sms-link": "hello, j'ai fait un formulaire qui permet d'evaluer la precarité etudiante, j'ai obtenu {n}% de precarité 😱, fait le test et donne moi ton resultat 🤗",
-  "share-presentation": "ici tu peut partager le formulaire avec tout les eutidiant que tu connais 🤗",
+  "share-presentation": "ici tu peut partager le formulaire avec tout les eutidiant·es que tu connais 🤗",
   "share-title": "partage cette enquete",
   "share-sms": "partage par sms",
   "share-mail": "partage par mail",

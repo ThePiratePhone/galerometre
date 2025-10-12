@@ -4,11 +4,11 @@
     <p>{{ t("share-presentation") }}</p>
     <!-- %0D%0A is an break line sympbol -->
     <UiLink
-      :href="`sms:&body=${t('share-sms-link', { n: 83 })}%0D%0A${'https://precariscore.qamp.fr'}`"
+      :href="`sms:&body=${t('share-sms-link', { n: score })}%0D%0A${'https://precariscore.qamp.fr'}`"
       >{{ t("share-sms") }}</UiLink
     >
     <UiLink
-      :href="`mailto:?body=${t('share-sms-link', { n: 83 })}%0D%0A${'https://precariscore.qamp.fr'}`"
+      :href="`mailto:?body=${t('share-sms-link', { n: score })}%0D%0A${'https://precariscore.qamp.fr'}`"
       >{{ t("share-mail") }}</UiLink
     >
     <UiLink @click="copy">{{ t("share-copy-link") }}</UiLink>
@@ -17,7 +17,9 @@
 
 <script setup lang="ts">
 import UiLink from "@/components/ui/uiLink.vue";
+import reqestManager from "@/tools/reqestManager";
 import confetti from "canvas-confetti";
+import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
@@ -31,6 +33,10 @@ function copy() {
     dropRate: 5,
   });
 }
+
+const score = computed(() => {
+  return window.localStorage.getItem("score") ?? reqestManager.score();
+});
 </script>
 
 <style scoped lang="scss">
