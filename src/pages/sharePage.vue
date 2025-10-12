@@ -4,7 +4,7 @@
     <p>{{ t("share-presentation") }}</p>
     <!-- %0D%0A is an break line sympbol -->
     <UiLink
-      :href="`sms:&body=${t('share-sms-link', { n: (score.result / 5) * 100, p: scoreToPrecariscore(score.result) })}%0D%0A${'https://precariscore.qamp.fr'}`"
+      :href="`sms:&body=${t('share-sms-link', { n: (score / 5) * 100, p: scoreToPrecariscore(score) })}%0D%0A${'https://precariscore.qamp.fr'}`"
       >{{ t("share-sms") }}</UiLink
     >
     <UiLink
@@ -25,7 +25,9 @@ import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 
 function copy() {
-  navigator.clipboard.writeText("https://precariscore.qamp.fr");
+  navigator.clipboard.writeText(
+    `https://precariscore.qamp.fr/${reqestManager.id}`
+  );
   confetti({
     particleCount: 200,
     spread: 70,
@@ -46,6 +48,15 @@ function scoreToPrecariscore(score: number) {
   if (score < 5) return "E";
   return "-";
 }
+
+import { onMounted } from "vue";
+
+onMounted(() => {
+  const id = reqestManager.id;
+  if (id) {
+    window.history.replaceState({}, "", `/#/${id}`);
+  }
+});
 </script>
 
 <style scoped lang="scss">
