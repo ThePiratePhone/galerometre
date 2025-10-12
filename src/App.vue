@@ -5,9 +5,7 @@ import FooterBar from "./components/footerBar.vue";
 
 <template>
   <div class="app">
-    <Suspense>
-      <RouterView />
-    </Suspense>
+    <RouterView />
     <FooterBar />
   </div>
 </template>

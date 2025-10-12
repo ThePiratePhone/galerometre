@@ -238,6 +238,9 @@ class RequestManager {
       if (request.status == 403 && method != "PUT") {
         return this.sendResponse(answers, "PUT");
       } else if (request.status != 200) {
+        console.error(
+          `Error sending response for question ${questionId}: ${request.statusText}`
+        );
         return false;
       }
     }

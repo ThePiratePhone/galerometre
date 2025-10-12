@@ -12,12 +12,10 @@
     <template v-for="field in questionData.data.fields" :key="field.qu_id">
       <template
         v-if="
-          field.qu_format === 'text' &&
-          (field.isVisible != undefined ? field.isVisible : true)
+          field.qu_format === 'text' && fieldVisibility[field.qu_id] !== false
         "
       >
         <FormInput
-          :key="field.qu_id + '-' + getAnswer(field.qu_id)"
           :label="field.qu_text"
           type="text"
           @input="updateAnswer(field.qu_id, $event)"
@@ -28,11 +26,10 @@
         v-else-if="
           (field.qu_format === 'number' ||
             (field.qu_format as any) === 'delay') &&
-          (field.isVisible != undefined ? field.isVisible : true)
+          fieldVisibility[field.qu_id] !== false
         "
       >
         <FormInput
-          :key="field.qu_id + '-' + getAnswer(field.qu_id)"
           :label="field.qu_text"
           type="number"
           @input="updateAnswer(field.qu_id, $event)"
@@ -43,11 +40,10 @@
         v-else-if="
           field.qu_format === 'select' &&
           field.qu_issues &&
-          (field.isVisible != undefined ? field.isVisible : true)
+          fieldVisibility[field.qu_id] !== false
         "
       >
         <FormSelect
-          :key="field.qu_id + '-' + getAnswer(field.qu_id)"
           :label="field.qu_text"
           :options="
             Object.entries(field.qu_issues).map(([key, label]) => ({
@@ -64,11 +60,10 @@
         v-else-if="
           field.qu_format === 'radio' &&
           field.qu_issues &&
-          (field.isVisible != undefined ? field.isVisible : true)
+          fieldVisibility[field.qu_id] !== false
         "
       >
         <FormRadio
-          :key="field.qu_id + '-' + getAnswer(field.qu_id)"
           :label="field.qu_text"
           :options="
             Object.entries(field.qu_issues).map(([key, label]) => ({
@@ -84,11 +79,10 @@
         v-else-if="
           field.qu_format === 'true_false' &&
           field.qu_issues &&
-          (field.isVisible != undefined ? field.isVisible : true)
+          fieldVisibility[field.qu_id] !== false
         "
       >
         <FormTrueFalse
-          :key="field.qu_id + '-' + getAnswer(field.qu_id)"
           :label="field.qu_text"
           :options="
             Object.entries(field.qu_issues).map(([key, label]) => ({
@@ -135,6 +129,7 @@ const pageLine = [
 
 const requiredOnSubmit = ref(false);
 const response = ref<{ id: number | string; answer: string }[]>([]);
+const fieldVisibility = ref<Record<number, boolean>>({});
 
 const page = computed(() => route.params.page);
 const questionData = computed(() => {
@@ -143,6 +138,16 @@ const questionData = computed(() => {
     if (!result || !result.question) {
       return { data: undefined, localDependency: undefined };
     }
+
+    // Iinitialize visibility for all fields if not already set
+    if (result.question.fields) {
+      result.question.fields.forEach((field) => {
+        if (!(field.qu_id in fieldVisibility.value)) {
+          fieldVisibility.value[field.qu_id] = field.isVisible ?? true;
+        }
+      });
+    }
+
     return { data: result.question, localDependency: result.localDependency };
   } catch (error) {
     console.error("Error loading questions:", error);
@@ -151,34 +156,27 @@ const questionData = computed(() => {
 });
 
 function updateAnswer(id: number, value: string) {
-  response.value.push({ id, answer: value });
-
-  const updatedDependencies = questionData.value.localDependency?.filter(
-    (dep) => Number(dep.conditions.ifQuestion) == id
-  );
-  console.log(updatedDependencies);
-  if (updatedDependencies && updatedDependencies.length > 0) {
-    updatedDependencies.forEach((dep) => {
-      console.log(
-        questionData.value.data?.fields.some((question) => {
-          if (question.qu_id === dep.questionToShowID) {
-            question.isVisible = value !== dep.conditions.ifAnswer;
-            return true;
-          }
-          return false;
-        })
-      );
-      questionData.value.data?.fields.some((question) => {
-        if (question.qu_id === dep.questionToShowID) {
-          question.isVisible = value !== dep.conditions.ifAnswer;
-          return true;
-        }
-        return false;
-      });
-    });
+  // update or add the answer
+  const existingIndex = response.value.findIndex((res) => res.id === id);
+  if (existingIndex !== -1) {
+    response.value[existingIndex].answer = value;
+  } else {
+    response.value.push({ id, answer: value });
   }
 
   saveResponse(id, value);
+
+  // manage dependencies
+  const updatedDependencies = questionData.value.localDependency?.filter(
+    (dep) => Number(dep.conditions.ifQuestion) == id
+  );
+
+  if (updatedDependencies && updatedDependencies.length > 0) {
+    updatedDependencies.forEach((dep) => {
+      const shouldBeVisible = value !== dep.conditions.ifAnswer;
+      fieldVisibility.value[dep.questionToShowID] = shouldBeVisible;
+    });
+  }
 }
 
 function getAnswer(id: number) {
@@ -190,7 +188,7 @@ function next() {
 
   if (
     questionData.value.data.fields.some(
-      (f) => f.isVisible == true && !getAnswer(f.qu_id)
+      (f) => fieldVisibility.value[f.qu_id] !== false && !getAnswer(f.qu_id)
     )
   ) {
     requiredOnSubmit.value = true;
