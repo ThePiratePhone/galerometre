@@ -107,7 +107,8 @@ import FormTrueFalse from "@/components/formElement/FormTrueFalse.vue";
 import UiLink from "@/components/ui/uiLink.vue";
 import { saveResponse } from "@/tools/jsTools";
 import reqestManager from "@/tools/reqestManager";
-import { computed, onMounted, ref } from "vue";
+import type { pageType } from "@/types/request";
+import { computed, onMounted, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute, useRouter } from "vue-router";
 
@@ -132,11 +133,23 @@ const response = ref<{ id: number | string; answer: string }[]>([]);
 const fieldVisibility = ref<Record<number, boolean>>({});
 
 const page = computed(() => route.params.page);
-const questionData = computed(() => {
+
+type LocalDependency = {
+  questionToShowID: number;
+  conditions: { ifAnswer: string; ifQuestion: number };
+};
+
+const questionData = ref<{
+  data: pageType;
+  localDependency: LocalDependency[] | undefined;
+}>({ data: undefined, localDependency: undefined });
+
+function loadQuestionData() {
   try {
     const result = reqestManager.questions(locale.value, Number(page.value));
     if (!result || !result.question) {
-      return { data: undefined, localDependency: undefined };
+      questionData.value = { data: undefined, localDependency: undefined };
+      return;
     }
 
     // Iinitialize visibility for all fields if not already set
@@ -148,12 +161,15 @@ const questionData = computed(() => {
       });
     }
 
-    return { data: result.question, localDependency: result.localDependency };
+    questionData.value = {
+      data: result.question,
+      localDependency: result.localDependency,
+    };
   } catch (error) {
     console.error("Error loading questions:", error);
-    return { data: undefined, localDependency: undefined };
+    questionData.value = { data: undefined, localDependency: undefined };
   }
-});
+}
 
 function updateAnswer(id: number, value: string) {
   // update or add the answer
@@ -196,14 +212,14 @@ function next() {
   }
 
   try {
-    const response = reqestManager.sendResponse(
+    const sendResult = reqestManager.sendResponse(
       questionData.value.data.fields.map((f) => ({
         id: f.qu_id,
         answer: getAnswer(f.qu_id) ?? "",
       })) ?? []
     );
 
-    if (!response) {
+    if (!sendResult) {
       alert("Error while sending the response");
       return;
     }
@@ -223,7 +239,15 @@ function next() {
 
 onMounted(() => {
   requiredOnSubmit.value = false;
+  loadQuestionData();
 });
+
+watch(
+  () => [page.value, locale.value],
+  () => {
+    loadQuestionData();
+  }
+);
 </script>
 
 <style lang="css" scoped>

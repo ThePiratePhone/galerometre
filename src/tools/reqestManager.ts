@@ -221,6 +221,11 @@ class RequestManager {
     answers: Array<{ id: number | string; answer: string | undefined }>,
     method: string = "POST"
   ): boolean {
+    const remainingAnswers: Array<{
+      id: number | string;
+      answer: string | undefined;
+    }> = [];
+
     for (const { id: questionId, answer } of answers) {
       if (!answer) continue;
 
@@ -236,7 +241,8 @@ class RequestManager {
       );
 
       if (request.status == 403 && method != "PUT") {
-        return this.sendResponse(answers, "PUT");
+        // Add this answer and all remaining ones to retry with PUT
+        remainingAnswers.push({ id: questionId, answer });
       } else if (request.status != 200) {
         console.error(
           `Error sending response for question ${questionId}: ${request.statusText}`
@@ -244,6 +250,12 @@ class RequestManager {
         return false;
       }
     }
+
+    // If we had 403 errors, retry only those answers with PUT
+    if (remainingAnswers.length > 0 && method === "POST") {
+      return this.sendResponse(remainingAnswers, "PUT");
+    }
+
     return true;
   }
 
