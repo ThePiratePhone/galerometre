@@ -245,6 +245,7 @@ onMounted(() => {
 watch(
   () => [page.value, locale.value],
   () => {
+    requiredOnSubmit.value = false;
     loadQuestionData();
   }
 );
