@@ -240,7 +240,7 @@ class RequestManager {
         })
       );
 
-      if (request.status == 403 && method != "PUT") {
+      if (request.status == 400 && method != "PUT") {
         // Add this answer and all remaining ones to retry with PUT
         remainingAnswers.push({ id: questionId, answer });
       } else if (request.status != 200) {

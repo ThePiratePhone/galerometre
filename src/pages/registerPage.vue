@@ -35,6 +35,22 @@
         :options="[
           { label: 'grenoble', value: 'grenoble' },
           { label: 'paris', value: 'paris' },
+          { label: 'valence', value: 'valence' },
+          { label: 'valenciennes', value: 'valenciennes' },
+          { label: 'Compiègne', value: 'Compiègne' },
+          { label: 'Besançon', value: 'Besançon' },
+          { label: 'Picardie', value: 'Picardie' },
+          { label: 'Limoges', value: 'Limoges' },
+          { label: 'Littoral', value: 'Littoral' },
+          { label: 'PARIS 13', value: 'P13' },
+          { label: 'PARIS 8', value: 'P8' },
+          { label: 'Artois', value: 'Artois' },
+          { label: 'Lille', value: 'Lille' },
+          { label: 'la Réunion', value: 'Réunion' },
+          { label: 'Saint-Etienne', value: 'Saint-Etienne' },
+          { label: 'La Rochelle', value: 'Rochelle' },
+          { label: 'lyon', value: 'lyon' },
+          { label: 'Chambéry', value: 'Chambéry' },
         ]"
         other
         @input="(value) => (location = value)"
