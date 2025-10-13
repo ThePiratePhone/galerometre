@@ -1,5 +1,5 @@
 {
-  "home-presentation": "Ce questionnaire a pour objectif de cartographier et de présenter la précarité étudiante. Le but est double : d'une part d'informer chaque étudiant·e du niveau de précarité auquel iel est confronté et d'autre part de pouvoir quantifier cette précarité à une large échelle et de pouvoir en produire une cartographie précise.",
+  "home-presentation": "Ce questionnaire a pour objectif de cartographier et de présenter la précarité étudiante. Le but est double : d'une part d'informer chaque étudiant·e du niveau de précarité auquel iel est confronté·e et d'autre part de pouvoir quantifier cette précarité à une large échelle et de pouvoir en produire une cartographie précise.",
   "home-spoler": "Ce formulaire ne te prendra que 5 min et nous permettra de visibiliser la hess dans laquelle nous sommes.",
   "start-form": "Démarrer le questionnaire",
   "share-form": "Diffuser l'enquête",
@@ -9,8 +9,8 @@
   "thank-presentation": "Nous défendons les étudiant·e·s au quotidien, mais pour cela plus nous avons de chiffres plus on pourra visibiliser la hess des étudiants. Ce formulaire nous est très précieux 🤗",
   "help-us": "Aide-nous !",
   "help-us-presentation": "De façon a pouvoir faire une étude la plus représentative il nous faut un maximum de données. Pour nous aider, partage ce formulaire !",
-  "register-title": "Quelques infos pour finir",
-  "register-subtitle": "Avant de finir il nous faut quelques info pour prouver que tu es bien un vrai humain 🤖",
+  "register-title": "Quelques infos pour commencer",
+  "register-subtitle": "Avant de commencer il nous faut quelques info pour prouver que tu es bien un vrai humain 🤖",
   "form-registeration-name": "Ton nom",
   "form-registeration-firstname": "Ton prénom",
   "form-registeration-city": "Ta ville",
@@ -26,11 +26,5 @@
   "join-us-presentation": "Pour nous aider sur nos actions de défense des droits étudiants nous avons besoin d'aide ! Pour cela tu peux te faire recontacter en cliquant sur le bouton ci-dessous.",
   "join-us-button": "Défends les étudiant·e·s 🫵",
   "joined-us": "Tu nous a rejoints 😍",
-  "joined-us-presentation": "On te recontactera au plus vite !",
-  "share-sms-link": "hello, j'ai fait un formulaire qui permet d'evaluer la precarité etudiante, j'ai obtenu {n}% de precarité pour un precariscore {p} 😱, fait le test et donne moi ton resultat 🤗",
-  "share-presentation": "ici tu peut partager le formulaire avec tout les eutidiant·es que tu connais 🤗",
-  "share-sms": "partage par sms",
-  "share-mail": "partage par mail",
-  "share-copy-link": "partage par lien",
-  "aprobation": "oui"
+  "joined-us-presentation": "On te recontactera au plus vite !"
 }
