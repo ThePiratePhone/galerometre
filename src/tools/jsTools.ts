@@ -30,4 +30,14 @@ function getLocalResponse(id: number | string) {
   const entry = lastRes.find((res: { id: number | string }) => res.id === id);
   return entry ? entry.answer : null;
 }
-export { uid, saveResponse, getLocalResponse };
+
+function scoreToPrecariscore(score: number) {
+  if (score < 1) return "A";
+  if (score < 2) return "B";
+  if (score < 3) return "C";
+  if (score < 4) return "D";
+  if (score < 5) return "E";
+  return "-";
+}
+
+export { uid, saveResponse, getLocalResponse, scoreToPrecariscore };

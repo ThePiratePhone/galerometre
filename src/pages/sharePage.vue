@@ -4,7 +4,7 @@
     <p>{{ t("share-presentation") }}</p>
     <!-- %0D%0A is an break line sympbol -->
     <UiLink
-      :href="`sms:&body=${t('share-sms-link', { n: (score / 5) * 100, p: scoreToPrecariscore(score) })}%0D%0A${'https://precariscore.qamp.fr'}`"
+      :href="`sms:&body=${t('share-sms-link', { n: Number(((score.result / 5) * 100).toFixed(1)), p: scoreToPrecariscore(score) })}%0D%0A${'https://precariscore.qamp.fr'}`"
       >{{ t("share-sms") }}</UiLink
     >
     <UiLink
@@ -40,16 +40,8 @@ const score = computed(() => {
   return window.localStorage.getItem("score") ?? reqestManager.score().result;
 });
 
-function scoreToPrecariscore(score: number) {
-  if (score < 1) return "A";
-  if (score < 2) return "B";
-  if (score < 3) return "C";
-  if (score < 4) return "D";
-  if (score < 5) return "E";
-  return "-";
-}
-
 import { onMounted } from "vue";
+import { scoreToPrecariscore } from "@/tools/jsTools";
 
 onMounted(() => {
   const id = reqestManager.id;

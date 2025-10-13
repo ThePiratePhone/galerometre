@@ -26,6 +26,10 @@ export const router = createRouter({
   history: createWebHashHistory(),
   strict: false,
   routes,
+  scrollBehavior() {
+    // always scroll to top
+    return { top: 0 };
+  },
 });
 
 const app = createApp(App);

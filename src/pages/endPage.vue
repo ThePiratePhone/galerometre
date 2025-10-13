@@ -1,7 +1,11 @@
 <template>
   <div class="page">
     <h1>{{ t("end-thank") }}</h1>
-    <UiWaitLoader :percentage="(score.result / 5) * 100" />
+    <UiWaitLoader :percentage="Number(((score.result / 5) * 100).toFixed(1))" />
+    <img
+      :src="`../../src/assets/Precarisocre-${scoreToPrecariscore(score.result)}.jpeg`"
+      :alt="`logo precarisscore score ${scoreToPrecariscore(score.result)}`"
+    />
     <p>{{ t("thank-presentation") }}</p>
     <UiLink to="/share">{{ t("share-result") }}</UiLink>
   </div>
@@ -20,13 +24,15 @@
 <script setup lang="ts">
 import UiLink from "@/components/ui/uiLink.vue";
 import UiWaitLoader from "@/components/ui/uiWaitLoader.vue";
+import { scoreToPrecariscore } from "@/tools/jsTools";
 import reqestManager from "@/tools/reqestManager";
+import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 
-const score = reqestManager.score();
-window.localStorage.setItem("score", score.result);
+const score = computed(() => reqestManager.score());
+window.localStorage.setItem("score", score.value.result);
 </script>
 
 <style scoped lang="scss">

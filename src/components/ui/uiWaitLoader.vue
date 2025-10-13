@@ -7,7 +7,10 @@
         cx="18"
         cy="18"
         r="14"
-        :style="{ strokeDashoffset: strokeDashoffset }"
+        :style="{
+          strokeDashoffset: strokeDashoffset,
+          stroke: color,
+        }"
       ></circle>
       <text x="18" y="20">{{ percentage }}%</text>
     </svg>
@@ -25,6 +28,15 @@ const strokeDasharray = 2 * Math.PI * 14;
 
 const strokeDashoffset = computed(() => {
   return strokeDasharray * (1 - showValue.value / 100);
+});
+
+const color = computed(() => {
+  if ((percentage / 100) * 5 < 1) return "#02bf63";
+  if ((percentage / 100) * 5 < 2) return "#7ed956";
+  if ((percentage / 100) * 5 < 3) return "#ffde59";
+  if ((percentage / 100) * 5 < 4) return "#ff741f";
+  if ((percentage / 100) * 5 < 5) return "#ff3131";
+  return "#ff3131";
 });
 
 const showValue = ref(0);
@@ -58,7 +70,6 @@ onMounted(() => {
   }
   circle.progress {
     fill: none;
-    stroke: #9198e5;
     stroke-width: 5;
     stroke-dasharray: 88 88;
     stroke-linecap: round;
