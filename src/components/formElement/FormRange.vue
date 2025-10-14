@@ -1,6 +1,7 @@
 <template>
   <span class="input-group spoler" :class="errored ? 'errored' : ''">
     <label :for="inputId">{{ label }}</label>
+    <UiInfo v-if="help" :message="help" />
     <div class="value">{{ value }}</div>
     <input
       :id="inputId"
@@ -17,6 +18,7 @@
 
 <script setup lang="ts">
 import { ref, useId } from "vue";
+import UiInfo from "../ui/uiInfo.vue";
 
 const inputId = useId();
 
@@ -24,6 +26,7 @@ const { label, value: limit } = defineProps<{
   label: string;
   value: [number, number];
   errored: boolean;
+  help?: string;
 }>();
 
 const value = ref(limit[0]);

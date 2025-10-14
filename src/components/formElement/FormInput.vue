@@ -1,6 +1,7 @@
 <template>
   <span class="input-group" :class="errored ? 'errored' : ''">
     <label :for="inputId">{{ label }}</label>
+    <UiInfo v-if="help" :message="help" />
     <input :id="inputId" :type :placeholder v-model="internalValue" />
   </span>
 </template>
@@ -8,13 +9,15 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { useId } from "vue";
+import UiInfo from "../ui/uiInfo.vue";
 
 const inputId = useId();
 
 const { label, value, placeholder } = defineProps<{
   label: string;
-  value?: string;
   type: string;
+  value?: string;
+  help?: string;
   placeholder?: string;
   errored?: boolean;
 }>();

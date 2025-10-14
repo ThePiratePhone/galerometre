@@ -20,6 +20,7 @@
           type="text"
           @input="updateAnswer(field.qu_id, $event)"
           :errored="requiredOnSubmit && !getAnswer(field.qu_id)"
+          :help="field.help"
         />
       </template>
       <template
@@ -34,6 +35,7 @@
           type="number"
           @input="updateAnswer(field.qu_id, $event)"
           :errored="requiredOnSubmit && getAnswer(field.qu_id) == undefined"
+          :help="field.help"
         />
       </template>
       <template
@@ -54,6 +56,7 @@
           other
           @input="updateAnswer(field.qu_id, $event)"
           :errored="requiredOnSubmit && !getAnswer(field.qu_id)"
+          :help="field.help"
         />
       </template>
       <template
@@ -73,6 +76,7 @@
           "
           @input="updateAnswer(field.qu_id, $event)"
           :errored="requiredOnSubmit && !getAnswer(field.qu_id)"
+          :help="field.help"
         />
       </template>
       <template
@@ -92,6 +96,7 @@
           "
           @input="updateAnswer(field.qu_id, $event)"
           :errored="requiredOnSubmit && !getAnswer(field.qu_id)"
+          :help="field.help"
         />
       </template>
     </template>
@@ -189,7 +194,7 @@ function updateAnswer(id: number, value: string) {
 
   if (updatedDependencies && updatedDependencies.length > 0) {
     updatedDependencies.forEach((dep) => {
-      const shouldBeVisible = value == dep.conditions.ifAnswer;
+      const shouldBeVisible = value === dep.conditions.ifAnswer;
       fieldVisibility.value[dep.questionToShowID] = shouldBeVisible;
     });
   }
@@ -203,9 +208,11 @@ function next() {
   if (!questionData.value.data) return;
 
   if (
-    questionData.value.data.fields.some(
-      (f) => fieldVisibility.value[f.qu_id] != false && !getAnswer(f.qu_id)
-    )
+    questionData.value.data.fields.some((f) => {
+      const answer = getAnswer(f.qu_id);
+      const isEmpty = answer === undefined || answer === null || answer === "";
+      return fieldVisibility.value[f.qu_id] != false && isEmpty;
+    })
   ) {
     requiredOnSubmit.value = true;
     return;

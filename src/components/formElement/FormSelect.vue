@@ -1,6 +1,7 @@
 <template>
   <div class="input-group" :class="errored && !selectedValue ? 'errored' : ''">
     <label :for="uid">{{ label }}</label>
+    <UiInfo v-if="help" :message="help" />
     <select
       :id="uid"
       @change="
@@ -37,6 +38,7 @@
 import { computed, ref, useId } from "vue";
 import { useI18n } from "vue-i18n";
 import FormInput from "./FormInput.vue";
+import UiInfo from "../ui/uiInfo.vue";
 
 const { label, other, options } = defineProps<{
   label: string;
@@ -46,6 +48,7 @@ const { label, other, options } = defineProps<{
   }[];
   other?: boolean;
   errored?: boolean;
+  help?: string;
 }>();
 
 const emit = defineEmits<{

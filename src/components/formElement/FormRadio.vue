@@ -1,6 +1,7 @@
 <template>
   <span class="input-group spoler" :class="errored ? 'errored' : ''">
     <label :for="inputId">{{ label }}</label>
+    <UiInfo v-if="help" :message="help" />
     <div class="button-warper">
       <button
         :id="inputId"
@@ -28,6 +29,7 @@
 <script setup lang="ts">
 import useColor from "@/tools/color";
 import { ref, useId } from "vue";
+import UiInfo from "../ui/uiInfo.vue";
 
 const inputId = useId();
 
@@ -39,6 +41,7 @@ const { label } = defineProps<{
     color?: "blue" | "green" | "purple" | "red";
   }[];
   errored: boolean;
+  help?: string;
 }>();
 
 const emit = defineEmits<{
