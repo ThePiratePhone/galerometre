@@ -22,35 +22,39 @@
         :label="t('form-registeration-phone')"
         placeholder="0712345678"
         @input="(value) => (tel = value)"
+        :errored="
+          requiredOnSubmit && !phoneNumberCheck(clearPhone(tel)) && tel != '-'
+        "
       ></FormInput>
       <FormInput
         type="mail"
         :label="t('form-registeration-mail')"
         :placeholder="`${name ? name : 'pierre'}.${firstName ? firstName : 'martin'}@mail.com`"
         @input="(value) => (email = value)"
+        :errored="requiredOnSubmit && email === ''"
       ></FormInput>
       <div />
       <FormSelect
         :label="t('form-registeration-city')"
         :options="[
-          { label: 'grenoble', value: 'grenoble' },
-          { label: 'paris', value: 'paris' },
-          { label: 'valence', value: 'valence' },
-          { label: 'valenciennes', value: 'valenciennes' },
-          { label: 'Compiègne', value: 'Compiègne' },
+          { label: 'Artois', value: 'Artois' },
           { label: 'Besançon', value: 'Besançon' },
-          { label: 'Picardie', value: 'Picardie' },
+          { label: 'Chambéry', value: 'Chambéry' },
+          { label: 'Compiègne', value: 'Compiègne' },
+          { label: 'grenoble', value: 'grenoble' },
+          { label: 'la Réunion', value: 'Réunion' },
+          { label: 'La Rochelle', value: 'Rochelle' },
+          { label: 'Lille', value: 'Lille' },
           { label: 'Limoges', value: 'Limoges' },
           { label: 'Littoral', value: 'Littoral' },
+          { label: 'lyon', value: 'lyon' },
           { label: 'PARIS 13', value: 'P13' },
           { label: 'PARIS 8', value: 'P8' },
-          { label: 'Artois', value: 'Artois' },
-          { label: 'Lille', value: 'Lille' },
-          { label: 'la Réunion', value: 'Réunion' },
+          { label: 'paris', value: 'paris' },
+          { label: 'Picardie', value: 'Picardie' },
           { label: 'Saint-Etienne', value: 'Saint-Etienne' },
-          { label: 'La Rochelle', value: 'Rochelle' },
-          { label: 'lyon', value: 'lyon' },
-          { label: 'Chambéry', value: 'Chambéry' },
+          { label: 'valence', value: 'valence' },
+          { label: 'valenciennes', value: 'valenciennes' },
         ]"
         other
         @input="(value) => (location = value)"
@@ -65,7 +69,7 @@
 import FormInput from "@/components/formElement/FormInput.vue";
 import FormSelect from "@/components/formElement/FormSelect.vue";
 import UiLink from "@/components/ui/uiLink.vue";
-import { saveResponse } from "@/tools/jsTools";
+import { clearPhone, phoneNumberCheck, saveResponse } from "@/tools/jsTools";
 import reqestManager from "@/tools/reqestManager";
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
@@ -82,7 +86,15 @@ const email = ref("");
 const requiredOnSubmit = ref(false);
 
 function next() {
-  if (name.value === "" || firstName.value === "" || location.value === "") {
+  requiredOnSubmit.value = false; // Réinitialiser l'état des erreurs avant validation
+
+  if (
+    location.value === "" ||
+    email.value === "" ||
+    (!phoneNumberCheck(clearPhone(tel.value)) && tel.value != "-") ||
+    firstName.value === "" ||
+    name.value === ""
+  ) {
     requiredOnSubmit.value = true;
     return;
   }
@@ -94,7 +106,7 @@ function next() {
   reqestManager.updateAccount(
     location.value,
     email.value,
-    tel.value,
+    clearPhone(tel.value),
     firstName.value,
     name.value
   );

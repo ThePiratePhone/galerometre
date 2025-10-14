@@ -8,6 +8,8 @@
   "form-registeration-firstname": "Ton prénom",
   "form-registeration-level": "Quel est ton niveau d'études ?",
   "form-registeration-name": "Ton nom",
+  "form-registeration-mail": "Email",
+  "form-registeration-phone": "Téléphone",
   "help-us": "Aide-nous !",
   "help-us-presentation": "De façon a pouvoir faire une étude la plus représentative il nous faut un maximum de données. Pour nous aider, partage ce formulaire !",
   "home-presentation": "Ce questionnaire a pour objectif de cartographier et de présenter la précarité étudiante. Le but est double : d'une part d'informer chaque étudiant·e du niveau de précarité auquel iel est confronté·e et d'autre part de pouvoir quantifier cette précarité à une large échelle et de pouvoir en produire une cartographie précise.",
@@ -32,5 +34,6 @@
   "share-sms": "partage par sms",
   "share-sms-link": "hello, j'ai fait un formulaire qui permet d'evaluer la precarité etudiante, j'ai obtenu {n}% de precarité pour un precariscore {p} 😱, fait le test et donne moi ton resultat 🤗",
   "start-form": "Démarrer le questionnaire",
-  "thank-presentation": "Nous défendons les étudiant·e·s au quotidien, mais pour cela plus nous avons de chiffres plus on pourra visibiliser la hess des étudiants. Ce formulaire nous est très précieux 🤗"
+  "thank-presentation": "Nous défendons les étudiant·e·s au quotidien, mais pour cela plus nous avons de chiffres plus on pourra visibiliser la hess des étudiants. Ce formulaire nous est très précieux 🤗",
+  "phone-error": "ce numero de telephone semble invalide. si cette erreur et recurente entre '-'"
 }
