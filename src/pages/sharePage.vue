@@ -4,11 +4,11 @@
     <p>{{ t("share-presentation") }}</p>
     <!-- %0D%0A is an break line sympbol -->
     <UiLink
-      :href="`sms:&body=${t('share-sms-link', { n: Number(((score.result / 5) * 100).toFixed(1)), p: scoreToPrecariscore(score) })}%0D%0A${'https://precariscore.qamp.fr'}`"
+      :href="`sms:&body=${t('share-sms-link', { n: Number(((score.result / 5) * 100).toFixed(1)), p: scoreToPrecariscore(score) })}%0D%0A${`https://precariscore.qamp.fr/#/${reqestManager.id}`}`"
       >{{ t("share-sms") }}</UiLink
     >
     <UiLink
-      :href="`mailto:?body=${t('share-sms-link', { n: score })}%0D%0A${'https://precariscore.qamp.fr'}`"
+      :href="`mailto:?body=${t('share-sms-link', { n: score })}%0D%0A${`https://precariscore.qamp.fr/#/${reqestManager.id}`}`"
       >{{ t("share-mail") }}</UiLink
     >
     <UiLink @click="copy">{{ t("share-copy-link") }}</UiLink>
@@ -26,7 +26,7 @@ const { t } = useI18n();
 
 function copy() {
   navigator.clipboard.writeText(
-    `https://precariscore.qamp.fr/${reqestManager.id}`
+    `https://precariscore.qamp.fr/#/${reqestManager.id}`
   );
   confetti({
     particleCount: 200,
