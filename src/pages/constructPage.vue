@@ -33,7 +33,7 @@
           :label="field.qu_text"
           type="number"
           @input="updateAnswer(field.qu_id, $event)"
-          :errored="requiredOnSubmit && !getAnswer(field.qu_id)"
+          :errored="requiredOnSubmit && getAnswer(field.qu_id) == undefined"
         />
       </template>
       <template

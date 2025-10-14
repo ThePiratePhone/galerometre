@@ -23,7 +23,7 @@ const emit = defineEmits<{
   (e: "input", value: string): void;
 }>();
 
-const internalValue = ref(value || "");
+const internalValue = ref(value == undefined ? "" : value);
 
 watch(internalValue, (newValue) => {
   emit("input", newValue);
