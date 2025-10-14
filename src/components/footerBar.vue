@@ -11,7 +11,7 @@
       <span className="FooterElement">
         Un projet de
         <a target="_blank" href="https://linktr.ee/coordination.etudiante">
-          la coordination étudiante
+          La Coordination étudiante
         </a>
       </span>
       <br />
@@ -19,7 +19,7 @@
       <br />
 
       <a target="_blank" href="https://github.com/ThePiratePhone/galerometre/">
-        mettez-nous une étoile sur GitHub
+        Mettez-nous une étoile sur GitHub
       </a>
     </span>
   </div>

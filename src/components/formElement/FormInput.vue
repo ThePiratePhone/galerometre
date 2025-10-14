@@ -1,16 +1,12 @@
 <template>
   <span class="input-group" :class="errored ? 'errored' : ''">
     <label :for="inputId">{{ label }}</label>
-    <input
-      :id="inputId"
-      :type
-      :placeholder
-      :value
-      @input="(e) => emit('input', (e.target as HTMLInputElement).value)"
-    />
+    <input :id="inputId" :type :placeholder v-model="internalValue" />
   </span>
 </template>
+
 <script setup lang="ts">
+import { ref, watch } from "vue";
 import { useId } from "vue";
 
 const inputId = useId();
@@ -26,6 +22,12 @@ const { label, value, placeholder } = defineProps<{
 const emit = defineEmits<{
   (e: "input", value: string): void;
 }>();
+
+const internalValue = ref(value || "");
+
+watch(internalValue, (newValue) => {
+  emit("input", newValue);
+});
 </script>
 
 <style lang="scss" scoped>
