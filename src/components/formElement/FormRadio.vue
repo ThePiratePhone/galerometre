@@ -86,7 +86,7 @@ function selectOption(value: string) {
   }
 
   &.errored {
-    border: 1px solid red;
+    border: 1px solid var(--red-dark);
   }
 }
 </style>

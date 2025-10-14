@@ -51,7 +51,7 @@ const emit = defineEmits<{
   }
 
   &.errored {
-    border: 1px solid red;
+    border: 1px solid var(--red-dark);
   }
 }
 </style>

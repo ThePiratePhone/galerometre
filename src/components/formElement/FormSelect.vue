@@ -113,7 +113,7 @@ const computedOptions = computed(() => {
 
 .errored {
   select {
-    border: 1px solid red;
+    border: 1px solid var(--red-dark);
   }
 }
 </style>

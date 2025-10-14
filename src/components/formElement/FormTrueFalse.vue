@@ -8,19 +8,16 @@
         :key="option.label"
         @click="selectOption(option.value)"
         :class="{ selected: selectedOption === option.value }"
-        :style="
-          selectedOption === option.value
-            ? {
-                backgroundColor: useColor(
-                  (option.color ??
-                    option.label.toLowerCase().includes(t('aprobation')))
-                    ? 'green'
-                    : 'red',
-                  'dark'
-                ),
-              }
-            : {}
-        "
+        :style="{
+          backgroundColor: useColor(
+            (option.color ??
+              option.label.toLowerCase().includes(t('aprobation')))
+              ? 'green'
+              : 'red',
+            selectedOption === option.value ? 'dark' : 'light'
+          ),
+          color: selectedOption === option.value ? 'white' : 'black',
+        }"
       >
         {{ option.label }}
       </button>
@@ -90,7 +87,7 @@ function selectOption(value: string) {
   }
 
   &.errored {
-    border: 1px solid red;
+    border: 1px solid var(--red-dark);
   }
 }
 </style>

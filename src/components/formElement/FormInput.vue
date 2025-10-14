@@ -47,7 +47,7 @@ watch(internalValue, (newValue) => {
 
 .errored {
   input {
-    border: 1px solid red;
+    border: 1px solid #df345e;
   }
 }
 </style>
