@@ -236,7 +236,7 @@ class RequestManager {
         JSON.stringify({
           resp_id: this.id,
           qu_id: questionId,
-          ans: answer,
+          ans: answer ? String(answer) : answer,
         })
       );
 
