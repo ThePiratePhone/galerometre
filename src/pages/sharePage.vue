@@ -12,6 +12,11 @@
       >{{ t("share-mail") }}</UiLink
     >
     <UiLink @click="copy">{{ t("share-copy-link") }}</UiLink>
+
+    <img
+      :src="qrcode"
+      :alt="`https://precariscore.qamp.fr/#/${reqestManager.id}`"
+    />
   </div>
 </template>
 
@@ -21,9 +26,12 @@ import reqestManager from "@/tools/reqestManager";
 import confetti from "canvas-confetti";
 import { computed } from "vue";
 import { useI18n } from "vue-i18n";
+import { onMounted } from "vue";
+import { scoreToPrecariscore } from "@/tools/jsTools";
+import { useQRCode } from "@vueuse/integrations/useQRCode.mjs";
 
 const { t } = useI18n();
-
+const qrcode = useQRCode(`https://precariscore.qamp.fr/#/${reqestManager.id}`);
 function copy() {
   navigator.clipboard.writeText(
     `https://precariscore.qamp.fr/#/${reqestManager.id}`
@@ -39,9 +47,6 @@ function copy() {
 const score = computed(() => {
   return window.localStorage.getItem("score") ?? reqestManager.score().result;
 });
-
-import { onMounted } from "vue";
-import { scoreToPrecariscore } from "@/tools/jsTools";
 
 onMounted(() => {
   const id = reqestManager.id;

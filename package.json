@@ -17,7 +17,9 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@vueuse/integrations": "^13.9.0",
     "canvas-confetti": "^1.9.3",
+    "qrcode": "^1.5.4",
     "vue": "^3.5.18",
     "vue-confetti": "^2.3.0",
     "vue-router": "^4.5.1",
