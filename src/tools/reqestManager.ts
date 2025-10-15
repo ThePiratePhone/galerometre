@@ -29,7 +29,6 @@ class RequestManager {
 
     this.link =
       import.meta.env.VITE_API_URL ?? "https://api.precariscore.qamp.fr";
-    this.createAccont();
   }
 
   async createAccont(
@@ -43,6 +42,13 @@ class RequestManager {
     activist?: boolean
   ) {
     window.localStorage.setItem("id", this.id);
+
+    const existingId = window.localStorage.getItem("account_created");
+    if (existingId === this.id) {
+      await this.dependency();
+      return true;
+    }
+
     const response = await fetch(this.link + "/rest/respondent", {
       method: "POST",
       headers: {
@@ -61,8 +67,14 @@ class RequestManager {
       }),
     });
 
-    this.dependency();
-    return response.status == 200;
+    if (response.status === 200) {
+      window.localStorage.setItem("account_created", this.id);
+      await this.dependency();
+      return true;
+    }
+
+    await this.dependency();
+    return false;
   }
 
   updateAccount(

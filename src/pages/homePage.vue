@@ -30,10 +30,13 @@ const { t } = useI18n();
 const route = useRoute();
 
 const affiliation = computed(() => route.params.id);
-onMounted(() => {
-  reqestManager.createAccont(
-    Array.isArray(affiliation.value) ? affiliation.value[0] : affiliation.value
-  );
+
+onMounted(async () => {
+  const affiliationValue = Array.isArray(affiliation.value)
+    ? affiliation.value[0]
+    : affiliation.value;
+
+  await reqestManager.createAccont(affiliationValue);
 });
 </script>
 
