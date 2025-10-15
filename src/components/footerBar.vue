@@ -1,11 +1,7 @@
 <template>
   <div className="Footer">
     <span>
-      <img
-        src="../../src/assets/logoWhite.png"
-        alt="Logo du Galéromètre"
-        width="100"
-      />
+      <img src="@/assets/logoWhite.png" alt="Logo du Galéromètre" width="100" />
     </span>
     <span>
       <span className="FooterElement">

@@ -1,11 +1,7 @@
 <template>
   <div class="page">
     <div class="logo-wraper">
-      <img
-        src="../../src/assets/logoWhite.png"
-        alt="Logo du Galéromètre"
-        width="300"
-      />
+      <img src="@/assets/logoWhite.png" alt="Logo du Galéromètre" width="300" />
       <p>
         {{ t("home-presentation") }}
       </p>

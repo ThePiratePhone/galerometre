@@ -1,10 +1,6 @@
 <template>
   <div class="uiInfo">
-    <img
-      src="../../assets/question-mark.svg"
-      alt="interogation"
-      height="15px"
-    />
+    <img src="@/assets/question-mark.svg" alt="interogation" height="15px" />
     <div>{{ message }}</div>
   </div>
 </template>

@@ -3,7 +3,7 @@
     <h1>{{ t("end-thank") }}</h1>
     <UiWaitLoader :percentage="Number(((score.result / 5) * 100).toFixed(1))" />
     <img
-      :src="`../../src/assets/Precarisocre-${scoreToPrecariscore(score.result)}.jpeg`"
+      :src="getPrecariscoreImage(scoreToPrecariscore(score.result))"
       :alt="`logo precarisscore score ${scoreToPrecariscore(score.result)}`"
     />
     <p>{{ t("thank-presentation") }}</p>
@@ -33,6 +33,12 @@ const { t } = useI18n();
 
 const score = computed(() => reqestManager.score());
 window.localStorage.setItem("score", score.value.result);
+
+// Fonction pour obtenir le chemin de l'image en fonction du score
+const getPrecariscoreImage = (scoreLabel: string) => {
+  return new URL(`../assets/Precarisocre-${scoreLabel}.jpeg`, import.meta.url)
+    .href;
+};
 </script>
 
 <style scoped lang="scss">
