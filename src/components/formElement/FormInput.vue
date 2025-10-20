@@ -2,18 +2,25 @@
   <span class="input-group" :class="errored ? 'errored' : ''">
     <label :for="inputId">{{ label }}</label>
     <UiInfo v-if="help" :message="help" />
-    <input :id="inputId" :type :placeholder v-model="internalValue" />
+    <input
+      :id="inputId"
+      v-model="inputValue"
+      :type="type"
+      :placeholder="placeholder"
+      @input="onInput"
+    />
   </span>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import { useId } from "vue";
 import UiInfo from "../ui/uiInfo.vue";
 
 const inputId = useId();
+const inputValue = ref("");
 
-const { label, value, placeholder } = defineProps<{
+const { label, placeholder, type, value } = defineProps<{
   label: string;
   type: string;
   value?: string;
@@ -26,11 +33,18 @@ const emit = defineEmits<{
   (e: "input", value: string): void;
 }>();
 
-const internalValue = ref(value == undefined ? "" : value);
+function onInput(e: Event) {
+  if ((e.target as HTMLInputElement).value && type == "number") {
+    emit("input", inputValue.value);
+  } else if (type == "number") {
+    emit("input", inputValue.value);
+  }
+}
 
-watch(internalValue, (newValue) => {
-  emit("input", newValue);
-});
+// Synchronize the initial value if provided
+if (typeof value !== "undefined") {
+  inputValue.value = value;
+}
 </script>
 
 <style lang="scss" scoped>
