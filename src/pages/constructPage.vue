@@ -237,7 +237,7 @@ function next() {
       return;
     }
 
-    router.push({ path: `/autoPage/${nextPage ?? 1}` });
+    router.push({ path: `/page/${nextPage ?? 1}` });
   } catch (error) {
     console.error("Error processing next:", error);
     alert("An error occurred. Please try again.");

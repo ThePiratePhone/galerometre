@@ -12,7 +12,7 @@
         :style="{
           backgroundColor: useColor(
             (option.color ??
-              option.label.toLowerCase().includes(t('aprobation')))
+              option.label.toLowerCase().includes(t('trueFalse.aprobation')))
               ? 'green'
               : 'red',
             selectedOption === option.value ? 'dark' : 'light'

@@ -9,7 +9,7 @@
     <div class="spoler">
       {{ t("home-spoler") }}
     </div>
-    <UiLink to="/autoPage/1">{{ t("start-form") }}</UiLink>
+    <UiLink to="/intro">{{ t("start-form") }}</UiLink>
     <UiLink to="/share">{{ t("share-form") }}</UiLink>
     <UiLink to="/end">{{ t("see-result") }}</UiLink>
   </div>
@@ -32,7 +32,7 @@ onMounted(async () => {
     ? affiliation.value[0]
     : affiliation.value;
 
-  await reqestManager.createAccont(affiliationValue);
+  await reqestManager.createAccont({ afiliation: affiliationValue });
 });
 </script>
 

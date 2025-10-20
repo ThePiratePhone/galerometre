@@ -11,15 +11,17 @@ import HomePage from "./pages/homePage.vue";
 import RegisterPage from "./pages/registerPage.vue";
 import ThanksJoinPage from "./pages/thanksJoinPage.vue";
 import SharePage from "./pages/sharePage.vue";
+import IntroducingPage from "./pages/introducingPage.vue";
 
 const routes = [
   { path: "/", component: HomePage },
   { path: "/:id(\\w{16})", component: HomePage },
+  { path: "/intro", component: IntroducingPage },
   { path: "/register", component: RegisterPage },
   { path: "/end", component: EndPage },
   { path: "/joined", component: ThanksJoinPage },
   { path: "/share", component: SharePage },
-  { path: "/autoPage/:page", component: ConstructPage },
+  { path: "/page/:page", component: ConstructPage },
 ];
 
 export const router = createRouter({

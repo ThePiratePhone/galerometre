@@ -4,13 +4,13 @@
     <p>{{ t("share-presentation") }}</p>
     <!-- %0D%0A is an break line sympbol -->
     <UiLink
-      :href="`sms:&body=${t('share-sms-link', { n: Number(((score.result / 5) * 100).toFixed(1)), p: scoreToPrecariscore(score) })}%0D%0A${`https://precariscore.qamp.fr/#/${reqestManager.id}`}`"
+      :href="`sms:&body=${t('share-sms-link', { n: Number(((score.result / 5) * 100).toFixed(1)), p: scoreToPrecariscore(score) })}%0D%0A${`https://precariscore.qamp.fr/#/${reqestManager.getId()}`}`"
       @click="showConfetti"
     >
       {{ t("share-sms") }}
     </UiLink>
     <UiLink
-      :href="`mailto:?body=${t('share-sms-link', { n: score })}%0D%0A${`https://precariscore.qamp.fr/#/${reqestManager.id}`}`"
+      :href="`mailto:?body=${t('share-sms-link', { n: score })}%0D%0A${`https://precariscore.qamp.fr/#/${reqestManager.getId()}`}`"
       @click="showConfetti"
     >
       {{ t("share-mail") }}
@@ -19,7 +19,7 @@
 
     <img
       :src="qrcode"
-      :alt="`https://precariscore.qamp.fr/#/${reqestManager.id}`"
+      :alt="`https://precariscore.qamp.fr/#/${reqestManager.getId()}`"
     />
   </div>
 </template>
@@ -35,10 +35,12 @@ import { scoreToPrecariscore } from "@/tools/jsTools";
 import { useQRCode } from "@vueuse/integrations/useQRCode.mjs";
 
 const { t } = useI18n();
-const qrcode = useQRCode(`https://precariscore.qamp.fr/#/${reqestManager.id}`);
+const qrcode = useQRCode(
+  `https://precariscore.qamp.fr/#/${reqestManager.getId()}`
+);
 function copy() {
   navigator.clipboard.writeText(
-    `https://precariscore.qamp.fr/#/${reqestManager.id}`
+    `https://precariscore.qamp.fr/#/${reqestManager.getId()}`
   );
   showConfetti();
 }
@@ -57,7 +59,7 @@ const score = computed(() => {
 });
 
 onMounted(() => {
-  const id = reqestManager.id;
+  const id = reqestManager.getId();
   if (id) {
     window.history.replaceState({}, "", `/#/${id}`);
   }

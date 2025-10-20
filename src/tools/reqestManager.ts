@@ -5,8 +5,19 @@ import { getLocalResponse, uid } from "./jsTools";
 
 class RequestManager {
   private static instance: RequestManager;
-  id: string;
+  private user: {
+    id: string;
+    location: string | undefined;
+    email: string | undefined;
+    phone: string | undefined;
+    name: string | undefined;
+    lastname: string | undefined;
+    activist: string | undefined;
+    afiliation: string | undefined;
+  };
+
   link: string;
+
   private dependencyQuestion: Array<{
     questionToShowID: number;
     ifAnswer: string;
@@ -21,33 +32,49 @@ class RequestManager {
   }
 
   constructor() {
+    let id;
     if (typeof window.localStorage.getItem("id") == "string") {
-      this.id = window.localStorage.getItem("id") || uid();
+      id = window.localStorage.getItem("id") || uid();
     } else {
-      this.id = uid();
+      id = uid();
     }
+
+    this.user = {
+      id,
+      location: undefined,
+      email: undefined,
+      phone: undefined,
+      name: undefined,
+      lastname: undefined,
+      activist: undefined,
+      afiliation: undefined,
+    };
 
     this.link =
       import.meta.env.VITE_API_URL ?? "https://api.precariscore.qamp.fr";
   }
 
   async createAccont(
-    affiliation?: string,
-    location?: string,
-    camp_id: string = "001",
-    name?: string,
-    lastname?: string,
-    email?: string,
-    phone?: string,
-    activist?: boolean
+    user: {
+      location?: string;
+      email?: string;
+      phone?: string;
+      name?: string;
+      lastname?: string;
+      activist?: string;
+      afiliation?: string;
+    },
+    camp_id: string = "001"
   ) {
-    window.localStorage.setItem("id", this.id);
+    window.localStorage.setItem("id", this.user.id);
 
     const existingId = window.localStorage.getItem("account_created");
-    if (existingId === this.id) {
+    if (existingId === this.user.id) {
       await this.dependency();
       return true;
     }
+
+    this.updateUser(user);
 
     const response = await fetch(this.link + "/rest/respondent", {
       method: "POST",
@@ -55,20 +82,15 @@ class RequestManager {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        resp_id: this.id,
-        name,
-        lastname,
-        email,
-        phone,
+        ...this.user,
         camp_id,
-        location,
-        activist,
-        id_from: affiliation,
+        resp_id: this.user.id,
+        id_from: this.user.afiliation,
       }),
     });
 
     if (response.status === 200) {
-      window.localStorage.setItem("account_created", this.id);
+      window.localStorage.setItem("account_created", this.user.id);
       await this.dependency();
       return true;
     }
@@ -78,29 +100,30 @@ class RequestManager {
   }
 
   updateAccount(
-    location?: string,
-    email?: string,
-    phone?: string,
-    name?: string,
-    lastname?: string,
-    activist?: string,
+    user: {
+      location?: string;
+      email?: string;
+      phone?: string;
+      name?: string;
+      lastname?: string;
+      activist?: string;
+      afiliation?: string;
+    },
     camp_id: string = "001"
   ) {
-    window.localStorage.setItem("id", this.id);
+    window.localStorage.setItem("id", this.user.id);
+
+    this.updateUser(user);
 
     const request = new XMLHttpRequest();
     request.open("PUT", this.link + "/rest/respondent");
     request.setRequestHeader("Content-Type", "application/json");
 
     const body = JSON.stringify({
+      ...this.user,
       camp_id,
-      resp_id: this.id,
-      email,
-      phone,
-      name,
-      lastname,
-      location,
-      activist,
+      resp_id: this.user.id,
+      id_from: this.user.afiliation,
     });
 
     request.send(body);
@@ -246,7 +269,7 @@ class RequestManager {
       request.setRequestHeader("Content-Type", "application/json");
       request.send(
         JSON.stringify({
-          resp_id: this.id,
+          resp_id: this.user.id,
           qu_id: questionId,
           ans: answer ? String(answer) : answer,
         })
@@ -273,7 +296,7 @@ class RequestManager {
 
   score() {
     const request = new XMLHttpRequest();
-    request.open("GET", this.link + `/rest/score/${this.id}`, false);
+    request.open("GET", this.link + `/rest/score/${this.user.id}`, false);
     request.setRequestHeader("Content-Type", "application/json");
     request.send();
 
@@ -282,6 +305,17 @@ class RequestManager {
     }
 
     return JSON.parse(JSON.parse(request.responseText));
+  }
+
+  getId() {
+    return this.user.id;
+  }
+
+  private updateUser(obj: Record<string, string>) {
+    for (const [key, value] of Object.entries(this.user)) {
+      // @ts-expect-error 7053 \\ this.user is an user obj so this.user[key], is not unknow
+      this.user[key] = obj[key] ? obj[key] : value;
+    }
   }
 }
 

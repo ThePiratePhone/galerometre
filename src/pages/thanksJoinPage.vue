@@ -22,14 +22,7 @@ onMounted(() => {
     origin: { y: 0.6 },
     dropRate: 5,
   });
-  reqestManager.updateAccount(
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    "true"
-  );
+  reqestManager.updateAccount({ activist: "true" });
 });
 </script>
 

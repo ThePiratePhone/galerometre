@@ -4,18 +4,18 @@
     <p class="subtitle">{{ t("register-subtitle") }}</p>
     <div class="form">
       <FormInput
-        :label="t('form-registeration-name')"
-        placeholder="Léa"
-        type="text"
-        @input="(value) => (name = value)"
-        :errored="requiredOnSubmit && name === ''"
-      />
-      <FormInput
         :label="t('form-registeration-firstname')"
         placeholder="Martin"
         type="text"
         @input="(value) => (firstName = value)"
         :errored="requiredOnSubmit && firstName === ''"
+      />
+      <FormInput
+        :label="t('form-registeration-name')"
+        placeholder="Léa"
+        type="text"
+        @input="(value) => (name = value)"
+        :errored="requiredOnSubmit && name === ''"
       />
       <FormInput
         type="tel"
@@ -34,32 +34,6 @@
         :errored="requiredOnSubmit && email === ''"
       ></FormInput>
       <div />
-      <FormSelect
-        :label="t('form-registeration-city')"
-        :options="[
-          { label: 'Artois', value: 'Artois' },
-          { label: 'Besançon', value: 'Besançon' },
-          { label: 'Chambéry', value: 'Chambéry' },
-          { label: 'Compiègne', value: 'Compiègne' },
-          { label: 'grenoble', value: 'grenoble' },
-          { label: 'la Réunion', value: 'Réunion' },
-          { label: 'La Rochelle', value: 'Rochelle' },
-          { label: 'Lille', value: 'Lille' },
-          { label: 'Limoges', value: 'Limoges' },
-          { label: 'Littoral', value: 'Littoral' },
-          { label: 'lyon', value: 'lyon' },
-          { label: 'PARIS 13', value: 'P13' },
-          { label: 'PARIS 8', value: 'P8' },
-          { label: 'paris', value: 'paris' },
-          { label: 'Picardie', value: 'Picardie' },
-          { label: 'Saint-Etienne', value: 'Saint-Etienne' },
-          { label: 'valence', value: 'valence' },
-          { label: 'valenciennes', value: 'valenciennes' },
-        ]"
-        other
-        @input="(value) => (location = value)"
-        :errored="requiredOnSubmit && location === ''"
-      />
     </div>
     <UiLink @click="next">{{ t("see-result") }}</UiLink>
   </div>
@@ -67,7 +41,6 @@
 
 <script setup lang="ts">
 import FormInput from "@/components/formElement/FormInput.vue";
-import FormSelect from "@/components/formElement/FormSelect.vue";
 import UiLink from "@/components/ui/uiLink.vue";
 import { clearPhone, phoneNumberCheck, saveResponse } from "@/tools/jsTools";
 import reqestManager from "@/tools/reqestManager";
@@ -78,7 +51,6 @@ import { useRouter } from "vue-router";
 const { t } = useI18n();
 const router = useRouter();
 
-const location = ref("");
 const name = ref("");
 const firstName = ref("");
 const tel = ref("");
@@ -86,10 +58,9 @@ const email = ref("");
 const requiredOnSubmit = ref(false);
 
 function next() {
-  requiredOnSubmit.value = false; // Réinitialiser l'état des erreurs avant validation
+  requiredOnSubmit.value = false;
 
   if (
-    location.value === "" ||
     email.value === "" ||
     (!phoneNumberCheck(clearPhone(tel.value)) && tel.value != "-") ||
     firstName.value === "" ||
@@ -101,15 +72,13 @@ function next() {
 
   saveResponse("name", name.value);
   saveResponse("firstName", firstName.value);
-  saveResponse("location", location.value);
 
-  reqestManager.updateAccount(
-    location.value,
-    email.value,
-    clearPhone(tel.value),
-    firstName.value,
-    name.value
-  );
+  reqestManager.updateAccount({
+    email: email.value,
+    phone: clearPhone(tel.value),
+    name: firstName.value,
+    lastname: name.value,
+  });
 
   router.push({ path: "/end" });
 }
