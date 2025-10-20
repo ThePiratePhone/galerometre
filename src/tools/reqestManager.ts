@@ -50,6 +50,8 @@ class RequestManager {
       afiliation: undefined,
     };
 
+    this.updateUser(JSON.parse(window.localStorage.getItem("user") ?? "{}"));
+
     this.link =
       import.meta.env.VITE_API_URL ?? "https://api.precariscore.qamp.fr";
   }
@@ -316,6 +318,8 @@ class RequestManager {
       // @ts-expect-error 7053 \\ this.user is an user obj so this.user[key], is not unknow
       this.user[key] = obj[key] ? obj[key] : value;
     }
+
+    window.localStorage.setItem("user", JSON.stringify(this.user));
   }
 }
 
