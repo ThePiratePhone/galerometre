@@ -3,9 +3,9 @@
     <h1>{{ t("intro-title") }}</h1>
     <p class="subtitle">{{ t("intro-subtitle") }}</p>
     <div class="form">
-      <FormSelect
+      <FormSearch
         :label="t('form-registeration-city')"
-        :options="[
+        :searchList="[
           { label: 'Artois', value: 'Artois' },
           { label: 'Besançon', value: 'Besançon' },
           { label: 'Chambéry', value: 'Chambéry' },
@@ -26,7 +26,6 @@
           { label: 'Valenciennes', value: 'valenciennes' },
         ]"
         other
-        @input="(value) => (location = value)"
         :errored="requiredOnSubmit && location === ''"
       />
     </div>
@@ -35,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import FormSelect from "@/components/formElement/FormSelect.vue";
+import FormSearch from "@/components/formElement/formSearch.vue";
 import UiLink from "@/components/ui/uiLink.vue";
 import { router } from "@/main";
 import { saveResponse } from "@/tools/jsTools";
