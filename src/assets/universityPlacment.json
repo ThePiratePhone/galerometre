@@ -1,0 +1,750 @@
+[
+  {
+    "label": "Avignon université",
+    "value": [
+      "avignon",
+      "nimes",
+      "montpellier",
+      "marseille",
+      "aix",
+      "Avignon université"
+    ]
+  },
+  {
+    "label": "Aix-Marseille université",
+    "value": [
+      "aix",
+      "marseille",
+      "avignon",
+      "arles",
+      "manosque",
+      "Aix-Marseille université"
+    ]
+  },
+  {
+    "label": "Communauté d'universités et établissements - Angers - Le Mans",
+    "value": [
+      "comue",
+      "angers",
+      "le mans",
+      "nantes",
+      "rennes",
+      "tours",
+      "Communauté d'universités et établissements - Angers - Le Mans"
+    ]
+  },
+  {
+    "label": "La Rochelle Université",
+    "value": [
+      "la rochelle",
+      "niort",
+      "rochefort",
+      "saintes",
+      "angouleme",
+      "La Rochelle Université"
+    ]
+  },
+  {
+    "label": "Nantes Université",
+    "value": [
+      "nantes",
+      "saint-nazaire",
+      "cholet",
+      "angers",
+      "rennes",
+      "Nantes Université"
+    ]
+  },
+  {
+    "label": "Université d'Artois - Arras",
+    "value": [
+      "arras",
+      "lens",
+      "bethune",
+      "douai",
+      "lille",
+      "Université d'Artois - Arras"
+    ]
+  },
+  {
+    "label": "Université Clermont Auvergne",
+    "value": [
+      "uca",
+      "clermont-ferrand",
+      "vichy",
+      "moulins",
+      "issoire",
+      "montluçon",
+      "Université Clermont Auvergne"
+    ]
+  },
+  {
+    "label": "Université Bordeaux-Montaigne",
+    "value": [
+      "ubm",
+      "bordeaux",
+      "pessac",
+      "talence",
+      "arcachon",
+      "libourne",
+      "Université Bordeaux-Montaigne"
+    ]
+  },
+  {
+    "label": "Université ComUE Lyon",
+    "value": [
+      "lyon",
+      "villeurbanne",
+      "saint-etienne",
+      "bourg-en-bresse",
+      "vienne",
+      "Université ComUE Lyon"
+    ]
+  },
+  {
+    "label": "Université Côte d'Azur",
+    "value": [
+      "nice",
+      "cannes",
+      "antibes",
+      "grasse",
+      "menton",
+      "Université Côte d'Azur"
+    ]
+  },
+  {
+    "label": "Université de Bordeaux",
+    "value": [
+      "bordeaux",
+      "pessac",
+      "talence",
+      "arcachon",
+      "libourne",
+      "Université de Bordeaux"
+    ]
+  },
+  {
+    "label": "Université Bourgogne Europe",
+    "value": [
+      "dijon",
+      "beaune",
+      "auxerre",
+      "chalon-sur-saone",
+      "nevers",
+      "Université Bourgogne Europe"
+    ]
+  },
+  {
+    "label": "Université de Brest",
+    "value": [
+      "brest",
+      "quimper",
+      "morlaix",
+      "douarnenez",
+      "landerneau",
+      "Université de Brest"
+    ]
+  },
+  {
+    "label": "Université de Bretagne-Sud- Lorient",
+    "value": [
+      "ubs",
+      "lorient",
+      "vannes",
+      "auray",
+      "pontivy",
+      "quimperle",
+      "Université de Bretagne-Sud- Lorient"
+    ]
+  },
+  {
+    "label": "Université de Caen Normandie",
+    "value": [
+      "caen",
+      "cherbourg",
+      "lisieux",
+      "bayeux",
+      "flers",
+      "Université de Caen Normandie"
+    ]
+  },
+  {
+    "label": "Université de Corse Pasquale Paoli - Corte",
+    "value": [
+      "corte",
+      "bastia",
+      "ajaccio",
+      "calvi",
+      "porto-vecchio",
+      "Université de Corse Pasquale Paoli - Corte"
+    ]
+  },
+  {
+    "label": "Université de Franche-Comté - Besançon",
+    "value": [
+      "ufc",
+      "besançon",
+      "montbeliard",
+      "dole",
+      "vesoul",
+      "lons-le-saunier",
+      "Université de Franche-Comté - Besançon"
+    ]
+  },
+  {
+    "label": "Université de Cergy-Pontoise",
+    "value": [
+      "cergy",
+      "pontoise",
+      "paris",
+      "argenteuil",
+      "saint-denis",
+      "Université de Cergy-Pontoise"
+    ]
+  },
+  {
+    "label": "Université de Guyane",
+    "value": [
+      "cayenne",
+      "kourou",
+      "saint-laurent-du-maroni",
+      "matoury",
+      "remire-montjoly",
+      "Université de Guyane"
+    ]
+  },
+  {
+    "label": "Université de Haute-Alsace - Mulhouse",
+    "value": [
+      "uha",
+      "mulhouse",
+      "colmar",
+      "guebwiller",
+      "saint-louis",
+      "thann",
+      "Université de Haute-Alsace - Mulhouse"
+    ]
+  },
+  {
+    "label": "Université de Lille",
+    "value": [
+      "lille",
+      "roubaix",
+      "tourcoing",
+      "villeneuve-d'ascq",
+      "douai",
+      "Université de Lille"
+    ]
+  },
+  {
+    "label": "Université de Limoges",
+    "value": [
+      "limoges",
+      "brive-la-gaillarde",
+      "tulle",
+      "guéret",
+      "saint-junien",
+      "Université de Limoges"
+    ]
+  },
+  {
+    "label": "Université de Lorraine - Nancy",
+    "value": [
+      "nancy",
+      "metz",
+      "epinal",
+      "thionville",
+      "bar-le-duc",
+      "Université de Lorraine - Nancy"
+    ]
+  },
+  {
+    "label": "Université de Nîmes",
+    "value": [
+      "unim",
+      "nimes",
+      "avignon",
+      "montpellier",
+      "arles",
+      "ales",
+      "Université de Nîmes"
+    ]
+  },
+  {
+    "label": "Université de Montpellier",
+    "value": [
+      "montpellier",
+      "nimes",
+      "beziers",
+      "sete",
+      "lunel",
+      "Université de Montpellier"
+    ]
+  },
+  {
+    "label": "Université de Montpellier Paul Valéry",
+    "value": [
+      "montpellier",
+      "nimes",
+      "beziers",
+      "sete",
+      "lunel",
+      "Université de Montpellier Paul Valéry"
+    ]
+  },
+  {
+    "label": "Université Paris Cité",
+    "value": [
+      "paris",
+      "nanterre",
+      "creteil",
+      "versailles",
+      "saint-denis",
+      "Université Paris Cité"
+    ]
+  },
+  {
+    "label": "Université de Picardie Jules Verne - Amiens",
+    "value": [
+      "upjv",
+      "amiens",
+      "beauvais",
+      "compiegne",
+      "abbeville",
+      "saint-quentin",
+      "Université de Picardie Jules Verne - Amiens"
+    ]
+  },
+  {
+    "label": "Université de la Nouvelle-Calédonie",
+    "value": [
+      "noumea",
+      "dumbéa",
+      "mont-dore",
+      "paita",
+      "bourail",
+      "Université de la Nouvelle-Calédonie"
+    ]
+  },
+  {
+    "label": "Université d'Orléans",
+    "value": [
+      "orleans",
+      "blois",
+      "chartres",
+      "bourges",
+      "tours",
+      "Université d'Orléans"
+    ]
+  },
+  {
+    "label": "Université Grenoble Alpes",
+    "value": [
+      "uga",
+      "grenoble",
+      "saint-martin-d'hères",
+      "smh",
+      "chambery",
+      "annecy",
+      "valence",
+      "voiron",
+      "Université Grenoble Alpes"
+    ]
+  },
+  {
+    "label": "Université des Antilles - Pôle Guadeloupe",
+    "value": [
+      "pointe-a-pitre",
+      "basse-terre",
+      "les abymes",
+      "le gosier",
+      "sainte-anne",
+      "Université des Antilles - Pôle Guadeloupe"
+    ]
+  },
+  {
+    "label": "Université des Antilles - Pôle Martinique",
+    "value": [
+      "fort-de-france",
+      "le lamentin",
+      "schoelcher",
+      "saint-joseph",
+      "le robert",
+      "Université des Antilles - Pôle Martinique"
+    ]
+  },
+  {
+    "label": "Université du Havre",
+    "value": [
+      "le havre",
+      "rouen",
+      "caen",
+      "dieppe",
+      "evreux",
+      "Université du Havre"
+    ]
+  },
+  {
+    "label": "Université du Littoral Côte d'Opale - Dunkerque",
+    "value": [
+      "ulco",
+      "dunkerque",
+      "calais",
+      "boulogne-sur-mer",
+      "saint-omer",
+      "lille",
+      "Université du Littoral Côte d'Opale - Dunkerque"
+    ]
+  },
+  {
+    "label": "Université Gustave Eiffel",
+    "value": [
+      "marne-la-vallee",
+      "paris",
+      "creteil",
+      "meaux",
+      "melun",
+      "Université Gustave Eiffel"
+    ]
+  },
+  {
+    "label": "Université Paris Dauphine - PSL",
+    "value": [
+      "paris",
+      "nanterre",
+      "creteil",
+      "versailles",
+      "saint-denis",
+      "Université Paris Dauphine - PSL"
+    ]
+  },
+  {
+    "label": "Université Paris-Est Créteil Val-de-Marne",
+    "value": [
+      "upec",
+      "creteil",
+      "paris",
+      "nanterre",
+      "versailles",
+      "saint-denis",
+      "Université Paris-Est Créteil Val-de-Marne"
+    ]
+  },
+  {
+    "label": "Université Paris Nanterre",
+    "value": [
+      "nanterre",
+      "paris",
+      "creteil",
+      "versailles",
+      "saint-denis",
+      "Université Paris Nanterre"
+    ]
+  },
+  {
+    "label": "Université Paris-Panthéon-Assas",
+    "value": [
+      "paris",
+      "nanterre",
+      "creteil",
+      "versailles",
+      "saint-denis",
+      "Université Paris-Panthéon-Assas"
+    ]
+  },
+  {
+    "label": "Université Paris 1 - Panthéon-Sorbonne",
+    "value": [
+      "paris",
+      "nanterre",
+      "creteil",
+      "versailles",
+      "saint-denis",
+      "Université Paris 1 - Panthéon-Sorbonne"
+    ]
+  },
+  {
+    "label": "Université Paris 3 - Sorbonne nouvelle",
+    "value": [
+      "paris",
+      "nanterre",
+      "creteil",
+      "versailles",
+      "saint-denis",
+      "Université Paris 3 - Sorbonne nouvelle"
+    ]
+  },
+  {
+    "label": "Université Paris 4 et Paris 6 - Sorbonne Université",
+    "value": [
+      "paris",
+      "nanterre",
+      "creteil",
+      "versailles",
+      "saint-denis",
+      "Université Paris 4 et Paris 6 - Sorbonne Université"
+    ]
+  },
+  {
+    "label": "Université Évry Paris-Saclay",
+    "value": [
+      "evry",
+      "paris",
+      "creteil",
+      "versailles",
+      "nanterre",
+      "Université Évry Paris-Saclay"
+    ]
+  },
+  {
+    "label": "Université Paris-Saclay - IUT d'Orsay",
+    "value": [
+      "orsay",
+      "paris",
+      "nanterre",
+      "creteil",
+      "versailles",
+      "Université Paris-Saclay - IUT d'Orsay"
+    ]
+  },
+  {
+    "label": "Université Paris-Saclay - Université de Versailles - Saint-Quentin-en-Yvelines",
+    "value": [
+      "versailles",
+      "paris",
+      "nanterre",
+      "creteil",
+      "evry",
+      "Université Paris-Saclay - Université de Versailles - Saint-Quentin-en-Yvelines"
+    ]
+  },
+  {
+    "label": "Université Paris Sciences et Lettres",
+    "value": [
+      "paris",
+      "nanterre",
+      "creteil",
+      "versailles",
+      "saint-denis",
+      "Université Paris Sciences et Lettres"
+    ]
+  },
+  {
+    "label": "Université Paris 8 - Vincennes-Saint-Denis",
+    "value": [
+      "saint-denis",
+      "paris",
+      "nanterre",
+      "creteil",
+      "versailles",
+      "Université Paris 8 - Vincennes-Saint-Denis"
+    ]
+  },
+  {
+    "label": "Université de Pau et Pays de l'Adour",
+    "value": [
+      "uppa",
+      "pau",
+      "bayonne",
+      "tarbes",
+      "dax",
+      "mont-de-marsan",
+      "Université de Pau et Pays de l'Adour"
+    ]
+  },
+  {
+    "label": "Université de Poitiers",
+    "value": [
+      "poitiers",
+      "niort",
+      "chatellerault",
+      "angouleme",
+      "la rochelle",
+      "Université de Poitiers"
+    ]
+  },
+  {
+    "label": "Université de la Polynésie Française",
+    "value": [
+      "upf",
+      "papeete",
+      "faa'a",
+      "punaauia",
+      "mahina",
+      "paea",
+      "Université de la Polynésie Française"
+    ]
+  },
+  {
+    "label": "Université de La Réunion",
+    "value": [
+      "saint-denis",
+      "saint-pierre",
+      "saint-paul",
+      "le tampon",
+      "saint-andre",
+      "Université de La Réunion"
+    ]
+  },
+  {
+    "label": "Université de Perpignan Via Domitia",
+    "value": [
+      "upvd",
+      "perpignan",
+      "narbonne",
+      "beziers",
+      "carcassonne",
+      "montpellier",
+      "Université de Perpignan Via Domitia"
+    ]
+  },
+  {
+    "label": "Université de Reims - Champagne-Ardenne",
+    "value": [
+      "urca",
+      "reims",
+      "chalons-en-champagne",
+      "troyes",
+      "epernay",
+      "charleville-mezieres",
+      "Université de Reims - Champagne-Ardenne"
+    ]
+  },
+  {
+    "label": "Université de Rennes",
+    "value": [
+      "rennes",
+      "saint-malo",
+      "dinan",
+      "fougeres",
+      "vannes",
+      "Université de Rennes"
+    ]
+  },
+  {
+    "label": "Université de Rennes 2",
+    "value": [
+      "rennes",
+      "saint-malo",
+      "dinan",
+      "fougeres",
+      "vannes",
+      "Université de Rennes 2"
+    ]
+  },
+  {
+    "label": "Université de Rouen",
+    "value": [
+      "rouen",
+      "le havre",
+      "evreux",
+      "dieppe",
+      "caen",
+      "Université de Rouen"
+    ]
+  },
+  {
+    "label": "Université Polytechnique Hauts-de-France - Valenciennes",
+    "value": [
+      "uphf",
+      "valenciennes",
+      "lille",
+      "douai",
+      "maubeuge",
+      "cambrai",
+      "Université Polytechnique Hauts-de-France - Valenciennes"
+    ]
+  },
+  {
+    "label": "Université Savoie Mont Blanc - Chambéry",
+    "value": [
+      "usmb",
+      "chambery",
+      "annecy",
+      "aix-les-bains",
+      "grenoble",
+      "albertville",
+      "Université Savoie Mont Blanc - Chambéry"
+    ]
+  },
+  {
+    "label": "Université Sorbonne Paris Nord (P13)",
+    "value": [
+      "paris",
+      "nanterre",
+      "creteil",
+      "versailles",
+      "saint-denis",
+      "Villetaneuse",
+      "p13",
+      "Université Sorbonne Paris Nord (P13)"
+    ]
+  },
+  {
+    "label": "Université de technologie -Tarbes - Occitanie Pyrénées",
+    "value": [
+      "uttop",
+      "tarbes",
+      "pau",
+      "toulouse",
+      "lourdes",
+      "auch",
+      "Université de technologie -Tarbes - Occitanie Pyrénées"
+    ]
+  },
+  {
+    "label": "Université Jean Monnet",
+    "value": [
+      "saint-etienne",
+      "lyon",
+      "roanne",
+      "firminy",
+      "montbrison",
+      "Université Jean Monnet"
+    ]
+  },
+  {
+    "label": "Université de Strasbourg",
+    "value": [
+      "strasbourg",
+      "colmar",
+      "mulhouse",
+      "selestat",
+      "haguenau",
+      "Université de Strasbourg"
+    ]
+  },
+  {
+    "label": "Université de Tours",
+    "value": [
+      "tours",
+      "blois",
+      "orleans",
+      "saumur",
+      "chinon",
+      "Université de Tours"
+    ]
+  },
+  {
+    "label": "Université de Toulon",
+    "value": [
+      "toulon",
+      "hyeres",
+      "la seyne-sur-mer",
+      "frejus",
+      "saint-tropez",
+      "Université de Toulon"
+    ]
+  },
+  {
+    "label": "Université de Toulouse",
+    "value": [
+      "toulouse",
+      "montauban",
+      "albi",
+      "castres",
+      "auch",
+      "Université de Toulouse"
+    ]
+  }
+]
