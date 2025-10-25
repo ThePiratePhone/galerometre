@@ -51,6 +51,10 @@ const props = defineProps<{
   errored?: boolean;
 }>();
 
+const emit = defineEmits<{
+  (e: "input", value: string): void;
+}>();
+
 function setSearchElement(element: {
   label: string;
   value: string | string[];
@@ -58,6 +62,7 @@ function setSearchElement(element: {
   inputValue.value = Array.isArray(element.label)
     ? element.label[0]
     : element.label;
+  emit("input", inputValue.value);
 }
 
 function useFilter() {
@@ -68,15 +73,13 @@ function useFilter() {
       ? node.value.join(" ").toLowerCase()
       : node.value.toLowerCase();
 
-    if (
-      !hasFilter.value ||
-      (hasFilter.value && valueToCheck === debouncedFilter.value.toLowerCase())
-    ) {
+    if (!hasFilter.value) {
       return undefined;
     }
-    return hasFilter.value
-      ? valueToCheck.includes(debouncedFilter.value.toLowerCase())
-      : true;
+    if (valueToCheck === debouncedFilter.value.toLowerCase()) {
+      return true;
+    }
+    return valueToCheck.includes(debouncedFilter.value.toLowerCase());
   };
 
   return { predicate };
@@ -120,7 +123,11 @@ function handleInput(event: Event) {
 
   .input {
     font-size: large;
+    align-self: center;
+    border-radius: 4px;
+    border: 1px solid #ccc;
     height: 2em;
+    width: calc(100% - 4px);
   }
 
   .searchElementWraper {
@@ -138,7 +145,12 @@ function handleInput(event: Event) {
     border-radius: 4px;
     list-style: none;
     padding: 4px;
-    width: calc(100% - 8px);
+  }
+
+  &.errored {
+    .input {
+      border: 1px solid var(--red-dark);
+    }
   }
 }
 </style>
