@@ -11,7 +11,6 @@
           { label: 'Chambéry', value: 'Chambéry' },
           { label: 'Compiègne', value: 'Compiègne' },
           { label: 'Grenoble', value: 'grenoble' },
-          { label: 'La Réunion', value: 'Réunion' },
           { label: 'La Rochelle', value: 'Rochelle' },
           { label: 'Lille', value: 'Lille' },
           { label: 'Limoges', value: 'Limoges' },
