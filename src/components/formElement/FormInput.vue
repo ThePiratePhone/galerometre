@@ -64,7 +64,7 @@ if (typeof value !== "undefined") {
 
 .errored {
   input {
-    border: 1px solid #df345e;
+    border: 1px solid var(--red-dark);
   }
 }
 </style>

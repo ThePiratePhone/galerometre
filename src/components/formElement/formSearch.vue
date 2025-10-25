@@ -8,22 +8,27 @@
       type="text"
       :placeholder="placeholder"
       @input="handleInput"
+      class="input"
     />
-    <ul>
+    <ul class="searchElementWraper" v-if="filteredList.length > 0">
       <li
         v-for="searchElement in filteredList"
         :key="searchElement.label"
-        class="serachElent"
+        class="searchElement"
       >
         <template
           v-if="
             Array.isArray(searchElement.label) && searchElement.label.length > 0
           "
         >
-          {{ searchElement.label[0] }}
+          <div @click="setSearchElement(searchElement)">
+            {{ searchElement.label[0] }}
+          </div>
         </template>
         <template v-else-if="!Array.isArray(searchElement.label)">
-          {{ searchElement.label }}
+          <div @click="setSearchElement(searchElement)">
+            {{ searchElement.label }}
+          </div>
         </template>
       </li>
     </ul>
@@ -46,32 +51,94 @@ const props = defineProps<{
   errored?: boolean;
 }>();
 
-function useFilter() {
-  const filter = ref("");
-  const debouncedFilter = refDebounced(filter, 200);
-  const hasFilter = computed(() => filter.value.trim().length > 0);
-  const predicate = (node: { label: string; value: string | string[] }) =>
-    hasFilter.value
-      ? node.label.toLowerCase().includes(debouncedFilter.value.toLowerCase())
-      : true;
-
-  return { filter, predicate };
+function setSearchElement(element: {
+  label: string;
+  value: string | string[];
+}) {
+  inputValue.value = Array.isArray(element.label)
+    ? element.label[0]
+    : element.label;
 }
 
-const { filter, predicate } = useFilter();
+function useFilter() {
+  const debouncedFilter = refDebounced(inputValue, 200);
+  const hasFilter = computed(() => inputValue.value.trim().length > 0);
+  const predicate = (node: { label: string; value: string | string[] }) => {
+    const valueToCheck = Array.isArray(node.value)
+      ? node.value.join(" ").toLowerCase()
+      : node.value.toLowerCase();
+
+    if (
+      !hasFilter.value ||
+      (hasFilter.value && valueToCheck === debouncedFilter.value.toLowerCase())
+    ) {
+      return undefined;
+    }
+    return hasFilter.value
+      ? valueToCheck.includes(debouncedFilter.value.toLowerCase())
+      : true;
+  };
+
+  return { predicate };
+}
+
+const { predicate } = useFilter();
 
 const filteredList = computed(() => {
-  return props.searchList.filter(predicate);
+  const filtered = props.searchList.filter(predicate);
+  const input = inputValue.value.trim().toLowerCase();
+  return filtered.slice().sort((a, b) => {
+    const aValue = Array.isArray(a.value)
+      ? a.value.join(" ").toLowerCase()
+      : a.value.toLowerCase();
+    const bValue = Array.isArray(b.value)
+      ? b.value.join(" ").toLowerCase()
+      : b.value.toLowerCase();
+    const aStarts = input && aValue.startsWith(input);
+    const bStarts = input && bValue.startsWith(input);
+    if (aStarts && !bStarts) return -1; // Place elements starting with inputValue at the top
+    if (!aStarts && bStarts) return 1;
+    return aValue.localeCompare(bValue); // Sort alphabetically for the rest
+  });
 });
 
 function handleInput(event: Event) {
   const target = event.target as HTMLInputElement;
-  filter.value = target.value;
+  inputValue.value = target.value;
 }
 </script>
 
-<style>
-.serachElent {
-  list-style: none;
+<style lang="scss" scoped>
+.input-group {
+  .input,
+  .searchElement,
+  .searchElementWraper {
+    width: 100%;
+    padding: 0%;
+    margin: 0%;
+  }
+
+  .input {
+    font-size: large;
+    height: 2em;
+  }
+
+  .searchElementWraper {
+    padding: 12px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: calc(10em + 48px);
+    overflow: scroll;
+  }
+
+  .searchElement {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 2px 5px 0px;
+    background-color: #ccc;
+    border-radius: 4px;
+    list-style: none;
+    padding: 4px;
+    width: calc(100% - 8px);
+  }
 }
 </style>

@@ -4,27 +4,8 @@
     <p class="subtitle">{{ t("intro-subtitle") }}</p>
     <div class="form">
       <FormSearch
-        :label="t('form-registeration-city')"
-        :searchList="[
-          { label: 'Artois', value: 'Artois' },
-          { label: 'Besançon', value: 'Besançon' },
-          { label: 'Chambéry', value: 'Chambéry' },
-          { label: 'Compiègne', value: 'Compiègne' },
-          { label: 'Grenoble', value: 'grenoble' },
-          { label: 'La Réunion', value: 'Réunion' },
-          { label: 'La Rochelle', value: 'Rochelle' },
-          { label: 'Lille', value: 'Lille' },
-          { label: 'Limoges', value: 'Limoges' },
-          { label: 'Littoral', value: 'Littoral' },
-          { label: 'Lyon', value: 'lyon' },
-          { label: 'PARIS 13', value: 'P13' },
-          { label: 'PARIS 8', value: 'P8' },
-          { label: 'Paris', value: 'paris' },
-          { label: 'Picardie', value: 'Picardie' },
-          { label: 'Saint-Etienne', value: 'Saint-Etienne' },
-          { label: 'Valence', value: 'valence' },
-          { label: 'Valenciennes', value: 'valenciennes' },
-        ]"
+        :label="t('form-registeration-university')"
+        :searchList="universityLocation"
         other
         :errored="requiredOnSubmit && location === ''"
       />
@@ -46,6 +27,8 @@ const { t } = useI18n();
 
 const location = ref("");
 const requiredOnSubmit = ref(false);
+
+import universityLocation from "@/assets/universityPlacment.json";
 
 function next() {
   requiredOnSubmit.value = false;
