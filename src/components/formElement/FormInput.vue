@@ -36,7 +36,7 @@ const emit = defineEmits<{
 function onInput(e: Event) {
   if ((e.target as HTMLInputElement).value && type == "number") {
     emit("input", inputValue.value);
-  } else if (type == "number") {
+  } else if (type !== "number") {
     emit("input", inputValue.value);
   }
 }
@@ -64,7 +64,7 @@ if (typeof value !== "undefined") {
 
 .errored {
   input {
-    border: 1px solid #df345e;
+    border: 1px solid var(--red-dark);
   }
 }
 </style>
