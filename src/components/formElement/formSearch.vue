@@ -68,15 +68,13 @@ function useFilter() {
       ? node.value.join(" ").toLowerCase()
       : node.value.toLowerCase();
 
-    if (
-      !hasFilter.value ||
-      (hasFilter.value && valueToCheck === debouncedFilter.value.toLowerCase())
-    ) {
+    if (!hasFilter.value) {
       return undefined;
     }
-    return hasFilter.value
-      ? valueToCheck.includes(debouncedFilter.value.toLowerCase())
-      : true;
+    if (valueToCheck === debouncedFilter.value.toLowerCase()) {
+      return true;
+    }
+    return valueToCheck.includes(debouncedFilter.value.toLowerCase());
   };
 
   return { predicate };

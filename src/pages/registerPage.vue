@@ -4,14 +4,14 @@
     <p class="subtitle">{{ t("register-subtitle") }}</p>
     <div class="form">
       <FormInput
-        :label="t('form-registeration-firstname')"
+        :label="t('form-registration-firstname')"
         placeholder="Martin"
         type="text"
         @input="(value) => (firstName = value)"
         :errored="requiredOnSubmit && firstName === ''"
       />
       <FormInput
-        :label="t('form-registeration-name')"
+        :label="t('form-registration-name')"
         placeholder="Léa"
         type="text"
         @input="(value) => (name = value)"
@@ -19,7 +19,7 @@
       />
       <FormInput
         type="tel"
-        :label="t('form-registeration-phone')"
+        :label="t('form-registration-phone')"
         placeholder="0712345678"
         @input="(value) => (tel = value)"
         :errored="
@@ -28,7 +28,7 @@
       ></FormInput>
       <FormInput
         type="mail"
-        :label="t('form-registeration-mail')"
+        :label="t('form-registration-mail')"
         :placeholder="`${name ? name : 'pierre'}.${firstName ? firstName : 'martin'}@mail.com`"
         @input="(value) => (email = value)"
         :errored="requiredOnSubmit && email === ''"

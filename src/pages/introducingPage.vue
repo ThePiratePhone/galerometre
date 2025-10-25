@@ -4,7 +4,7 @@
     <p class="subtitle">{{ t("intro-subtitle") }}</p>
     <div class="form">
       <FormSearch
-        :label="t('form-registeration-university')"
+        :label="t('form-registration-university')"
         :searchList="universityLocation"
         other
         :errored="requiredOnSubmit && location === ''"
@@ -28,7 +28,7 @@ const { t } = useI18n();
 const location = ref("");
 const requiredOnSubmit = ref(false);
 
-import universityLocation from "@/assets/universityPlacment.json";
+import universityLocation from "@/assets/universityPlacement.json";
 
 function next() {
   requiredOnSubmit.value = false;
