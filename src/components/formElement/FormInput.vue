@@ -36,7 +36,7 @@ const emit = defineEmits<{
 function onInput(e: Event) {
   if ((e.target as HTMLInputElement).value && type == "number") {
     emit("input", inputValue.value);
-  } else if (type == "number") {
+  } else if (type !== "number") {
     emit("input", inputValue.value);
   }
 }
