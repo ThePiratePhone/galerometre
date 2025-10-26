@@ -7,31 +7,26 @@
       v-model="inputValue"
       type="text"
       :placeholder="placeholder"
-      @input="handleInput"
       class="input"
     />
-    <ul class="searchElementWraper" v-if="filteredList.length > 0">
+    <ul class="searchElementWraper" v-if="filteredList.length > 1">
       <li
         v-for="searchElement in filteredList"
         :key="searchElement.label"
         class="searchElement"
       >
-        <template
-          v-if="
-            Array.isArray(searchElement.label) && searchElement.label.length > 0
-          "
-        >
-          <div @click="setSearchElement(searchElement)">
-            {{ searchElement.label[0] }}
-          </div>
-        </template>
-        <template v-else-if="!Array.isArray(searchElement.label)">
-          <div @click="setSearchElement(searchElement)">
-            {{ searchElement.label }}
-          </div>
-        </template>
+        <div @click="setSearchElement(searchElement)">
+          {{ searchElement.label }}
+        </div>
       </li>
     </ul>
+    <div
+      v-else-if="filteredList.length == 1"
+      class="searchElementUnique selected"
+      @click="setSearchElement(filteredList[0])"
+    >
+      {{ filteredList[0].label }}
+    </div>
   </span>
 </template>
 
@@ -45,7 +40,7 @@ const inputValue = ref("");
 
 const props = defineProps<{
   label: string;
-  searchList: Array<{ label: string; value: string | string[] }>;
+  searchList: Array<{ label: string; value: string[] }>;
   help?: string;
   placeholder?: string;
   errored?: boolean;
@@ -55,60 +50,33 @@ const emit = defineEmits<{
   (e: "input", value: string): void;
 }>();
 
-function setSearchElement(element: {
-  label: string;
-  value: string | string[];
-}) {
-  inputValue.value = Array.isArray(element.label)
-    ? element.label[0]
-    : element.label;
+function setSearchElement(element: { label: string; value: string[] }) {
+  inputValue.value = element.label;
+
   emit("input", inputValue.value);
 }
 
-function useFilter() {
-  const debouncedFilter = refDebounced(inputValue, 200);
-  const hasFilter = computed(() => inputValue.value.trim().length > 0);
-  const predicate = (node: { label: string; value: string | string[] }) => {
-    const valueToCheck = Array.isArray(node.value)
-      ? node.value.join(" ").toLowerCase()
-      : node.value.toLowerCase();
+const debouncedFilter = refDebounced(inputValue, 500);
 
-    if (!hasFilter.value) {
-      return undefined;
-    }
-    if (valueToCheck === debouncedFilter.value.toLowerCase()) {
-      return true;
-    }
-    return valueToCheck.includes(debouncedFilter.value.toLowerCase());
-  };
+const hasFilter = computed(() => inputValue.value.trim().length > 0);
 
-  return { predicate };
-}
-
-const { predicate } = useFilter();
+const predicate = (node: { label: string; value: string[] }) =>
+  hasFilter.value
+    ? node.label.toLowerCase().includes(debouncedFilter.value.toLowerCase()) ||
+      node.value.some((e) => {
+        return e.toLowerCase().includes(debouncedFilter.value.toLowerCase());
+      })
+    : false;
 
 const filteredList = computed(() => {
-  const filtered = props.searchList.filter(predicate);
-  const input = inputValue.value.trim().toLowerCase();
-  return filtered.slice().sort((a, b) => {
-    const aValue = Array.isArray(a.value)
-      ? a.value.join(" ").toLowerCase()
-      : a.value.toLowerCase();
-    const bValue = Array.isArray(b.value)
-      ? b.value.join(" ").toLowerCase()
-      : b.value.toLowerCase();
-    const aStarts = input && aValue.startsWith(input);
-    const bStarts = input && bValue.startsWith(input);
-    if (aStarts && !bStarts) return -1; // Place elements starting with inputValue at the top
-    if (!aStarts && bStarts) return 1;
-    return aValue.localeCompare(bValue); // Sort alphabetically for the rest
-  });
-});
+  const filter = props.searchList.filter((node) => predicate(node));
 
-function handleInput(event: Event) {
-  const target = event.target as HTMLInputElement;
-  inputValue.value = target.value;
-}
+  if (filter.length == 1) {
+    emit("input", filter[0].label);
+  }
+
+  return filter;
+});
 </script>
 
 <style lang="scss" scoped>
@@ -145,6 +113,16 @@ function handleInput(event: Event) {
     border-radius: 4px;
     list-style: none;
     padding: 4px;
+  }
+  .searchElementUnique {
+    border: 1px solid var(--green-dark);
+    margin-top: 8px;
+    padding: 4px;
+    border-radius: 4px;
+
+    &.selected {
+      background-color: var(--green-light);
+    }
   }
 
   &.errored {
