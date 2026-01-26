@@ -10,6 +10,7 @@
         other
         :errored="requiredOnSubmit && location === ''"
       />
+      <UiInfo :message="t('data-explication')" />
     </div>
     <UiLink @click="next">{{ t("next-page") }}</UiLink>
   </div>
@@ -30,6 +31,7 @@ const location = ref("");
 const requiredOnSubmit = ref(false);
 
 import universityLocation from "@/assets/universityPlacement.json";
+import UiInfo from "@/components/ui/uiInfo.vue";
 
 function next() {
   requiredOnSubmit.value = false;

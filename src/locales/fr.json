@@ -54,5 +54,8 @@
   "trueFalse.aprobation": "oui",
   "welcome-in-pap": "Bienvenu en porte a porte",
   "welcome-in-pap-description": "Ici tu peux gérer et créer des qrcode pour toutes les occasions où cela est nécessaire. Le porte à porte de ce soir par exemple 🤗",
-  "your-qr-code": "Votre qr code pour: {reason}"
+  "your-qr-code": "Votre qr code pour: {reason}",
+  "not-obligatory": "Ces informations sont uniquement utilisées pour vérifier que vous n'avez pas déjà un compte. Aucune donnée n'est transmise à un quelconque tiers. Les données seront supprimées à l'issue de l'enquête, sauf si vous avez exprimé le choix de nous aider.",
+  "data-explication": "Les données transmises sont annonymisées. Les informations demandées sont à but statistique uniquement, aucune donnée n'est transmise à un quelconque tiers. Les données seront supprimées à l'issue de l'enquête, sauf si vous avez exprimé le choix de nous aider.",
+  "no-name-no-data": "Pour qu'une enquête soit statistiquement correcte, il faut être sûr que l’utilisateur ne remplisse pas plusieurs fois le questionnaire. Pour pouvoir intégrer tes résultats remplis les champs ci-dessous. Sinon, tu peux répéter sur le bouton ci-dessous."
 }

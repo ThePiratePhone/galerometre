@@ -54,5 +54,8 @@
   "trueFalse.aprobation": "yes",
   "welcome-in-pap": "Welcome to door-to-door",
   "welcome-in-pap-description": "Here you can manage and create QR codes for occasions where they are needed, for example tonight's door-to-door campaign 🤗",
-  "your-qr-code": "Your QR code for: {reason}"
+  "your-qr-code": "Your QR code for: {reason}",
+  "not-obligatory": "This information is only used to verify that you do not already have an account. No data is transmitted to any third party. The data will be deleted at the end of the investigation, unless you have chosen to help us.",
+  "data-explication": "The data submitted is anonymized. The information requested is for statistical purposes only; no data is shared with any third party. The data will be deleted at the end of the survey, unless you have chosen to continue participating.",
+  "no-name-no-data": "For a survey to be statistically valid, it's essential to ensure that users don't complete the questionnaire multiple times. To integrate your results, fill in the fields above. Otherwise, you can click the button below."
 }

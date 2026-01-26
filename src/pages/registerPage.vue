@@ -25,22 +25,24 @@
         :errored="
           requiredOnSubmit && !phoneNumberCheck(clearPhone(tel)) && tel != '-'
         "
-      ></FormInput>
+      />
       <FormInput
         type="mail"
         :label="t('form-registration-mail')"
         :placeholder="`${name ? name : 'pierre'}.${firstName ? firstName : 'martin'}@mail.com`"
         @input="(value) => (email = value)"
         :errored="requiredOnSubmit && email === ''"
-      ></FormInput>
+      />
       <div />
     </div>
+    <UiInfo :message="clickNext ? t('no-name-no-data') : t('not-obligatory')" />
     <UiLink @click="next">{{ t("see-result") }}</UiLink>
   </div>
 </template>
 
 <script setup lang="ts">
 import FormInput from "@/components/formElement/FormInput.vue";
+import UiInfo from "@/components/ui/uiInfo.vue";
 import UiLink from "@/components/ui/uiLink.vue";
 import { clearPhone, phoneNumberCheck, saveResponse } from "@/tools/jsTools";
 import reqestManager from "@/tools/reqestManager";
@@ -56,28 +58,32 @@ const firstName = ref("");
 const tel = ref("");
 const email = ref("");
 const requiredOnSubmit = ref(false);
+const clickNext = ref(false);
 
 function next() {
   requiredOnSubmit.value = false;
 
-  if (
-    email.value === "" ||
-    (!phoneNumberCheck(clearPhone(tel.value)) && tel.value != "-") ||
-    firstName.value === "" ||
-    name.value === ""
-  ) {
-    requiredOnSubmit.value = true;
-    return;
+  if (!clickNext.value) {
+    if (
+      email.value === "" ||
+      (!phoneNumberCheck(clearPhone(tel.value)) && tel.value != "-") ||
+      firstName.value === "" ||
+      name.value === ""
+    ) {
+      requiredOnSubmit.value = true;
+      clickNext.value = true;
+      return;
+    }
   }
 
   saveResponse("name", name.value);
   saveResponse("firstName", firstName.value);
 
   reqestManager.updateAccount({
-    email: email.value,
-    phone: clearPhone(tel.value),
-    name: firstName.value,
-    lastname: name.value,
+    email: email.value ?? "pierre.dupond@mail.com",
+    phone: clearPhone(tel.value) ?? "0123456789",
+    name: firstName.value ?? "dupond",
+    lastname: name.value ?? "pierre",
   });
 
   router.push({ path: "/end" });
